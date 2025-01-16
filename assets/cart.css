@@ -1,6 +1,6 @@
 .section-title {
     font-size: 2.2rem;
-    color: var(--primary-color);
+    color: var(--theme-color);
     font-weight: var(--font-wieght-sizeTwo);
 }
 
@@ -131,7 +131,7 @@
 
 .cart-product-prices .totals {
     font-size: 1.12rem;
-    color: var( --primary-color);
+    color: var( --theme-color);
 }
 
 .custom-field-row * {
@@ -173,7 +173,7 @@
 
 .coupon-form h4 {
     font-size: 1.2rem;
-    color: var(--primary-color);
+    color: var(--theme-color);
 }
 
 .coupon-form button {
@@ -200,7 +200,7 @@
 
 .cart-discount-rule-wrapper .message {
     font-size: 1rem;
-    color: var(--primary-color);
+    color: var(--theme-color);
 }
 
 .cart-totals-div {
@@ -299,11 +299,11 @@
 }
 
 .discount-progress .text-color-primary {
-    color: var(--primary-color);
+    color: var(--theme-color);
 }
 
 .discount-progress  .border-color-primary {
- border-color: var(--primary-color);
+ border-color: var(--theme-color);
 }
 
 .discount-progress .rect-auto, .discount-progress .c100.p51 .slice, .discount-progress .c100.p52 .slice, .discount-progress .c100.p53 .slice, .discount-progress .c100.p54 .slice, .discount-progress .c100.p55 .slice, .discount-progress .c100.p56 .slice, .discount-progress .c100.p57 .slice, .discount-progress .c100.p58 .slice, .discount-progress .c100.p59 .slice, .discount-progress .c100.p60 .slice, .discount-progress .c100.p61 .slice, .discount-progress .c100.p62 .slice, .discount-progress .c100.p63 .slice, .discount-progress .c100.p64 .slice, .discount-progress .c100.p65 .slice, .discount-progress .c100.p66 .slice, .discount-progress .c100.p67 .slice, .discount-progress .c100.p68 .slice, .discount-progress .c100.p69 .slice, .discount-progress .c100.p70 .slice, .discount-progress .c100.p71 .slice, .discount-progress .c100.p72 .slice, .discount-progress .c100.p73 .slice, .discount-progress .c100.p74 .slice, .discount-progress .c100.p75 .slice, .discount-progress .c100.p76 .slice, .discount-progress .c100.p77 .slice, .discount-progress .c100.p78 .slice, .discount-progress .c100.p79 .slice, .discount-progress .c100.p80 .slice, .discount-progress .c100.p81 .slice, .discount-progress .c100.p82 .slice, .discount-progress .c100.p83 .slice, .discount-progress .c100.p84 .slice, .discount-progress .c100.p85 .slice, .discount-progress .c100.p86 .slice, .discount-progress .c100.p87 .slice, .discount-progress .c100.p88 .slice, .discount-progress .c100.p89 .slice, .discount-progress .c100.p90 .slice, .discount-progress .c100.p91 .slice, .discount-progress .c100.p92 .slice, .discount-progress .c100.p93 .slice, .discount-progress .c100.p94 .slice, .discount-progress .c100.p95 .slice, .discount-progress .c100.p96 .slice, .discount-progress .c100.p97 .slice, .discount-progress .c100.p98 .slice, .discount-progress .c100.p99 .slice, .discount-progress .c100.p100 .slice {

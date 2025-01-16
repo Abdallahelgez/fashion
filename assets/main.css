@@ -15,7 +15,7 @@ a:hover {
 }
 
 .text-color-primary {
-    color: var(--primary-color);
+    color: var(--theme-color);
 }
 
 .sticky {
@@ -553,7 +553,7 @@ button.more-button , a.more-button {
 .cart-title{
     text-align: right;
     padding: 10px;
-    color: var( --primary-color);
+    color: var( --theme-color);
 }
 .cart-content{
     padding: 10px;
@@ -566,12 +566,12 @@ button.more-button , a.more-button {
     text-decoration: underline;
 }
 .cart-content .cart-price{
-    color:var( --primary-color);
+    color:var( --theme-color);
     font-weight: 600;
     font-size: 1.167rem;
 }
 .cart-show{
-    color:var(--primary-color);
+    color:var(--theme-color);
     text-align: center;
     font-size: 1.333rem;
     font-weight:var(--font-weight-sizeOne);
@@ -630,7 +630,7 @@ button.more-button , a.more-button {
 }
 
 .subscribe-bar {
-    background: var( --primary-color);
+    background: var( --theme-color);
     width: 100%;
     max-width: 490px;
     border: 1px solid #ddd7d7;
@@ -638,7 +638,7 @@ button.more-button , a.more-button {
 }
 
 #subscribe-input {
-    background: var( --primary-color);
+    background: var( --theme-color);
     color: #fff;
     padding: 5px;
     border: none;
@@ -652,7 +652,7 @@ button.more-button , a.more-button {
 
 .subscribe-bar button {
     background: #ffffff !important;
-    color: var( --primary-color);
+    color: var( --theme-color);
     border-radius: 5px;
     height: 30px;
     width: 70px;
@@ -776,7 +776,7 @@ button.more-button , a.more-button {
 */
 
 .features-section {
-    background: var( --primary-color);
+    background: var( --theme-color);
     color: #ffffff;
 }
 
@@ -1101,7 +1101,7 @@ button.more-button , a.more-button {
 
 .cart-sidebar-header {
     font-size: 2.25rem;
-    color: var( --primary-color);
+    color: var( --theme-color);
 }
 
 .empty-cart-title {
@@ -1371,7 +1371,7 @@ ul.main-nav > li ul.sub-menu-lists > li > a {
 }
 
 .breadcrumb-item a{
-    color: var(--primary-color);
+    color: var(--theme-color);
     font-size: 1.167rem;
     font-weight: var(--font-weight-sizeOne);
 }
@@ -1404,7 +1404,7 @@ ul.main-nav > li ul.sub-menu-lists > li > a {
     font-weight: var(--font-wieght-sizeTwo);
 }
 .card-price{
-    color:var(--primary-color);
+    color:var(--theme-color);
     font-size: 1.333rem;
     font-weight: var(--font-wieght-sizeTwo);
 
@@ -1441,12 +1441,12 @@ ul.main-nav > li ul.sub-menu-lists > li > a {
     padding: 10px 40px;
 }
 .icon-filter_alt_black_24dp{
-    color:var(--primary-color);
+    color:var(--theme-color);
     font-size: 1.333rem;
 
 }
 .icon-sort_filter{
-    color:var(--primary-color);
+    color:var(--theme-color);
     font-size: 1.333rem;
 }
 /*drop-down-filter*/
@@ -1524,7 +1524,7 @@ ul.main-nav > li ul.sub-menu-lists > li > a {
 }
 .btn-save{
     color: var(--white-color);
-    background-color: var( --primary-color);
+    background-color: var( --theme-color);
     padding: 5px 20px;
 }
 
@@ -1541,13 +1541,13 @@ html .ui-button.ui-state-disabled:active {
     background: #f6f6f6;
     font-weight: normal;
     color: #454545;
-    background-color: var(--primary-color);
+    background-color: var(--theme-color);
     border-radius: 50%
 }
 .ui-slider-horizontal .ui-slider-range {
     top: 0;
     height: 100%;
-    background-color:var(--primary-color);
+    background-color:var(--theme-color);
 }
 
 /*404-twig*/
@@ -1594,18 +1594,18 @@ h2 {
 }
 
 .faqs-title{
-    color: var(--primary-color);
+    color: var(--theme-color);
     font-size: 1.833rem;
 }
 hr {
     margin-top: 1rem;
     margin-bottom: 1rem;
     border: 0;
-    border-top: 1px solid var(--primary-color) ;
+    border-top: 1px solid var(--theme-color) ;
 }
 @media only screen and (max-width: 768px) {
     .faqs-title{
-        color: var(--primary-color);
+        color: var(--theme-color);
         font-size: 1.5rem;
     }
 }
@@ -1617,7 +1617,7 @@ hr {
 /*Blog-twig*/
 .blog-title h1{
     font-size: 2.833rem;
-    color: var(--primary-color);
+    color: var(--theme-color);
     font-weight: var(--font-wieght-sizeTwo);
 }
 .blog-text p{
@@ -1639,7 +1639,7 @@ hr {
 }
 .shipping-nav-title{
     font-size: 1.167rem;
-    color: var(--primary-color);
+    color: var(--theme-color);
     font-weight: var(--font-wieght-sizeOne);
 }
 /*shipping-payment-tabs-twig*/
@@ -1725,13 +1725,13 @@ hr {
 .checkbox-extra{
     font-size: 1.167rem;
     font-weight: var(--font-weight-sizeOne);
-    color:var(--primary-color);
+    color:var(--theme-color);
     margin-right: 50px;
     margin-top: 3px;
 }
 
 .icon-content_copy{
-    color: var(--primary-color);
+    color: var(--theme-color);
 
 }
 
@@ -1749,13 +1749,13 @@ hr {
 
 .btn-primary {
     color: var(--text-color-primary-bg);
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
+    background-color: var(--theme-color);
+    border-color: var(--theme-color);
 }
 
 .btn-primary:hover, .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show>.btn-primary.dropdown-toggle{
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
+    background-color: var(--theme-color);
+    border-color: var(--theme-color);
     filter: brightness(80%);
 }
 
@@ -1774,21 +1774,21 @@ hr {
 }
 
 .btn-outline-primary {
-    color: var(--primary-color);
-    border-color: var(--primary-color);
+    color: var(--theme-color);
+    border-color: var(--theme-color);
 }
 
 .btn-outline-primary:hover {
     color: #fff;
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
+    background-color: var(--theme-color);
+    border-color: var(--theme-color);
 }
 
 
 
 .div-dropdown label {
     display: block;
-    color: var( --primary-color);
+    color: var( --theme-color);
 }
 
 .div-dropdown select {
@@ -1860,32 +1860,32 @@ hr {
 
 /*-- Theme Colors ---*/
 .theme-bg-primary {
-    background-color: var(--primary-color);
+    background-color: var(--theme-color);
 }
 
 .theme-bg-primary-dark-1 {
-    background-color: var(--header-primary-color, var(--primary-color));
+    background-color: var(--header-primary-color, var(--theme-color));
     filter: brightness(80%);
 }
 
 
 .footer-theme-bg-primary-dark-1 {
-    background-color: var(--footer-primary-color, var(--primary-color));
+    background-color: var(--footer-primary-color, var(--theme-color));
     filter: brightness(80%);
 }
 
 .theme-bg-primary-dark-2 {
-    background-color: var(--header-primary-color, var(--primary-color));
+    background-color: var(--header-primary-color, var(--theme-color));
     filter: brightness(120%);
     color:var(--white-color);
 }
 
 .theme-title-primary {
-    color: var(--primary-color)!important;
+    color: var(--theme-color)!important;
 }
 
 .theme-text-primary {
-    color: var(--primary-color);
+    color: var(--theme-color);
 }
 
 .theme-icon-primary {
@@ -1897,16 +1897,16 @@ hr {
 }
 
 .theme-border-primary {
-    border-color: var(--primary-color)!important;
+    border-color: var(--theme-color)!important;
 }
 
 
 .header-theme-bg-primary {
-    background-color: var(--header-primary-color, var(--primary-color));
+    background-color: var(--header-primary-color, var(--theme-color));
 }
 
 .header-theme-text-primary {
-    color: var(--header-primary-color, var(--primary-color));
+    color: var(--header-primary-color, var(--theme-color));
 }
 
 .header-theme-text-for-primary-bg {
@@ -1914,7 +1914,7 @@ hr {
 }
 
 .menu-header-theme-bg-primary {
-    background-color: var(--menu-header-primary-color, var(--primary-color));
+    background-color: var(--menu-header-primary-color, var(--theme-color));
     filter: var(--header-primary-brightness);
 }
 
@@ -1923,7 +1923,7 @@ hr {
 }
 
 .menu-header-theme-text-primary {
-    color: var(--menu-header-primary-color, var(--primary-color));
+    color: var(--menu-header-primary-color, var(--theme-color));
 }
 
 .menu-header-theme-text-for-primary-bg {
@@ -1938,11 +1938,11 @@ hr {
 }
 
 .footer-theme-bg-primary {
-    background-color: var(--footer-primary-color, var(--primary-color));
+    background-color: var(--footer-primary-color, var(--theme-color));
 }
 
 .footer-theme-text-primary {
-    color: var(--footer-primary-color, var(--primary-color));
+    color: var(--footer-primary-color, var(--theme-color));
 }
 
 .footer-theme-text-for-primary-bg {
@@ -2068,7 +2068,7 @@ hr {
     max-width: 80%;
     padding: 4px  7px;
     color: var(--text-color-primary-bg);
-    background-color: var(--primary-color);
+    background-color: var(--theme-color);
     font-size: 12px;
 
     white-space: nowrap;

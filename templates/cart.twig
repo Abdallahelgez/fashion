@@ -122,7 +122,7 @@
                                     {{ cartTotal.title }}
                                     {% if cartTotal.code == 'total' and store.is_cart_total_vat_included %}&nbsp;<small>{{ locals.sys_lbl_cart_includes_vat }}</small>{% endif %}
                                 </div>
-                                <div class="flex-shrink-0" style="width: 30%; {% if cartTotal.code == 'total' %} font-weight: bold; color: var( --primary-color); {% endif %}">
+                                <div class="flex-shrink-0" style="width: 30%; {% if cartTotal.code == 'total' %} font-weight: bold; color: var( --theme-color); {% endif %}">
                                     {{ cartTotal.value_string }}
                                 </div>
                             </div>
@@ -348,7 +348,7 @@
                     var totalStyle = '';
 
                     if(cartTotal.code === 'total'){
-                        totalStyle = 'font-weight: bold; color: var( --primary-color)';
+                        totalStyle = 'font-weight: bold; color: var( --theme-color)';
                     }
             
                     var vat_included = '';

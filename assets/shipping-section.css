@@ -13,7 +13,7 @@
 }
 
 .card-price{
-    color:var(--primary-color);
+    color:var(--theme-color);
     font-size: 1.333rem;
     font-weight: var(--font-weight-sizeOne);
 }
@@ -29,7 +29,7 @@
 }
 
 .shipping-currency{
-    color:var(--primary-color)
+    color:var(--theme-color)
 }
 
 #mobile-profileCard{
@@ -64,7 +64,7 @@
 
 .card-title-shipping{
     font-size: 1.5rem;
-    color: var(--primary-color);
+    color: var(--theme-color);
     font-weight: var(--font-wieght-sizeTwo);
 }
 .payment-icon{
@@ -89,7 +89,7 @@
 
 .card-title-shipping{
     font-size: 1.5rem;
-    color: var(--primary-color);
+    color: var(--theme-color);
     font-weight: var(--font-wieght-sizeTwo);
 }
 .payment-icon{

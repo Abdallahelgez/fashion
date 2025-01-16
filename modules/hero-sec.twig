@@ -1,0 +1,180 @@
+<section section-id="{{ sectionId }}" data-lg-scroll-offset="130" data-md-scroll-offset="130" data-sm-scroll-offset="94" class="first-slider-section {% if settings.space_top == "true" %}app-section-magin{% elseif settings.space_top == "false" %} {% else %} {% endif %}" style="">
+	<div class="first-slider-content">
+		<div class="first-parent">
+			{% for  sliderItem in settings.sliders %}
+
+				<div class="f-parent vw-100" style="background-image:url({{sliderItem.background_img}})">
+					
+					<div class="item">
+
+						<div class="right">
+							<div class="right-text">
+                            {% if sliderItem.main_title %}  <h2 class="head">{{sliderItem.main_title}}</h2>{% endif %}
+						{% if sliderItem.desc %}	<p class="desc">{{sliderItem.desc}}</p>{% endif %}</div>
+						{% if sliderItem.btn_text %}	<a href="{{sliderItem.url}}" class="theme-btn">{{sliderItem.btn_text}}</a>{% endif %}
+						</div>
+
+						
+					</div>
+				</div>
+
+			{% endfor %}
+		</div>
+	</div>
+
+
+ <script>
+ document.addEventListener("DOMContentLoaded", function(){
+        var arrowNextClass = (window.appDirection === 'ltr') ? 'bi bi-chevron-right': 'bi bi-chevron-left';
+        var arrowPrevClass = (window.appDirection === 'ltr') ? 'bi bi-chevron-left' : 'bi bi-chevron-right';
+        var autoTrue=true;
+        var autoFalse=false;
+        var speedAuto = {% if settings.autoplay == "true" %}autoTrue{% elseif settings.autoplay == "false" %}autoFalse{% else %}autoTrue{% endif %};
+
+        var screenWidth = window.screen.width;
+
+        var editingMode = {% if store.editing_mode %}true{% else %}false{% endif %};
+
+        if(screenWidth >= 0 || editingMode){
+            $('.first-parent').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                  infinite: true,
+                autoplay: speedAuto,
+                arrows: false,
+                dots: true,
+                rtl: !(window.appDirection === 'ltr'),
+                nextArrow:'<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><i class="'+arrowNextClass+'"></i></button>',
+                prevArrow:'<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><i class="'+arrowPrevClass+'"></i></button>',
+                responsive: [
+                    {
+                        breakpoint: 992,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 500,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+        }
+    });
+	
+	</script>
+
+</section>
+
+{% schema %}
+{
+  "name": {
+    "ar": "القسم الرئيسي",
+    "en": "main slider"
+  },
+  "icon": "fal fa-user",
+  "display": true,
+  "settings": {
+     "autoplay": {
+          "type": "radios",
+          "label": {
+            "ar": "تحريك البانر",
+            "en": "banner autoplay"
+          },
+          "options": [
+            {
+              "value": "true",
+              "label": {
+                "ar": "متحرك",
+                "en": "autoplay"
+              }
+            },{
+              "value": "false",
+              "label": {
+                "ar": "ثابت",
+                "en": "fixed"
+              }
+            }]},"space_top": {
+            "type": "radios",
+            "label": {
+              "ar": "مسافة اعلى العنصر",
+              "en": "magin top the section"
+            },
+            "options": [
+              {
+                "value": "true",
+                "label": {
+                  "ar": "يوجد مسافة",
+                  "en": "found section magin"
+                }
+              },
+              {
+                "value": "false",
+                "label": {
+                  "ar": "لا يوجد مسافة",
+                  "en": "no found section margin"
+                }
+              }
+            ]
+          
+},
+    "sliders": {
+      "type": "list",
+      "noLabel": true,
+      "maxItems": 5,
+      "settings_label": {
+        "ar": "القسم ",
+        "en": "partion"
+      },
+      "settings": {
+        "background_img": {
+      "type": "image",
+      "label": {
+        "ar": "صور  الخلفية",
+        "en": "background image"
+      }
+    },
+        "main_title": {
+          "type": "text",
+          "label": {
+            "ar": "العنوان",
+            "en": "question"
+          }
+        },
+        "desc": {
+          "type": "text",
+          "label": {
+            "ar": "النص الفرعي",
+            "en": "Description"
+          }
+        },
+        "btn_text": {
+          "type": "text",
+          "label": {
+            "ar": "نص الزرار",
+            "en": "button text"
+          }
+        },
+        "url":{
+          "type":"url",
+          "label":{
+            "ar":"اللينك",
+            "en":"url"
+          }
+        }
+      }
+    }
+  }
+}
+{% endschema %}

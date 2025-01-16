@@ -14,7 +14,7 @@
 }
 
 .section-colored {
-    background-color: var( --primary-color);
+    background-color: var( --theme-color);
     width: 30%;
 }
 
@@ -118,7 +118,7 @@
 }
 
 .profile-section-dropdown .dropdown {
-    background:var( --primary-color);
+    background:var( --theme-color);
     border:0;
     border-radius:0px;
     width: 100%;
@@ -126,7 +126,7 @@
 }
 
 .profile-section-dropdown .dropdown-menu>li>a {
-    background-color: var( --primary-color);
+    background-color: var( --theme-color);
     padding: 10px 15px;
     color: #ffffff;
     border-top: 1px solid #3d3d3d;
