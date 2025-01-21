@@ -1,6 +1,6 @@
 <div section-id="{{ sectionId }}" data-lg-scroll-offset="130" data-md-scroll-offset="130" data-sm-scroll-offset="94" class="products-sec-{{ sectionId }} products-bg-fw {% if settings.space_top == "true" %}app-section-magin{% elseif settings.space_top == "false" %} {% else %}app-section-magin{% endif %}">
 	<div class="container-sec">
-		<div class="category-product-content-1">
+		<div class="category-product-content-1 pt-5">
 			<div class="slider-products {% if settings.title %}section-container {% endif %}">
 			{% if settings.title %}	<h2 class="section-title">{{settings.title}}</h2>{% endif %}
 				<div class="custom-category-product products-sec">
@@ -10,6 +10,7 @@
 							{% include 'product-card.twig' with {'product' : product, 'index': key} %}
 						</div>
 					{% endfor %}
+          
 				</div>
 			</div>
 		</div>

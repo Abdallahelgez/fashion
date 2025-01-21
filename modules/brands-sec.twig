@@ -1,0 +1,271 @@
+<section section-id="{{ sectionId }}" data-lg-scroll-offset="130" data-md-scroll-offset="130" data-sm-scroll-offset="94" class="brands-section {% if settings.space_top == "true" %}app-section-magin{% elseif settings.space_top == "false" %} {% else %}app-section-magin{% endif %}  ">
+
+
+	<div class="container-fluid">
+		<div class="flex-slider">
+			
+			<h1>{{settings.title}}</h1>
+			<div class="up-slider">
+				{% for slider  in settings.sliders %}
+					<div class="slider-item">
+						<div class="slider-card">
+							<a href="{{slider.url}}"><img loading="lazy" class="content-section-img" src="{{ imageUrl(slider.image,{ w: 300, q: 85, f:'auto' }) }}" loading="lazy" alt=""/></a>
+
+
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+
+			<div class="down-slider">
+				{% for banner  in settings.images %}
+					<div class="slider-item">
+						<div class="slider-card">
+							<a href="{{banner.url}}">
+								<img loading="lazy" class="content-section-img" src="{{ imageUrl(banner.image,{ w: 300, q: 85, f:'auto' }) }}" loading="lazy" alt=""/>
+							</a>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+			
+		</div>
+	</div>
+
+
+</section>
+
+
+ <script>
+  document.addEventListener("DOMContentLoaded", function(){
+        var arrowNextClass = (window.appDirection === 'ltr') ? 'bi bi-chevron-right': 'bi bi-chevron-left';
+        var arrowPrevClass = (window.appDirection === 'ltr') ? 'bi bi-chevron-left' : 'bi bi-chevron-right';
+
+        var screenWidth = window.screen.width;
+
+        var editingMode = {% if store.editing_mode %}true{% else %}false{% endif %};
+
+        if(screenWidth >= 0 || editingMode){
+            $('.up-slider').slick({
+                slidesToShow: 7,
+                slidesToScroll: 1,
+                  infinite: true,
+                autoplay: true,
+                speed:2000,
+                cssEase: 'linear',
+                autoplaySpeed: 0,
+                arrows: false,
+                dots: {% if (settings.hide_dots or (settings.testimonials | length <= 3)) %}false{% else %}true{% endif %},
+                rtl: !(window.appDirection === 'ltr'),
+                nextArrow:'<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><i class="'+arrowNextClass+'"></i></button>',
+                prevArrow:'<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><i class="'+arrowPrevClass+'"></i></button>',
+                        responsive: [{
+                        breakpoint: 1400,
+                        settings: {
+                            slidesToShow: 6,
+                            slidesToScroll: 1,
+                            
+                        }
+                    },
+                  {
+                        breakpoint: 1200,
+                        settings: {
+                            slidesToShow: 5,
+                            slidesToScroll: 1,
+                            
+                        }
+                    },
+                    {
+                        breakpoint: 992,
+                        settings: {
+                            slidesToShow: 5,
+                            slidesToScroll: 1,
+                            
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 4,
+                            slidesToScroll: 1,
+                            
+                        }
+                    },
+                    {
+                        breakpoint: 576,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 1,
+                            
+                        }
+                    }
+                ]
+            });
+        }
+    });
+    
+      document.addEventListener("DOMContentLoaded", function(){
+        var arrowNextClass = (window.appDirection === 'ltr') ? 'bi bi-chevron-right': 'bi bi-chevron-left';
+        var arrowPrevClass = (window.appDirection === 'ltr') ? 'bi bi-chevron-left' : 'bi bi-chevron-right';
+
+        var screenWidth = window.screen.width;
+
+        var editingMode = {% if store.editing_mode %}true{% else %}false{% endif %};
+
+        if(screenWidth >= 0 || editingMode){
+            $('.down-slider').slick({
+                slidesToShow: 7,
+                slidesToScroll: 1,
+                  infinite: true,
+                autoplay: true,
+                speed:2000,
+                cssEase: 'linear',
+                autoplaySpeed: 0,
+                arrows: false,
+                dots: {% if (settings.hide_dots or (settings.testimonials | length <= 3)) %}false{% else %}true{% endif %},
+                
+                nextArrow:'<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><i class="'+arrowNextClass+'"></i></button>',
+                prevArrow:'<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><i class="'+arrowPrevClass+'"></i></button>',
+              responsive: [{
+                        breakpoint: 1400,
+                        settings: {
+                            slidesToShow: 6,
+                            slidesToScroll: 1,
+                            
+                        }
+                    },
+                  {
+                        breakpoint: 1200,
+                        settings: {
+                            slidesToShow: 5,
+                            slidesToScroll: 1,
+                            
+                        }
+                    },
+                    {
+                        breakpoint: 992,
+                        settings: {
+                            slidesToShow: 5,
+                            slidesToScroll: 1,
+                            
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 4,
+                            slidesToScroll: 1,
+                            
+                        }
+                    },
+                    {
+                        breakpoint: 576,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 1,
+                            
+                        }
+                        
+                    }
+                ]
+            });
+        }
+    });</script>
+
+
+{% schema %}
+{
+  "name": {
+    "ar": "العلامات التجارية",
+    "en": "Slider"
+  },
+  "icon": "fal fa-presentation",
+  "display": true,
+  "settings": { 
+     "title": {
+          "type": "text",
+          "label": {
+            "ar": "العنوان",
+            "en": "Title"
+          }
+        },
+          "space_top": {
+            "type": "radios",
+            "label": {
+              "ar": "مسافة اعلى العنصر",
+              "en": "magin top the section"
+            },
+            "options": [
+              {
+                "value": "true",
+                "label": {
+                  "ar": "يوجد مسافة",
+                  "en": "found section magin"
+                }
+              },
+              {
+                "value": "false",
+                "label": {
+                  "ar": "لا يوجد مسافة",
+                  "en": "no found section margin"
+                }
+              }
+            ]
+          
+},   
+    "sliders": {
+      "type": "list",
+        "maxItems": 10,
+      "settings_label": {
+        "ar": "اسلادير",
+        "en": "Picture"
+      },
+      "settings": {  
+        "image": {
+          "type": "image",
+          "label": {
+            "ar": "الصورة",
+            "en": "Image"
+          },
+          "info": {
+            "ar": "ارفع صورة بحجم 1400 * 600",
+            "en": "Upload an image with size 1400 * 600"
+          },
+          "url":{
+              "type":"url",
+              "label":{
+                "ar":"اللينك",
+                "en":"url"
+              }
+            }
+        }
+      }
+    },
+    "images": {
+      "type": "list",
+      "noLabel": true,
+      "maxItems": 10,
+      "settings_label": {
+        "ar": "الصورة",
+        "en": "Picture"
+      },
+      "settings": {
+        "image" : {
+          "type": "image",
+          "label": {
+            "ar": "الصورة",
+            "en": "Image"
+          }
+          },
+          "url":{
+              "type":"url",
+              "label":{
+                "ar":"اللينك",
+                "en":"url"
+              }
+            }
+      }
+    }
+  }
+}
+{% endschema %}
