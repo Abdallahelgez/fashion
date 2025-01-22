@@ -1,0 +1,146 @@
+<div section-id="{{ sectionId }}" data-lg-scroll-offset="130" data-md-scroll-offset="130" data-sm-scroll-offset="94" class="category-product-section {% if settings.space_top == "true" %}app-section-magin{% elseif settings.space_top == "false" %} {% else %} {% endif %} products-barnds {% if settings.position == "right" %}right{% elseif settings.position == "left" %}left{% else %}right{% endif %}">
+	<div class="category-product-content">
+    <div class="slider-img">
+			<div class="parent-img">
+                <img src="{{settings.imagebanner}}" alt="" class="img" >		
+			</div>
+		</div>
+		<div class="slider-category">
+			
+			{% if settings.title or settings.desc or settings.text_btn %}<div class="slider-content">
+			 {% if settings.title or settings.desc %}	<div class="text">
+					
+          {% if settings.title %} <h1 class="settings-slider-title">{{settings.title}}</h1>{% endif %}
+					{% if settings.desc %}<p>{{settings.desc}}</p> {% endif %}
+				</div>
+        {% endif %}
+				
+          {% if settings.text_btn %}<a class="settings-slider-text btn btn-primary btn-product-card" href="{{settings.url}}">
+					{{settings.text_btn}}</a> {% endif %}
+			</div>
+      {% endif %}
+		</div>
+		
+	</div>
+</div>
+ <script>
+			
+ </script>
+
+
+{% schema %}
+    {
+    "name": {
+        "ar": "فئات المنتجات",
+        "en": "Season offers"
+    },
+    "icon": "fal fa-box",
+    "display": true,
+    "settings": {
+       "imagebanner": {
+        "type": "image",
+        "label": {
+            "ar": "الصورة",
+            "en": "Image"
+        }
+        },
+        "space_top": {
+        "type": "radios",
+        "label": {
+            "ar": "مسافة أعلى العنصر",
+            "en": "Margin above the section"
+        },
+        "options": [
+            {
+            "value": "true",
+            "label": {
+                "ar": "يوجد مسافة",
+                "en": "Found section margin"
+            }
+            },
+            {
+            "value": "false",
+            "label": {
+                "ar": "لا يوجد مسافة",
+                "en": "No section margin"
+            }
+            }
+        ]
+        },
+        "autoplay": {
+        "type": "radios",
+        "label": {
+            "ar": "تحريك البانر",
+            "en": "Banner autoplay"
+        },
+        "options": [
+            {
+            "value": "true",
+            "label": {
+                "ar": "متحرك",
+                "en": "Autoplay"
+            }
+            },
+            {
+            "value": "false",
+            "label": {
+                "ar": "ثابت",
+                "en": "Fixed"
+            }
+            }
+        ]
+        },
+        "title": {
+        "type": "text",
+        "label": {
+            "ar": "العنوان",
+            "en": "Title"
+        }
+        },
+        "desc": {
+        "type": "text",
+        "label": {
+            "ar": "النص الفرعي",
+            "en": "Secondary text"
+        }
+        },
+        "url": {
+        "type": "url",
+        "label": {
+            "ar": "اللينك",
+            "en": "URL"
+        }
+        },
+        "text_btn": {
+        "type": "text",
+        "label": {
+            "ar": "نص الزرار",
+            "en": "Button text"
+        }
+        },
+        "position": {
+        "type": "radios",
+        "label": {
+            "ar": "مكان الصورة",
+            "en": "Image position"
+        },
+        "options": [
+            {
+            "value": "right",
+            "label": {
+                "ar": "على اليمين",
+                "en": "On the right"
+            }
+            },
+            {
+            "value": "left",
+            "label": {
+                "ar": "على اليسار",
+                "en": "On the left"
+            }
+            }
+        ]
+        }
+    }
+    }
+{% endschema %}

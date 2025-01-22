@@ -55,7 +55,7 @@
                 cssEase: 'linear',
                 autoplaySpeed: 0,
                 arrows: false,
-                dots: {% if (settings.hide_dots or (settings.testimonials | length <= 3)) %}false{% else %}true{% endif %},
+               
                 rtl: !(window.appDirection === 'ltr'),
                 nextArrow:'<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><i class="'+arrowNextClass+'"></i></button>',
                 prevArrow:'<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><i class="'+arrowPrevClass+'"></i></button>',
@@ -122,7 +122,6 @@
                 cssEase: 'linear',
                 autoplaySpeed: 0,
                 arrows: false,
-                dots: {% if (settings.hide_dots or (settings.testimonials | length <= 3)) %}false{% else %}true{% endif %},
                 
                 nextArrow:'<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><i class="'+arrowNextClass+'"></i></button>',
                 prevArrow:'<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><i class="'+arrowPrevClass+'"></i></button>',
@@ -181,46 +180,45 @@
   },
   "icon": "fal fa-presentation",
   "display": true,
-  "settings": { 
-     "title": {
-          "type": "text",
+  "settings": {
+    "title": {
+      "type": "text",
+      "label": {
+        "ar": "العنوان",
+        "en": "Title"
+      }
+    },
+    "space_top": {
+      "type": "radios",
+      "label": {
+        "ar": "مسافة اعلى العنصر",
+        "en": "Margin top of the section"
+      },
+      "options": [
+        {
+          "value": "true",
           "label": {
-            "ar": "العنوان",
-            "en": "Title"
+            "ar": "يوجد مسافة",
+            "en": "Found section margin"
           }
         },
-          "space_top": {
-            "type": "radios",
-            "label": {
-              "ar": "مسافة اعلى العنصر",
-              "en": "magin top the section"
-            },
-            "options": [
-              {
-                "value": "true",
-                "label": {
-                  "ar": "يوجد مسافة",
-                  "en": "found section magin"
-                }
-              },
-              {
-                "value": "false",
-                "label": {
-                  "ar": "لا يوجد مسافة",
-                  "en": "no found section margin"
-                }
-              }
-            ]
-          
-},   
+        {
+          "value": "false",
+          "label": {
+            "ar": "لا يوجد مسافة",
+            "en": "No section margin"
+          }
+        }
+      ]
+    },
     "sliders": {
       "type": "list",
-        "maxItems": 10,
+      "maxItems": 10,
       "settings_label": {
         "ar": "اسلادير",
-        "en": "Picture"
+        "en": "Sliders"
       },
-      "settings": {  
+      "settings": {
         "image": {
           "type": "image",
           "label": {
@@ -230,42 +228,56 @@
           "info": {
             "ar": "ارفع صورة بحجم 1400 * 600",
             "en": "Upload an image with size 1400 * 600"
-          },
-          "url":{
-              "type":"url",
-              "label":{
-                "ar":"اللينك",
-                "en":"url"
-              }
-            }
+          }
+        },
+        "url": {
+          "type": "url",
+          "label": {
+            "ar": "اللينك",
+            "en": "URL"
+          }
         }
       }
     },
     "images": {
       "type": "list",
-      "noLabel": true,
       "maxItems": 10,
       "settings_label": {
-        "ar": "الصورة",
-        "en": "Picture"
+        "ar": "الصور",
+        "en": "images"
       },
       "settings": {
-        "image" : {
+        "image": {
           "type": "image",
           "label": {
             "ar": "الصورة",
             "en": "Image"
-          }
           },
-          "url":{
-              "type":"url",
-              "label":{
-                "ar":"اللينك",
-                "en":"url"
-              }
-            }
+          "info": {
+            "ar": "ارفع صورة بحجم 1400 * 600",
+            "en": "Upload an image with size 1400 * 600"
+          }
+        },
+        "url": {
+          "type": "url",
+          "label": {
+            "ar": "اللينك",
+            "en": "URL"
+          }
+        }
       }
     }
   }
 }
+
 {% endschema %}
+
+
+
+
+
+
+
+
+
+

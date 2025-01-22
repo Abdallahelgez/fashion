@@ -1140,6 +1140,18 @@ height: 20px;
 
 
 
+/*brands sec*/
+.content-section-img{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.slider-card a{
+    height: 120px;
+    display: block;
+    width: 180px;
+}
 
 
 
@@ -1179,6 +1191,98 @@ height: 20px;
 
 
 
+/**/
+.swiper {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  .swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 300px;
+    height: 300px;
+  }
+
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+  }
+.swiper-categories{
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**/
+
+    .swiper-main {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .swiper-sliders .beslide {
+        perspective: 1000px;
+        transform-origin: center;
+    }
+
+    .swiper-sliders .afslide {
+        perspective: 1000px;
+        transform-origin: center;
+    }
+
+    .swiper-sliders .beslide img,
+    .swiper-sliders .afslide img {
+        transition: 0.8s;
+
+    }
+
+    .keys-image1 {
+        width: 100%;
+        max-width: 300px;
+        height: 300px;
+        border-radius: 30px;
+        object-fit: cover;
+        cursor: pointer;
+    }
+
+    /* التأثير عند التفاعل */
+    .swiper-sliders .slick-center img {
+        border-radius: 15px;
+        transition: 0.8s;
+        transform: scale(1) ;
+        /* تكبير العنصر المركزي */
+    }
+
+    .swiper-sliders .beslide:not(.slick-center) img {
+        transform: scale(1) ;
+        /* الميل للعناصر الجانبية */
+    }
+
+    .swiper-sliders .afslide:not(.slick-center) img {
+        transform: scale(1) ;
+        /* الميل للعناصر الجانبية */
+    }
+
+    /* .swiper-sliders .slick-slide[data-slick-index="1"] img{
+        transform: scale(0.9) ;
+    } */
+    /* .slick-center img{
+        z-index: 5;
+
+    } */
 
 
 
@@ -1197,6 +1301,41 @@ height: 20px;
 
 
 
+
+
+
+
+/* */
+
+.category-product-content{
+    display: flex;
+    width: 100%;
+    height: 600px;
+}
+.right .category-product-content{
+    flex-direction: row;
+}
+.left .category-product-content{
+    flex-direction: row-reverse;
+}
+.slider-img,.slider-category{
+    width: 50%;
+}
+
+.parent-img{
+    height: 100%;
+    width: 100%
+}
+
+.parent-img img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.slider-category {
+    background-color: #F1F1EB;
+}
 
 
 
