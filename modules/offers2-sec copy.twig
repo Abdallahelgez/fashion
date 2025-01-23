@@ -1,0 +1,320 @@
+<div section-id="{{ sectionId }}" data-lg-scroll-offset="130" data-md-scroll-offset="130" data-sm-scroll-offset="94" class="countdown-{{ sectionId }} products-bg-fw {% if settings.space_top == " true" %}app-section-magin{% elseif settings.space_top == " false" %} {% else %}app-section-magin{% endif %}">
+	<div class="container-sec">
+		<div class="category-product-content-1 pt-5">
+			<div class="countdown-content-sec {% if settings.title %} section-container {% endif %}">
+				<div class="d-flex justify-content-between">
+					{% if settings.title %}
+						<h2 class="section-title">{{settings.title}}</h2>
+					{% endif %}
+					<div class="countdown-timer" data-of-meta="{{settings.date}}"></div>
+				</div>
+				<div class="countdown-categories">
+
+					{% for  cateItem in settings.sliders %}
+						<div class="countdown-category-item  ">
+							<div class="item" style="background-image:url({{cateItem.image }})">
+								<span class="discount">
+									<span>{{cateItem.desc}}</span>
+									<span>{{cateItem.ratio}}</span>
+								</span>
+								<a href="{{cateItem.url}}" class="title">{{cateItem.title}}</a>
+								<a href="{{cateItem.url}}" class="text"></a>
+								{% if cateItem.url %}
+									<a href="{{cateItem.url}}" class="theme-btn">{{cateItem.btn_text}}</a>
+								{% endif %}
+							</div>
+
+						</div>
+					{% endfor %}
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+
+	document.addEventListener("DOMContentLoaded", function () {
+var arrowNextClass = (window.appDirection === 'ltr') ? 'bi bi-chevron-right' : 'bi bi-chevron-left';
+var arrowPrevClass = (window.appDirection === 'ltr') ? 'bi bi-chevron-left' : 'bi bi-chevron-right';
+var autoTrue = true;
+var autoFalse = false;
+var speedAuto = {% if settings.autoplay == "true" %}autoTrue
+{% elseif settings.autoplay == "false" %}autoFalse
+{% else %}autoTrue
+{% endif %};
+var screenWidth = window.screen.width;
+
+var editingMode = {% if store.editing_mode %}
+true
+{% else %}
+false
+{% endif %};
+
+if (screenWidth >= 0 || editingMode) {
+$(".countdown-categories").slick({
+slidesToShow: 4,
+slidesToScroll: 4,
+infinite: false,
+autoplay: false,
+arrows:{% if settings.title %}
+true
+{% else %}
+false{% endif %},
+dots: false,
+rtl: !(window.appDirection === 'ltr'),
+nextArrow: '<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><i class="' + arrowNextClass + '"></i></button>',
+prevArrow: '<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><i class="' + arrowPrevClass + '"></i></button>',
+responsive: [
+{
+breakpoint: 1400,
+settings: {
+slidesToShow: 4,
+slidesToScroll: 4
+
+}
+},
+{
+breakpoint: 1200,
+settings: {
+slidesToShow: 3,
+slidesToScroll: 3
+
+}
+},
+{
+breakpoint: 992,
+settings: {
+slidesToShow: 2,
+slidesToScroll: 2
+
+}
+},
+{
+breakpoint: 768,
+settings: {
+slidesToShow: 2,
+slidesToScroll: 2
+
+}
+}, {
+breakpoint: 350,
+settings: {
+slidesToShow: 1,
+slidesToScroll: 1,
+centerMode: true
+
+}
+}
+]
+});
+}
+});
+// Function to check if a string is a valid date
+function isValidDate(dateString) {
+const date = new Date(dateString);
+return !isNaN(date.getTime());
+}
+
+// Select all elements with the class 'counter-of-product'
+const metaElement = document.querySelectorAll('.countdown-timer');
+
+metaElement.forEach(element => { // Get the value of the data-of-meta attribute
+const metaValue = element.getAttribute('data-of-meta');
+// Check if the metaValue is a valid date
+if (isValidDate(metaValue)) { // Create a new Date object from the metaValue
+const targetDate = new Date(metaValue + 'T00:00:00').getTime();
+
+// Create a countdown element
+const countdownElement = document.createElement('div');
+countdownElement.classList.add('countdown');
+countdownElement.textContent = 'Loading countdown...';
+
+// Append the countdown element below the item-content span
+element.appendChild(countdownElement);
+
+// Function to update the countdown
+function updateCountdown() {
+const now = new Date().getTime();
+const timeDifference = targetDate - now;
+
+
+// Calculate days, hours, minutes, and seconds
+function padZero(num) {
+    return num < 10 ? "0" + num : num;
+}
+
+const days = padZero(Math.floor(timeDifference / (1000 * 60 * 60 * 24)));
+const hours = padZero(Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+const minutes = padZero(Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60)));
+const seconds = padZero(Math.floor((timeDifference % (1000 * 60)) / 1000));
+
+// Update the countdown display
+
+countdownElement.innerHTML = `
+                
+                     
+                  <div class="days">
+										<span class="day number">${days}</span>
+										<span class="text">يوم</span>
+									</div>
+									<div class="hours">
+										<span class="hour number">${hours}</span>
+										<span class="text">ساعة</span>
+									</div>
+									<div class="minutes">
+										<span class="minute number">${minutes}</span>
+										<span class="text">دقيقة</span>
+									</div>
+									<div class="seconds">
+										<span class="second number"> ${seconds}</span>
+										<span class="text">ثانية</span>
+									</div>
+
+
+                `;
+
+// Stop the countdown when the target date is reached
+if (timeDifference < 0) {
+clearInterval(countdownInterval);
+countdownElement.textContent = 'العرض قد إنتهى';
+}
+}
+
+// Update the countdown every second
+const countdownInterval = setInterval(updateCountdown, 1000);
+
+// Initial call to display countdown immediately
+updateCountdown();
+}
+});
+</script>
+
+
+{% schema %}
+{
+		  "name": {
+		    "ar": "عروض التصنيفات",
+		    "en": "categories offers"
+		  },
+		  "icon": "fal fa-box",
+		  "display": true,
+		  "settings":
+       {
+        "title": {
+		          "type": "text",
+		          "label": {
+		            "ar": "العنوان",
+		            "en": "Title"
+		          }
+		        },
+				"date": {
+            "type": "text",
+            "label": {
+              "ar": "تاريخ نهاية العرض",
+              "en": "end date offer"
+            },
+            "info": {
+              "ar": "اكتب التاريخ هكذا 01-01-2026",
+              "en": "text date like this 01-01-2026"
+            }
+          },
+        "space_top": {
+          "type": "radios",
+          "label": {
+            "ar": "مسافة اعلى العنصر",
+            "en": "magin top the section"
+          },
+          "options": [
+            {
+              "value": "true",
+              "label": {
+                "ar": "يوجد مسافة",
+                "en": "found section magin"
+              }
+            },
+            {
+              "value": "false",
+              "label": {
+                "ar": "لا يوجد مسافة",
+                "en": "no found section margin"
+              }
+            }
+          ]
+        
+        }, "autoplay": {
+          "type": "radios",
+          "label": {
+            "ar": "تحريك البانر",
+            "en": "banner autoplay"
+          },
+          "options": [
+            {
+              "value": "true",
+              "label": {
+                "ar": "متحرك",
+                "en": "autoplay"
+              }
+            },{
+              "value": "false",
+              "label": {
+                "ar": "ثابت",
+                "en": "fixed"
+              }
+            }]},
+		      "sliders": {
+      "type": "list",
+      "noLabel": true,
+      "maxItems": 10,
+      "settings_label": {
+        "ar": "القسم",
+        "en": "partition"
+      },
+      "settings": {
+        "image": {
+          "type": "image",
+          "label": {
+            "ar": "صورة",
+            "en": "image"
+          }
+        },
+        "title": {
+          "type": "text",
+          "label": {
+            "ar": "العنوان",
+            "en": "question"
+          }
+        },
+        "desc": {
+          "type": "text",
+          "label": {
+            "ar": "نص الخصم",
+            "en": "sell text"
+          }
+        },
+         "ratio": {
+          "type": "text",
+          "label": {
+            "ar": "نسبة الخصم",
+            "en": "sell ratio"
+          }
+        },
+        "btn_text": {
+          "type": "text",
+          "label": {
+            "ar": "نص الزرار",
+            "en": "button text"
+          }
+        },
+        "url": {
+          "type": "url",
+          "label": {
+            "ar": "اللينك",
+            "en": "url"
+          }
+        }
+      }
+    }
+		  }
+		}
+{% endschema %}

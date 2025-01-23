@@ -5,20 +5,28 @@
                 <img src="{{settings.imagebanner}}" alt="" class="img" >		
 			</div>
 		</div>
-		<div class="slider-category">
+		<div class="slide-text">
 			
-			{% if settings.title or settings.desc or settings.text_btn %}<div class="slider-content">
-			 {% if settings.title or settings.desc %}	<div class="text">
-					
-          {% if settings.title %} <h1 class="settings-slider-title">{{settings.title}}</h1>{% endif %}
-					{% if settings.desc %}<p>{{settings.desc}}</p> {% endif %}
-				</div>
-        {% endif %}
-				
-          {% if settings.text_btn %}<a class="settings-slider-text btn btn-primary btn-product-card" href="{{settings.url}}">
-					{{settings.text_btn}}</a> {% endif %}
-			</div>
-      {% endif %}
+			{% if settings.title or settings.desc or settings.text_btn %}
+                <div class="slider-content">
+                    {% if settings.title or settings.desc %}	
+                        <div class="text">
+                                {% if settings.title %} 
+                                        <h1 class="slider-title">{{settings.title}}</h1>
+                                {% endif %}
+                                {% if settings.desc %}
+                                        <p class="slider-subtitle">{{settings.desc}}</p>
+                                {% endif %}
+                        </div>
+                    {% endif %}
+                    
+                    {% if settings.text_btn %}
+                            <a class="slider-text btn theme-btn btn-product-card" href="{{settings.url}}">
+                                        {{settings.text_btn}}
+                            </a>
+                    {% endif %}
+                </div>
+            {% endif %}
 		</div>
 		
 	</div>
