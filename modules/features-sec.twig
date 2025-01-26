@@ -1,0 +1,121 @@
+<div section-id="{{ sectionId }}"
+     data-lg-scroll-offset="130"
+     data-md-scroll-offset="130"
+     data-sm-scroll-offset="94"
+     class="features-section stores-parent    features-store {% if settings.space_top == "true" %}app-section-magin{% elseif settings.space_top == "false" %} {% else %}app-section-magin{% endif %}" >
+    
+  
+    <div class="stores container-sec">
+    
+        
+    <div class="features-partion " >
+        {% for  feature in settings.store_features %}
+            <div class="feature d-flex flex-column justify-content-center align-items-center">
+              <div class="feature-item">
+                <div class="img-parent">
+                <img loading="lazy" class="features-section-img" src="{{ imageUrl(feature.image) }}" loading="lazy" alt=""  />
+                </div>
+                <p class="features-section-title">{{ feature.title }}</p>
+                <p class="features-section-desc">{{ feature.desc }}</p></div>
+            </div>
+        {% endfor %}
+       
+    </div>
+    
+    </div>
+ 
+</div>
+
+
+{% schema %}
+{
+  "name": {
+    "ar": "مميزات متجرنا",
+    "en": "Our Store Features "
+  },
+  "icon": "fal fa-sparkles",
+  "display": true,
+  "settings": { 
+   "space_top": {
+            "type": "radios",
+            "label": {
+              "ar": "مسافة اعلى العنصر",
+              "en": "magin top the section"
+            },
+            "options": [
+              {
+                "value": "true",
+                "label": {
+                  "ar": "يوجد مسافة",
+                  "en": "found section magin"
+                }
+              },
+              {
+                "value": "false",
+                "label": {
+                  "ar": "لا يوجد مسافة",
+                  "en": "no found section margin"
+                }
+              }
+            ]
+          
+},"autoplay": {
+          "type": "radios",
+          "label": {
+            "ar": "تحريك البانر",
+            "en": "banner autoplay"
+          },
+          "options": [
+            {
+              "value": "true",
+              "label": {
+                "ar": "متحرك",
+                "en": "autoplay"
+              }
+            },{
+              "value": "false",
+              "label": {
+                "ar": "ثابت",
+                "en": "fixed"
+              }
+            }]},
+    "store_features": {
+      "type": "list",
+      "maxItems":4,
+      "settings_label": {
+        "ar": "ميزات المتجر",
+        "en": "Store Features"
+      },
+      "settings": {
+        
+        "title": {
+          "type": "text",
+          "label": {
+            "ar": "العنوان",
+            "en": "Title"
+          }
+        },
+          "desc": {
+          "type": "text",
+          "label": {
+            "ar": "نص",
+            "en": "Title"
+          }
+        },
+        "image": {
+          "type": "image",
+          "label": {
+            "ar": "الصورة",
+            "en": "Image"
+          },
+          "info": {
+            "ar": "ارفع صورة بحجم ٢٠٠ *٢٠٠",
+            "en": "Upload an image of size 200x200"
+          }
+        }
+      }
+    }
+  }
+}
+
+{% endschema %}

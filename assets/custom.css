@@ -709,6 +709,21 @@
 
 
 /**/
+:root {
+    /* --pimary-light-color: #fac1b6; */
+    --white: #fff;
+    --gray-500: #444;
+    --gray-300: #333;
+    --gray-50: #f8f8f8;
+    --gray-200: ##d6d6d6;
+    --gray-100: #a5a5a5;
+    --space-2x: 24px;
+    --space-1x: 16px;
+    --space-3x: 32px;
+    --space-6x: 56px;
+    --radius-x: 24px;
+    --padding: 100px;
+  }
 .theme-btn {
     padding: 16px 24px;
     width: 250px;
@@ -1602,6 +1617,568 @@ display: flex;
     font-size: 14px;
     font-weight:500;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*start national-day-section*/
+.national-day-section {
+    height: 500px;
+    background-size: cover;
+    width: 100%;
+    max-width: 100%;
+    position: relative;
+    background-position: center;
+  }
+  .national-day-section.overlay::after{
+    opacity: 0.7;
+  }
+  
+  .national-day-section::after {
+    content: "";
+    background: color-mix(in srgb, var(--theme-color) 25%, #000000);
+    opacity: 0.1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  .national-day-section.right .national-day {
+    margin-left: auto;
+    padding: 70px var(--padding) 0 0;
+  }
+  .national-day-section.left .national-day {
+    margin-right: auto;
+    padding: 70px 0 0 var(--padding);
+    
+  }
+
+  .national-day-section.center .national-day {
+    margin: auto;
+    padding: 70px var(--padding) 0 0;
+    align-items: center;
+    text-align: center;
+  }
+  .national-day-section.center .national-day .desc{
+    text-align: center;
+  }
+  .national-day {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .national-day-section.overlay .national-day h3{
+   color: #fff; 
+  }
+  .national-day-section.overlay .national-day .desc{
+    color:#E5D9D4
+  }
+  .national-day h3 {
+    color: #000;
+    text-align: right;
+    
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 39px;
+  }
+  .national-day .big-text {
+    color: #000;
+    text-align: right;
+    
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 78px;
+  }
+  .national-day .desc {
+    color: #000;
+    text-align: right;
+    
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 29px;
+  }
+  
+  .national-day a {
+    /* color: #fff;
+    width: 200px;
+    padding: 12px 40px;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    margin-right: 0;
+    margin-top: 45px;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    border-radius: 12px;
+    border: 1px solid var(--primary-color);
+    background: var(--primary-color);
+    box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.16); */
+  }
+  
+  /*end national-day-section*/
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**/
+
+/* {
+    height: 100%;
+    writing-mode: sideways-lr;
+    display: flex
+;
+    justify-content: center;
+} */
+
+
+
+
+
+
+
+
+
+.custom-simpl-card{
+    display: flex;
+}
+
+
+.custom-simpl-card .text-div-partion{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    justify-content: center;
+}
+.custom-simpl-card .ancors-div{
+    width: 50%;
+}
+.custom-simpl-card .ancors-div .ancors{
+    width: 100%;
+    display: flex;
+    gap: 20px;
+}
+.ancor-item{
+    height: 356px;
+    width: auto;
+}
+
+.ancor-item .parent-img{
+    height: 300px;
+    width: 300px;
+    display: none;
+}
+.ancor-item .title{
+    height: 100%;
+    writing-mode: sideways-lr;
+    display: flex;
+    justify-content: center;
+    width: auto;
+
+
+
+    padding: 16px 24px;
+    
+    line-height: 24px;
+    height: 100%;
+    background-color: var(--theme-color);
+    border-radius: 0;
+    color: #fff;
+    text-align: center;
+    font-size: 24px;
+    cursor: default;
+    transition: width 0.6s ease-in-out;
+    -webkit-transition: .6s;
+    -moz-transition: .6s;
+    -ms-transition: .6s;
+    -o-transition: .6s;
+    
+}
+.ancor-item .ancor-btn{
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    display: none;
+}
+.ancor-item .parent-img img{
+    width: 100%;
+    height: 100%;
+}
+.ancor-item.active .parent-img{
+   display: block;
+}
+
+.ancor-item.active .title{
+    display: flex;
+    width: 100%;
+    writing-mode: initial;
+    justify-content: center;
+    height: fit-content;
+    padding: 16px 24px;
+    
+ }
+
+ .ancor-item.active .ancor-btn{
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    display: block;
+}
+
+
+
+.text-div-partion h3{
+    line-height: 29px;
+    font-weight: 600;
+    font-size: 24px;
+}
+.text-div-partion p{
+    line-height: 24px;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*  */
+
+/* start features*/
+.features-store {
+    background-size: cover;
+    background-position: center;
+    padding: 24px 0;
+    position: relative;
+  }
+  
+  .stores-parent {
+    /* background:
+      color-mix(in srgb, var(--primary-color) 8%, transparent); */
+    background-color: transparent;
+  }
+  
+  .stores {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap
+  }
+  
+  .feature::before {
+    content: "";
+    width: 2px;
+    height: 70px;
+    position: absolute;
+    left: 0;
+    border-radius: 4px;
+    background-color: #D6D6D6;
+  }
+  
+  .features-partion {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center
+  }
+  
+  .features-partion .feature:last-of-type:before {
+    display: none;
+  }
+  
+  
+  
+  .feature {
+    width: 25%;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+  }
+  
+  .feature .features-section-img {
+    display: block;
+    margin: 0 auto;
+    width: 48px;
+    height: 48px;
+    -o-object-fit: contain;
+    object-fit: contain;
+    overflow: hidden;
+    transition: .6s;
+    -webkit-transition: .6s;
+    -moz-transition: .6s;
+    -ms-transition: .6s;
+    -o-transition: .6s;
+  }
+  
+  .feature .feature-item {
+    width: 100%;
+    padding: 0 20px;
+    border-radius: 16px;
+  }
+  
+  .feature .feature-item .img-parent {
+    background: #F5F5DC;
+    width: fit-content;
+    padding: 10px;
+    border-radius: 50%;
+    margin: auto;
+    overflow: hidden;
+  }
+  
+  @keyframes fromtop {
+    0% {
+      opacity: 0;
+      transform: translateY(-30px);
+      -webkit-transform: translateY(-30px);
+      -moz-transform: translateY(-30px);
+      -ms-transform: translateY(-30px);
+      -o-transform: translateY(-30px)
+    }
+  
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+      -webkit-transform: translateY(0);
+      -moz-transform: translateY(0);
+      -ms-transform: translateY(0);
+      -o-transform: translateY(0)
+    }
+  }
+  
+  .feature:hover .features-section-img {
+    animation: fromtop .5s forwards;
+    -webkit-animation: fromtop .5s forwards;
+  }
+  
+  .feature p {
+    color: #000;
+  }
+  
+  .feature p.features-section-title {
+    color: #000;
+    text-align: center;
+    
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+  }
+  
+  .feature p.features-section-desc {
+    color: #666;
+    text-align: center;
+    
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    margin-top: 5px;
+    line-height: 120%;
+  }
+  
+  /* end features*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**/
+
+.imgs-partion .img-item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+.imgs-partion .img-item{
+    width: 200px;   
+    height: 200px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* banner 2*/
+
+.national-day a svg{
+    width: 0;
+    transition: width 0.6s ease-in-out;
+    -webkit-transition: .6s;
+    -moz-transition: .6s;
+    -ms-transition: .6s;
+    -o-transition: .6s;
+    
+  }
+  .national-day a:hover svg{
+    width: 24px;
+  }
+
+
+
+
+  .banner-2 .national-day h3 {
+    color: #000;
+    text-align: right;
+    
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 48px;
+  }
+  .banner-2 .national-day .desc {
+    color: #000;
+    text-align: right;
+    
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 48px;
+  }
+
 
 
 
