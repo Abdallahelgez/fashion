@@ -1,0 +1,56 @@
+<div section-id="{{ sectionId }}" data-lg-scroll-offset="130" class="{% if settings.space_top == " true" %}app-section-magin{% elseif settings.space_top == " false" %} {% else %}app-section-magin{% endif %}">
+
+    <div style="background-image:url({{settings.image}})" data-md-scroll-offset="130" data-sm-scroll-offset="94" class="season-section banner-3 national-day-section   {% if settings.position == "right" %}right{% elseif settings.position == "left" %}left{% elseif settings.position == "center" %}center{% else %}right{% endif %} ">
+        
+        
+    </div>
+
+</div>
+
+{% schema %}
+{
+  "name": {
+    "ar": "3 لافته",
+    "en": "banner 3"
+  },
+  "icon": "fal fa-box",
+  "display": true,
+  "settings": {
+    "image": {
+      "type": "image",
+      "label": {
+        "ar": "الصوره",
+        "en": "image"
+      },
+        "info": {
+        "ar": "ارفع صورة بحجم 750 * 750 ",
+        "en": "This is an info text sample here"
+        }
+    },
+    "space_top": {
+            "type": "radios",
+            "label": {
+              "ar": "مسافة اعلى العنصر",
+              "en": "magin top the section"
+            },
+            "options": [
+              {
+                "value": "true",
+                "label": {
+                  "ar": "يوجد مسافة",
+                  "en": "found section magin"
+                }
+              },
+              {
+                "value": "false",
+                "label": {
+                  "ar": "لا يوجد مسافة",
+                  "en": "no found section margin"
+                }
+              }
+            ]
+          
+}
+  }
+}
+{% endschema %}

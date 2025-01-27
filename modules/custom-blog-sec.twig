@@ -1,0 +1,252 @@
+<div section-id="{{ sectionId }}" data-lg-scroll-offset="130" data-md-scroll-offset="130" data-sm-scroll-offset="94" class="custom-section {% if settings.space_top == "true" %}app-section-magin{% elseif settings.space_top == "false" %} {% else %}app-section-magin{% endif %}">
+	<div class="custom-section container-sec d-flex flex-row justify-content-around align-items-center">
+		<div class="blogs--div {% if settings.title_section %}section-container {% endif %}">
+      {% if settings.title_section %}<h2 class="section-title">{{settings.title_section}}</h2>{% endif %}
+			<div class="custom-sliders">
+				{% for blog  in settings.store_custom %}
+
+					<div class="slider-item">
+						<div class="custom blog-card">
+							<div class="blog-parent">
+								<a href="{{blog.url}}" class="blog-img">
+									<img loading="lazy" src="{{ blog.image }}" class="blog-img" loading="lazy" alt="blog image"/>
+								</a>
+								<div class="blog-content">
+									<div class="blog-content-body">
+										<h3>
+											<a class="blog-question"  href="{{blog.url}}">{{ blog.topic }}</a>
+										</h3>
+										<div class="blog-desc">
+											<p class="blog-Paragraph">{{ blog.Paragraph }}
+											</p>
+                      
+										</div>
+									</div>
+									<div class="person">
+										<a class="author">
+											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                                            </svg>
+											<span class="name">{{ blog.title }}</span>
+										</a>
+										<div class="date-box">
+											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
+                                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                                            </svg>
+											<span class="date">{{ blog.date }}</span>
+										</div>
+									</div>
+                                    <div class="parent-svg">
+                                        <svg width="38" height="39" viewBox="0 0 38 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g id="elements">
+                                            <circle id="Ellipse 1569" cx="19" cy="19.6277" r="13.3333" transform="rotate(45 19 19.6277)" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+                                            <path id="Vector" d="M26.5425 19.6275L19.9428 20.5702L19 27.1699M21.8284 14.9134L15.2288 15.8562L14.286 22.4559" stroke="white" stroke-width="1.5"/>
+                                            </g>
+                                        </svg>
+
+                                    </div >
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+ <script>
+  document.addEventListener("DOMContentLoaded", function(){
+        var arrowNextClass = (window.appDirection === 'ltr') ? 'bi bi-chevron-right': 'bi bi-chevron-left';
+        var arrowPrevClass = (window.appDirection === 'ltr') ? 'bi bi-chevron-left' : 'bi bi-chevron-right';
+ var autoTrue=true;
+var autoFalse=false;
+var speedAuto = {% if settings.autoplay == "true" %}autoTrue{% elseif settings.autoplay == "false" %}autoFalse{% else %}autoTrue{% endif %};
+
+        
+        var margin= $(".blog-content").outerHeight();
+      
+        $(".blog-card").css({
+          marginBottom: `${margin - 3}px`  //24
+        })
+        var screenWidth = window.screen.width;
+
+        var editingMode = {% if store.editing_mode %}true{% else %}false{% endif %};
+
+        if(screenWidth >= 0 || editingMode){
+            $('.custom-sliders').slick({
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                  infinite: speedAuto,
+                autoplay: speedAuto,
+                arrows: {% if settings.title_section %}true{% else %}false{% endif %},
+                dots: {% if (settings.hide_dots or (settings.testimonials | length <= 3)) %}false{% else %}true{% endif %},
+                rtl: !(window.appDirection === 'ltr'),
+                nextArrow:'<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><i class="'+arrowNextClass+'"></i></button>',
+                prevArrow:'<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><i class="'+arrowPrevClass+'"></i></button>',
+                        responsive: [{
+                        breakpoint: 1400,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 1,
+                            
+                        }
+                    },
+                  {
+                        breakpoint: 1200,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1,
+                            
+                        }
+                    },
+                    {
+                        breakpoint: 992,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1,
+                            
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            
+                        }
+                    },
+                    {
+                        breakpoint: 576,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                          
+                            
+                        }
+                    }
+                ]
+            });
+        }
+    });
+    
+    
+    
+    </script>
+{% schema %}
+{
+  "name": {
+    "ar": "المدونة",
+    "en": "blog"
+  },
+  "icon": "fal fa-sparkles",
+  "display": true,
+  "settings": {
+    "space_top": {
+            "type": "radios",
+            "label": {
+              "ar": "مسافة اعلى العنصر",
+              "en": "magin top the section"
+            },
+            "options": [
+              {
+                "value": "true",
+                "label": {
+                  "ar": "يوجد مسافة",
+                  "en": "found section magin"
+                }
+              },
+              {
+                "value": "false",
+                "label": {
+                  "ar": "لا يوجد مسافة",
+                  "en": "no found section margin"
+                }
+              }
+            ]
+          
+},"autoplay": {
+          "type": "radios",
+          "label": {
+            "ar": "تحريك البانر",
+            "en": "banner autoplay"
+          },
+          "options": [
+            {
+              "value": "true",
+              "label": {
+                "ar": "متحرك",
+                "en": "autoplay"
+              }
+            },{
+              "value": "false",
+              "label": {
+                "ar": "ثابت",
+                "en": "fixed"
+              }
+            }]},
+    "title_section": {
+          "type": "text",
+          "label": {
+            "ar": "العنوان",
+            "en": "Title"
+          }
+        },
+    "store_custom": { 
+      "type": "list",
+      "settings_label": {
+        "ar": "الصورة",
+        "en": "Picture"
+      },
+      "settings": {
+        "title": {
+          "type": "text",
+          "label": {
+            "ar": "العنوان",
+            "en": "Title"
+          }
+        },
+        "date": {
+          "type": "text",
+          "label": {
+            "ar": "تاريخ",
+            "en": "date"
+          }
+        },
+        "topic": {
+          "type": "text",
+          "label": {
+            "ar": "الموضوع",
+            "en": "information"
+          }
+        },
+        "Paragraph": {
+          "type": "text",
+          "label": {
+            "ar": "الشرح",
+            "en": "Paragraph"
+          }
+        },
+        "image": {
+          "type": "image",
+          "label": {
+            "ar": "الصورة",
+            "en": "Image"
+          }
+        },
+          "url":{
+              "type":"url",
+              "label":{
+                "ar":"اللينك",
+                "en":"url"
+              }
+            }
+      }
+    }
+  }
+}
+
+
+{% endschema %}

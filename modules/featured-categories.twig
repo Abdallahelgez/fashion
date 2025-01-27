@@ -1,0 +1,98 @@
+<div section-id="{{ sectionId }}" data-lg-scroll-offset="130" data-md-scroll-offset="130" data-sm-scroll-offset="94" class="categories-section-1 {% if settings.space_top == " true" %}app-section-magin{% elseif settings.space_top == " false" %} {% else %}app-section-magin{% endif %}">
+	<div class="container-sec">
+		<div class="slider-products  {% if settings.title %}section-container {% endif %}">
+			{% if settings.title %}
+				<h1 class="section-title">{{ settings.title }}</h1>
+			{% endif %}
+
+			<div class="Featured-Categories">
+				{% for  cat in settings.categories %}
+					<a href="{{cat.url}}" class="Featured-Categories-item" style="background-image:url({{cat.image}})">
+						<span class="" >{{cat.title}}</span>
+					</a>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
+
+{% schema %}{
+		  "name": {
+		     "ar": "الاقسام المميزه 2",
+          "en": "Featured Categories "
+		  },
+		  "icon": "fal fa-images",
+		  "display": true,
+		  "settings": {
+		    "title": {
+		      "type": "text",
+		      "label": {
+		        "ar": "العنوان",
+		        "en": "Title"
+		      }
+		    },
+			"space_top": {
+            "type": "radios",
+            "label": {
+              "ar": "مسافة اعلى العنصر",
+              "en": "magin top the section"
+            },
+            "options": [
+              {
+                "value": "true",
+                "label": {
+                  "ar": "يوجد مسافة",
+                  "en": "found section magin"
+                }
+              },
+              {
+                "value": "false",
+                "label": {
+                  "ar": "لا يوجد مسافة",
+                  "en": "no found section margin"
+                }
+              }
+            ]
+          
+},
+		    "categories": {
+		      "type": "list",
+		      "label": {
+		        "ar": "التصنيفات",
+		        "en": "categories"
+		      },
+		      "maxItems": 4,
+		      "info": {
+		        "ar": "",
+		        "en": "This is an info text sample here"
+		      },
+		      "settings": {
+              "url":{
+                  "type":"url",
+                  "label":{
+                    "ar":"اللينك",
+                    "en":"url"
+                  }
+                },
+                "title": {
+                    "type": "text",
+                    "label": {
+                        "ar": "العنوان",
+                        "en": "title"
+                    }
+                },
+		        "image": {
+		          "type": "image",
+		          "label": {
+		            "ar": "الصورة",
+		            "en": "Image"
+		          },
+		          "info": {
+		            "ar": "ارفع صورة بحجم 750 * 750 ",
+		            "en": "This is an info text sample here"
+		          }
+		        }
+		      }
+		    }
+		  }
+	}{% endschema %}
