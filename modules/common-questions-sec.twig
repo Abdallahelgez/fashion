@@ -1,0 +1,141 @@
+<section section-id="{{ sectionId }}" data-lg-scroll-offset="130" data-md-scroll-offset="130" data-sm-scroll-offset="94" class="{% if settings.space_top == "true" %}app-section-magin{% elseif settings.space_top == "false" %} {% else %}app-section-magin{% endif %} ">
+	<div class="container-sec section-slider-padding-space slider-container common-question-section">
+  <div class="section-container">
+  	<h2 class="section-title ">{{ settings.title }}</h2>
+		<div class="common-questions">
+			<div class="accordion-box">
+				{% for  questionItem in settings.questions %}
+					<div class="item-box">
+						<div class="header-accordion">
+							<i class="bi bi-plus-circle icon"></i>
+							<h3>{{questionItem.question}}</h3>
+							
+						</div>
+						<div class="body-accordion" style="display: none; ">{{questionItem.answer}}</div>
+					</div>
+				{% endfor %}
+			</div>
+			<div class="img-box">
+				<img loading="lazy" src="{{settings.image}}" alt="questions-img">
+			</div>
+		</div>
+  </div>
+	
+	</div>
+</section>
+
+ <script>
+
+	document.addEventListener('DOMContentLoaded', function() {
+	    var accordions = document.querySelectorAll('.header-accordion');
+	
+	    accordions.forEach(function(accordion) {
+	        accordion.addEventListener('click', function() {
+	            var isActive = this.classList.contains('active');
+	
+	            accordions.forEach(function(acc) {
+	                acc.classList.remove('active');
+					acc.querySelector('.icon').classList.remove('bi-dash-circle');
+					acc.querySelector('.icon').classList.add('bi-plus-circle');
+	                acc.nextElementSibling.style.display = "none";
+	            });
+				if (isActive){
+					this.querySelector('.icon').classList.remove('bi-dash-circle');
+					this.querySelector('.icon').classList.add('bi-plus-circle');	  
+				 }
+	            if (!isActive) {
+	                this.classList.add('active');
+					this.querySelector('.icon').classList.remove('bi-plus-circle');	
+					this.querySelector('.icon').classList.add('bi-dash-circle');
+	                var bodyAccordion = this.nextElementSibling;
+	                bodyAccordion.style.display = "block";
+	              
+	            }
+	        });
+	    });
+	});
+	
+	</script>
+
+
+{% schema %}
+{
+		  "name": {
+		    "ar": "الأسئلة الشائعة",
+		    "en": "common qestions"
+		  },
+		  "icon": "fal fa-user",
+		  "display": true,
+		  "settings": {
+			"space_top": {
+            "type": "radios",
+            "label": {
+              "ar": "مسافة اعلى العنصر",
+              "en": "magin top the section"
+            },
+            "options": [
+              {
+                "value": "true",
+                "label": {
+                  "ar": "يوجد مسافة",
+                  "en": "found section magin"
+                }
+              },
+              {
+                "value": "false",
+                "label": {
+                  "ar": "لا يوجد مسافة",
+                  "en": "no found section margin"
+                }
+              }
+            ]
+          
+},   
+		    "title": {
+		      "type": "text",
+		      "label": {
+		        "ar": "العنوان",
+		        "en": "text"
+		      }
+		    },
+		    "image": {
+		      "type": "image",
+		      "label": {
+		        "ar": "صورة",
+		        "en": "image"
+		      }
+		    },
+		    "questions": {
+		      "type": "list",
+		      "noLabel": true,
+		      "maxItems": 12,
+		      "info": {
+		        "ar": "",
+		        "en": ""
+		      },
+		      "settings_label":{
+		        "ar": "سؤال",
+		        "en": "question"
+		      },
+		      "settings": {
+		        "question": {
+		          "type": "text",
+		          "label": {
+		            "ar": "السؤال",
+		            "en": "question"
+		          }
+		        },
+		        "answer": {
+		          "type": "text",
+		          "label": {
+		            "ar": "الجواب",
+		            "en": "answer"
+		          }
+		        }
+		      }
+		    }
+		  }
+		    
+		  
+		}
+{% endschema %}

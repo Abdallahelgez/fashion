@@ -1,42 +1,38 @@
-<section section-id="{{ sectionId }}" data-lg-scroll-offset="130" data-md-scroll-offset="130" data-sm-scroll-offset="94" class="brands-section {% if settings.space_top == "true" %}app-section-magin{% elseif settings.space_top == "false" %} {% else %}app-section-magin{% endif %}  ">
+<section section-id="{{ sectionId }}" data-lg-scroll-offset="130" data-md-scroll-offset="130" data-sm-scroll-offset="94" class="brands-section {% if settings.space_top == 'true' %}app-section-magin{% endif %}">
+  <div class="container-fluid">
+    <div class="flex-slider">
+      <h1>{{ settings.title }}</h1>
 
+      <!-- Slider العلوي -->
+      <div class="up-slider">
+        {% for slider in settings.sliders %}
+        <div class="slider-item">
+          <div class="slider-card">
+            <a href="{{ slider.url }}">
+              <img class="content-section-img" src="{{ imageUrl(slider.image, { w: 300, q: 85, f: 'auto' }) }}" alt=""/>
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
 
-	<div class="container-fluid">
-		<div class="flex-slider">
-			
-			<h1>{{settings.title}}</h1>
-			<div class="up-slider">
-				{% for slider  in settings.sliders %}
-					<div class="slider-item">
-						<div class="slider-card">
-							<a href="{{slider.url}}"><img loading="lazy" class="content-section-img" src="{{ imageUrl(slider.image,{ w: 300, q: 85, f:'auto' }) }}" loading="lazy" alt=""/></a>
-
-
-						</div>
-					</div>
-				{% endfor %}
-			</div>
-
-			<div class="down-slider">
-				{% for banner  in settings.images %}
-					<div class="slider-item">
-						<div class="slider-card">
-							<a href="{{banner.url}}">
-								<img loading="lazy" class="content-section-img" src="{{ imageUrl(banner.image,{ w: 300, q: 85, f:'auto' }) }}" loading="lazy" alt=""/>
-							</a>
-						</div>
-					</div>
-				{% endfor %}
-			</div>
-			
-		</div>
-	</div>
-
-
+      <!-- Slider السفلي -->
+      <div class="down-slider">
+        {% for banner in settings.images %}
+        <div class="slider-item">
+          <div class="slider-card">
+            <a href="{{ banner.url }}">
+              <img class="content-section-img" src="{{ imageUrl(banner.image, { w: 300, q: 85, f: 'auto' }) }}" alt=""/>
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
 </section>
 
-
- <script>
+<script>
   document.addEventListener("DOMContentLoaded", function(){
         var arrowNextClass = (window.appDirection === 'ltr') ? 'bi bi-chevron-right': 'bi bi-chevron-left';
         var arrowPrevClass = (window.appDirection === 'ltr') ? 'bi bi-chevron-left' : 'bi bi-chevron-right';
@@ -49,13 +45,13 @@
             $('.up-slider').slick({
                 slidesToShow: 7,
                 slidesToScroll: 1,
-                  infinite: true,
+                infinite: true,
                 autoplay: true,
                 speed:2000,
                 cssEase: 'linear',
                 autoplaySpeed: 0,
                 arrows: false,
-               
+                dots: {% if (settings.hide_dots or (settings.testimonials | length <= 3)) %}false{% else %}true{% endif %},
                 rtl: !(window.appDirection === 'ltr'),
                 nextArrow:'<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><i class="'+arrowNextClass+'"></i></button>',
                 prevArrow:'<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><i class="'+arrowPrevClass+'"></i></button>',
@@ -103,8 +99,8 @@
             });
         }
     });
-    
-      document.addEventListener("DOMContentLoaded", function(){
+  
+ document.addEventListener("DOMContentLoaded", function(){
         var arrowNextClass = (window.appDirection === 'ltr') ? 'bi bi-chevron-right': 'bi bi-chevron-left';
         var arrowPrevClass = (window.appDirection === 'ltr') ? 'bi bi-chevron-left' : 'bi bi-chevron-right';
 
@@ -122,6 +118,7 @@
                 cssEase: 'linear',
                 autoplaySpeed: 0,
                 arrows: false,
+                dots: {% if (settings.hide_dots or (settings.testimonials | length <= 3)) %}false{% else %}true{% endif %},
                 
                 nextArrow:'<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><i class="'+arrowNextClass+'"></i></button>',
                 prevArrow:'<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><i class="'+arrowPrevClass+'"></i></button>',
@@ -169,7 +166,8 @@
                 ]
             });
         }
-    });</script>
+    });
+</script>
 
 
 {% schema %}

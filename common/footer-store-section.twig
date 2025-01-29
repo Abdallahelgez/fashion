@@ -1,38 +1,59 @@
 <div class="footer-store-section store-section footer-theme-bg-primary footer-theme-text-for-primary-bg">
-    <div class="container">
+    <div class="container-sec">
         <div class="row">
-            <div class="col-12 col-lg-5">
-                <div class="footer-about-us-links-div footer-about-us-div">
-                    <h2 class="pb-2">{{ about_settings.about_us_title }}</h2>
-                    <p>{{ about_settings.about_us_des | raw }}</p>
-                </div>
-            </div>
-            <div class="col-12 col-lg-7">
-                <div class="row">
-                    <div class="col-12 col-lg-4">
+           
+            
+                    <div class="col-12 col-lg-3">
+                        <div class="footer-about-us-links-div footer-about-us-div">
+                            <img class="image-logo" src="{{store.cover}}" alt="" style="width: 120px; max-height: 100%">
+                          {% if about_settings.about_us_title %}  <h2 class="pb-3">{{ about_settings.about_us_title }}</h2>{% endif %}
+                            <p>{{ about_settings.about_us_des | raw }}</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-2">
                         {% if not (about_settings.links_1_hide) %}
                             <div class="footer-about-us-links-div">
-                                <h2 class="pb-2">{{ about_settings.links_1_title }}</h2>
+                                <h2 class="pb-3">{{ about_settings.links_1_title }}</h2>
                                 {% for link in about_settings.links_1_links %}
                                     <p><a href="{{ link.url }}">{{ link.title }}</a></p>
                                 {% endfor %}
                             </div>
                         {% endif %}
                     </div>
-                    <div class="col-12 col-lg-4">
+                    <div class="col-12 col-lg-2">
                         {% if not (about_settings.links_2_hide) %}
                             <div class="footer-about-us-links-div">
-                                <h2 class="pb-2">{{ about_settings.links_2_title }}</h2>
+                                <h2 class="pb-3">{{ about_settings.links_2_title }}</h2>
                                 {% for link in about_settings.links_2_links %}
                                     <p><a href="{{ link.url }}">{{ link.title }}</a></p>
                                 {% endfor %}
                             </div>
                         {% endif %}
                     </div>
-                    <div class="col-12 col-lg-4">
+                    <div class="col-12 col-lg-2">
+                        {% if not (about_settings.links_3_hide) %}
+                            <div class="footer-about-us-links-div connect-with-us">
+                                <h2 class="pb-3">{{ about_settings.links_3_title }}</h2>
+                                {% if store.social_media.items.phone %}
+                                    <a href="tel:{{ store.social_media.items.phone }}" target="_blank">
+                                        <span class="icon-call d-flex align-items-center justify-content-center"></span>
+                                        <p>{{ store.social_media.items.phone }}</p>
+                                    </a>
+                                {% endif %}
+
+                                {% if store.social_media.items.email %}
+                                    <a href="mailto:{{ store.social_media.items.email }}" target="_blank">
+                                        <span class="icon-envelope-secondary d-flex align-items-center justify-content-center"></span>
+                                        <p>{{ store.social_media.items.email }}</p>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-12 col-lg-3">
                         {% if store.business_location.show_location %}
                         <div class="footer-about-us-links-div">
-                            <h2 class="pb-2">{% if about_settings.business_location_title %}{{ about_settings.business_location_title }}{% else %}{{ locals.business_location }}{% endif %}</h2>
+                            <h2 class="pb-3">{% if about_settings.business_location_title %}{{ about_settings.business_location_title }}{% else %}{{ locals.business_location }}{% endif %}</h2>
                             <p>
                                 <a {% if store.business_location.lat %} target="_blank" href="https://maps.google.com/?q={{ store.business_location.lat }},{{ store.business_location.lng }}" {% endif %}>
                                     {{ store.business_location.street }}<br/>
@@ -42,7 +63,7 @@
                         </div>
                         {% endif %}
                         <div  class="footer-about-us-links-div {% if store.business_location.show_location %}mt-5{% endif %}">
-                            <h2 class="pb-2">{% if about_settings.social_media_title %}{{ about_settings.social_media_title }}{% else %}{{ locals.social_media }}{% endif %}</h2>
+                            <h2 class="pb-3">{% if about_settings.social_media_title %}{{ about_settings.social_media_title }}{% else %}{{ locals.social_media }}{% endif %}</h2>
                             <div class="social-icons d-flex flex-wrap">
 
                                 {% if store.social_media.items.facebook %}
@@ -93,17 +114,7 @@
                                     </a>
                                 {% endif %}
 
-                                {% if store.social_media.items.phone %}
-                                    <a href="tel:{{ store.social_media.items.phone }}" target="_blank">
-                                        <span class="icon-call d-flex align-items-center justify-content-center"></span>
-                                    </a>
-                                {% endif %}
-
-                                {% if store.social_media.items.email %}
-                                    <a href="mailto:{{ store.social_media.items.email }}" target="_blank">
-                                        <span class="icon-envelope-secondary d-flex align-items-center justify-content-center"></span>
-                                    </a>
-                                {% endif %}
+                               
 
                                 {% if store.social_media.items.website %}
                                     <a href="{{ store.social_media.items.website }}" target="_blank">
@@ -113,55 +124,55 @@
                             </div>
                         </div>
                     </div>
+               
+        </div>
+    </div>
+</div>
+{% if store.apps.ios_app_id or store.apps.android_package_name or store.shipping_methods %}
+    <div class="footer-companies">
+        <div class="container">
+            <div class="footer-icons">
+                <div class="d-flex flex-row {% if store.apps.ios_app_id or store.apps.android_package_name%}justify-content-between{% else %}justify-content-center{% endif %} align-items-center flex-wrap icons-wrapper footer-store-section-bars">
+                    {% if store.apps.ios_app_id or store.apps.android_package_name%}
+                    <div class="icons social-apps-icons d-flex flex-wrap align-items-center">
+                        <div class="google-app-stores apps-social-icons d-flex justify-content-center">
+                            {% if store.apps.ios_app_id %}
+                                <a href="https://apps.apple.com/app/id{{ store.apps.ios_app_id }}" target="_blank">
+                                    <img src="{{ asset_url ~ 'app-store.svg' }}" loading="lazy" alt="" width="115" height="35">
+                                </a>
+                            {% endif %}
+                            {% if store.apps.android_package_name %}
+                                <a href="https://play.google.com/store/apps/details?id={{ store.apps.android_package_name }}" target="_blank">
+                                    <img src="{{ asset_url ~ 'google-play.svg' }}" loading="lazy" alt="" width="115" height="35">
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="icons">
+                        <div class="logistics-pay-icons d-flex flex-wrap justify-content-center">
+                            {% for shipping_method in store.shipping_methods %}
+                                <a href="/shipping-and-payment">
+                                    <img src="{{ imageUrl(shipping_method.icon,{ h: 80, q: 100 }) }}" loading="lazy" alt="" height="21">
+                                </a>
+                            {% endfor %}
+
+
+                            {% for payment_method in store.payment_methods %}
+                                <a href="/shipping-and-payment">
+                                    <img src="{{ imageUrl(payment_method.icon,{ h: 80, q: 100 }) }}" loading="lazy" alt="" height="21">
+                                </a>
+                            {% endfor %}
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-<div class="footer-companies">
-    <div class="container">
-        <div class="footer-icons">
-            <div class="d-flex flex-row {% if store.apps.ios_app_id or store.apps.android_package_name%}justify-content-between{% else %}justify-content-center{% endif %} align-items-center flex-wrap icons-wrapper footer-store-section-bars">
-                {% if store.apps.ios_app_id or store.apps.android_package_name%}
-                <div class="icons social-apps-icons d-flex flex-wrap align-items-center">
-                    <div class="google-app-stores apps-social-icons d-flex justify-content-center">
-                        {% if store.apps.ios_app_id %}
-                            <a href="https://apps.apple.com/app/id{{ store.apps.ios_app_id }}" target="_blank">
-                                <img src="{{ asset_url ~ 'app-store.svg' }}" loading="lazy" alt="" width="115" height="35">
-                            </a>
-                        {% endif %}
-                        {% if store.apps.android_package_name %}
-                            <a href="https://play.google.com/store/apps/details?id={{ store.apps.android_package_name }}" target="_blank">
-                                <img src="{{ asset_url ~ 'google-play.svg' }}" loading="lazy" alt="" width="115" height="35">
-                            </a>
-                        {% endif %}
-                    </div>
-                </div>
-                {% endif %}
-                <div class="icons">
-                    <div class="logistics-pay-icons d-flex flex-wrap justify-content-center">
-                        {% for shipping_method in store.shipping_methods %}
-                            <a href="/shipping-and-payment">
-                                <img src="{{ imageUrl(shipping_method.icon,{ h: 80, q: 100 }) }}" loading="lazy" alt="" height="21">
-                            </a>
-                        {% endfor %}
-
-
-                        {% for payment_method in store.payment_methods %}
-                            <a href="/shipping-and-payment">
-                                <img src="{{ imageUrl(payment_method.icon,{ h: 80, q: 100 }) }}" loading="lazy" alt="" height="21">
-                            </a>
-                        {% endfor %}
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+ {% endif %}
 <div class="footer-copyrights-vat-certificate">
-    <div class="container">
+    <div class="container-sec">
         <div class="d-flex flex-column-reverse flex-lg-row flex-wrap align-items-center justify-content-between footer-store-section-bars" style="border-bottom: 0px;">
             <div class="d-flex justify-content-center align-items-center">
                 <span class="text-center footer-copyrights">{{ store.copyrights | raw}}</span>

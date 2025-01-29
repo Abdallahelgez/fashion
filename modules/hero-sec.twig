@@ -20,9 +20,36 @@
 
 			{% endfor %}
 		</div>
+    <div class="news-section ">
+    <div class="container-fluid slider-container ticker-slider" style="{% if settings.background_color %} background-color: {{ settings.background_color }}; {% else %} background-color: var(--theme-btn) {% endif %}">
+        <div class="d-flex flex-column">
+
+            <div class="ticker-wrap" style="position: relative ;background-color:{{settings.background_color}};">
+
+
+                    <div class="ticker s-slider">
+                        {% for store in settings.store_news %}
+                              <a href="{{store.url}}" style="color:{{settings.text_color}}" class="ticker-item">
+                              {{store.title}}
+                              <img loading="lazy"   src="{{store.image}}" class="" style="object-fit: cover"/>
+                              
+                              </a>
+                        {% endfor %}
+                    </div>
+
+
+                
+            </div>
+        </div>
+    </div>
+</div>
+
 	</div>
 
 
+
+
+</section>
  <script>
  document.addEventListener("DOMContentLoaded", function(){
         var arrowNextClass = (window.appDirection === 'ltr') ? 'bi bi-chevron-right': 'bi bi-chevron-left';
@@ -74,82 +101,82 @@
     });
 	
 	</script>
-
-</section>
-
 {% schema %}
 {
   "name": {
     "ar": "القسم الرئيسي",
-    "en": "main slider"
+    "en": "Main Slider"
   },
   "icon": "fal fa-user",
   "display": true,
   "settings": {
-     "autoplay": {
-          "type": "radios",
+    "autoplay": {
+      "type": "radios",
+      "label": {
+        "ar": "تحريك البانر",
+        "en": "Banner Autoplay"
+      },
+      "options": [
+        {
+          "value": "true",
           "label": {
-            "ar": "تحريك البانر",
-            "en": "banner autoplay"
-          },
-          "options": [
-            {
-              "value": "true",
-              "label": {
-                "ar": "متحرك",
-                "en": "autoplay"
-              }
-            },{
-              "value": "false",
-              "label": {
-                "ar": "ثابت",
-                "en": "fixed"
-              }
-            }]},"space_top": {
-            "type": "radios",
-            "label": {
-              "ar": "مسافة اعلى العنصر",
-              "en": "magin top the section"
-            },
-            "options": [
-              {
-                "value": "true",
-                "label": {
-                  "ar": "يوجد مسافة",
-                  "en": "found section magin"
-                }
-              },
-              {
-                "value": "false",
-                "label": {
-                  "ar": "لا يوجد مسافة",
-                  "en": "no found section margin"
-                }
-              }
-            ]
-          
-},
+            "ar": "متحرك",
+            "en": "Autoplay"
+          }
+        },
+        {
+          "value": "false",
+          "label": {
+            "ar": "ثابت",
+            "en": "Fixed"
+          }
+        }
+      ]
+    },
+    "space_top": {
+      "type": "radios",
+      "label": {
+        "ar": "مسافة أعلى العنصر",
+        "en": "Margin Top for Section"
+      },
+      "options": [
+        {
+          "value": "true",
+          "label": {
+            "ar": "يوجد مسافة",
+            "en": "Found Section Margin"
+          }
+        },
+        {
+          "value": "false",
+          "label": {
+            "ar": "لا يوجد مسافة",
+            "en": "No Section Margin"
+          }
+        }
+      ]
+    },
     "sliders": {
       "type": "list",
       "noLabel": true,
       "maxItems": 5,
       "settings_label": {
-        "ar": "القسم ",
-        "en": "partion"
+        "ar": "القسم",
+        "en": "Partition"
       },
       "settings": {
         "background_img": {
-      "type": "image",
-      "label": {
-        "ar": "صور  الخلفية",
-        "en": "background image"
-      }
-    },
+          "type": "image",
+          "label": {
+            "ar": "صورة الخلفية",
+            "en": "Background Image"
+          }
+        },
         "main_title": {
           "type": "text",
           "label": {
             "ar": "العنوان",
-            "en": "question"
+            "en": "Title"
           }
         },
         "desc": {
@@ -162,8 +189,50 @@
         "btn_text": {
           "type": "text",
           "label": {
-            "ar": "نص الزرار",
-            "en": "button text"
+            "ar": "نص الزر",
+            "en": "Button Text"
+          }
+        },
+        "url": {
+          "type": "url",
+          "label": {
+            "ar": "الرابط",
+            "en": "URL"
+          }
+        }
+      }
+    },
+    "background_color": {
+          "type": "color",
+          "label": {
+            "ar": " لون خلفية شريط الأخبار",
+            "en": "background color"
+          }
+        },
+        "text_color": {
+          "type": "color",
+          "label": {
+            "ar": " لون نص الخبر",
+            "en": "text color"
+          }
+        },
+    "store_news": {
+      "type": "list",
+      "maxItems": 20,
+      "settings_label": {
+            "ar": "الخبر",
+            "en": "news"
+          },
+      "info": {
+        "ar": "مولد نصوص",
+        "en": "This is an info text sample here"
+      },
+      "settings": {
+        "title": {
+          "type": "text",
+          "label": {
+            "ar": "نص الخبر",
+            "en": "text"
           }
         },
         "url":{
@@ -172,9 +241,22 @@
             "ar":"اللينك",
             "en":"url"
           }
+        },
+        "image": {
+          "type": "image",
+          "label": {
+            "ar": "الصورة",
+            "en": "Image"
+          },
+          "info": {
+            "ar": "ارفع صورة بحجم 600*600 وتكون الخلفية شفافة",
+            "en": "This is an info text sample here"
+          }
         }
       }
     }
+  
   }
 }
+
 {% endschema %}
