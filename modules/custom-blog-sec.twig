@@ -66,11 +66,7 @@ var autoFalse=false;
 var speedAuto = {% if settings.autoplay == "true" %}autoTrue{% elseif settings.autoplay == "false" %}autoFalse{% else %}autoTrue{% endif %};
 
         
-        var margin= $(".blog-content").outerHeight();
-      
-        $(".blog-card").css({
-          marginBottom: `${margin - 3}px`  //24
-        })
+       
         var screenWidth = window.screen.width;
 
         var editingMode = {% if store.editing_mode %}true{% else %}false{% endif %};

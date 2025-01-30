@@ -1,37 +1,41 @@
-<section section-id="{{ sectionId }}" data-lg-scroll-offset="130" data-md-scroll-offset="130" data-sm-scroll-offset="94" class="brands-section {% if settings.space_top == 'true' %}app-section-magin{% endif %}">
-  <div class="container-fluid">
+<section section-id="{{ sectionId }}" data-lg-scroll-offset="130" data-md-scroll-offset="130" data-sm-scroll-offset="94" class="brands-section {% if settings.space_top == "true" %}app-section-magin{% elseif settings.space_top == "false" %} {% else %}app-section-magin {% endif %}">
+  <div class="container-sec brands-sliders">
+  <h1>{{ settings.title }}</h1>
     <div class="flex-slider">
-      <h1>{{ settings.title }}</h1>
+      
 
-      <!-- Slider العلوي -->
-      <div class="up-slider">
-        {% for slider in settings.sliders %}
-        <div class="slider-item">
-          <div class="slider-card">
-            <a href="{{ slider.url }}">
-              <img class="content-section-img" src="{{ imageUrl(slider.image, { w: 300, q: 85, f: 'auto' }) }}" alt=""/>
-            </a>
+      
+          <!-- Slider العلوي -->
+        <div class="up-slider">
+          {% for slider in settings.sliders %}
+          <div class="slider-item">
+            <div class="slider-card">
+              <a href="{{ slider.url }}">
+                <img class="content-section-img" src="{{ imageUrl(slider.image, { w: 300, q: 85, f: 'auto' }) }}" alt=""/>
+              </a>
+            </div>
           </div>
+          {% endfor %}
         </div>
-        {% endfor %}
-      </div>
 
-      <!-- Slider السفلي -->
-      <div class="down-slider">
-        {% for banner in settings.images %}
-        <div class="slider-item">
-          <div class="slider-card">
-            <a href="{{ banner.url }}">
-              <img class="content-section-img" src="{{ imageUrl(banner.image, { w: 300, q: 85, f: 'auto' }) }}" alt=""/>
-            </a>
+        <!-- Slider السفلي -->
+        <div class="down-slider">
+          {% for banner in settings.images %}
+          <div class="slider-item">
+            <div class="slider-card">
+              <a href="{{ banner.url }}">
+                <img class="content-section-img" src="{{ imageUrl(banner.image, { w: 300, q: 85, f: 'auto' }) }}" alt=""/>
+              </a>
+            </div>
           </div>
+          {% endfor %}
         </div>
-        {% endfor %}
-      </div>
+      
+      
     </div>
   </div>
 </section>
-
+                                                                                                                                                                
 <script>
   document.addEventListener("DOMContentLoaded", function(){
         var arrowNextClass = (window.appDirection === 'ltr') ? 'bi bi-chevron-right': 'bi bi-chevron-left';

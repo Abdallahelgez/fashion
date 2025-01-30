@@ -167,6 +167,8 @@
 {{ zidapi_script|raw }}
 
 <script>
+
+ 
     window.appDirection = '{% if session.lang.code == 'ar' %}rtl{% else %}ltr{% endif %}';
 
     window.loadToasterScriptIfNotLoaded = function (onCompleted) {

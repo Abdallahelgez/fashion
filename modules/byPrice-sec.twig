@@ -11,11 +11,11 @@
 			{% endif %}
 
         
-    <div class="imgs-partion" >
+    <div class="imgs-partion arrows1" >
         {% for  feature in settings.store_features %}
             <div class="img-item">
                 <div class="img-parent">
-                <img loading="lazy" class="img" src="{{ imageUrl(feature.image) }}" loading="lazy" alt=""  />
+                  <img loading="lazy" class="img" src="{{ imageUrl(feature.image) }}" loading="lazy" alt=""  />
                 </div>
             </div>
         {% endfor %}
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 slidesToScroll: 1,
                   infinite: true,
                 autoplay: speedAuto,
-                arrows: false,
+                arrows: true,
                 dots: false,
                 rtl: !(window.appDirection === 'ltr'),
                 nextArrow:'<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><i class="'+arrowNextClass+'"></i></button>',

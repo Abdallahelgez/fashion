@@ -2,7 +2,7 @@
 	<div class="container-sec">
 		<div class="slider-products {% if settings.title %}section-container {% endif %}">
 			{% if settings.title %}
-				<h1 class="section-title  theme-text-primary">{{ settings.title }}</h1>
+				<h1 class="section-title">{{ settings.title }}</h1>
 			{% endif %}
 			<div class="categories2-slider s-slider">
 				{% for cat in settings.categories %}
@@ -21,9 +21,8 @@
 </div></div><script>
 
 document.addEventListener("DOMContentLoaded", function () {
-var arrowNextClass = (window.appDirection === 'ltr') ? 'icon-keyboard_arrow_right' : 'icon-keyboard_arrow_left';
-var arrowPrevClass = (window.appDirection === 'ltr') ? 'icon-keyboard_arrow_left' : 'icon-keyboard_arrow_right';
-
+ var arrowNextClass = (window.appDirection === 'ltr') ? 'bi bi-chevron-right': 'bi bi-chevron-left';
+        var arrowPrevClass = (window.appDirection === 'ltr') ? 'bi bi-chevron-left' : 'bi bi-chevron-right';
 var screenWidth = window.screen.width;
 
 var editingMode = {% if store.editing_mode %}
@@ -40,8 +39,8 @@ autoplay: false,
 arrows: true,
 dots: false,
 rtl: !(window.appDirection === 'ltr'),
-nextArrow: '<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><span class="' + arrowNextClass + '"></span></button>',
-prevArrow: '<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><span class="' + arrowPrevClass + '"></span></button>',
+nextArrow:'<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><i class="'+arrowNextClass+'"></i></button>',
+prevArrow:'<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><i class="'+arrowPrevClass+'"></i></button>',
 responsive: [
 {
 breakpoint: 992,
@@ -56,7 +55,8 @@ settings: "unslick"
 ]
 });
 }
-});</script>{% schema %}{
+});
+</script>{% schema %}{
 		  "name": {
 		    "ar": "التصنيفات رقم 2",
 		    "en": "categories 2"
@@ -94,7 +94,26 @@ settings: "unslick"
               }
             ]
           
-},
+},"autoplay": {
+          "type": "radios",
+          "label": {
+            "ar": "تحريك البانر",
+            "en": "banner autoplay"
+          },
+          "options": [
+            {
+              "value": "true",
+              "label": {
+                "ar": "متحرك",
+                "en": "autoplay"
+              }
+            },{
+              "value": "false",
+              "label": {
+                "ar": "ثابت",
+                "en": "fixed"
+              }
+            }]},
 		    "categories": {
 		      "type": "list",
 		      "label": {
