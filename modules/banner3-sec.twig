@@ -1,8 +1,7 @@
 <div section-id="{{ sectionId }}" data-lg-scroll-offset="130" class="{% if settings.space_top == " true" %}app-section-magin{% elseif settings.space_top == " false" %} {% else %}app-section-magin{% endif %}">
 
-    <div style="background-image:url({{settings.image}})" data-md-scroll-offset="130" data-sm-scroll-offset="94" class="season-section banner-3 national-day-section   {% if settings.position == "right" %}right{% elseif settings.position == "left" %}left{% elseif settings.position == "center" %}center{% else %}right{% endif %} ">
-        
-        
+    <div  data-md-scroll-offset="130" data-sm-scroll-offset="94" class="season-section banner-3 national-day-section">
+        <img src="{{settings.image}}" loading="lazy">
     </div>
 
 </div>

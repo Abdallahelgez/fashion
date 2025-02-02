@@ -82,34 +82,11 @@ var speedAuto = {% if settings.autoplay == "true" %}autoTrue{% elseif settings.a
                 rtl: !(window.appDirection === 'ltr'),
                 nextArrow:'<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><i class="'+arrowNextClass+'"></i></button>',
                 prevArrow:'<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><i class="'+arrowPrevClass+'"></i></button>',
-                        responsive: [{
-                        breakpoint: 1400,
-                        settings: {
-                            slidesToShow: 3,
-                            slidesToScroll: 1,
-                            
-                        }
-                    },
-                  {
-                        breakpoint: 1200,
-                        settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 1,
-                            
-                        }
-                    },
+                        responsive: [
                     {
                         breakpoint: 992,
                         settings: {
                             slidesToShow: 2,
-                            slidesToScroll: 1,
-                            
-                        }
-                    },
-                    {
-                        breakpoint: 768,
-                        settings: {
-                            slidesToShow: 1,
                             slidesToScroll: 1,
                             
                         }

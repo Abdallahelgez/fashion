@@ -1,43 +1,40 @@
-<div section-id="{{ sectionId }}" data-lg-scroll-offset="130" data-md-scroll-offset="130" data-sm-scroll-offset="94" class="category-product-section {% if settings.space_top == "true" %}app-section-magin{% elseif settings.space_top == "false" %} {% else %}app-section-magin {% endif %} products-barnds {% if settings.position == "right" %}right{% elseif settings.position == "left" %}left{% else %}right{% endif %}">
+<div section-id="{{ sectionId }}" data-lg-scroll-offset="130" data-md-scroll-offset="130" data-sm-scroll-offset="94" class="category-product-section {% if settings.space_top == " true" %}app-section-magin{% elseif settings.space_top == " false" %} {% else %}app-section-magin {% endif %} products-barnds {% if settings.position == " right" %}right{% elseif settings.position == " left" %}left{% else %}right{% endif %}">
 	<div class="category-product-content">
-    <div class="slider-img">
+		<div class="slider-img">
 			<div class="parent-img">
-                <img src="{{settings.imagebanner}}" alt="" class="img" >		
+				<img src="{{settings.imagebanner}}" alt="" class="img">
 			</div>
 		</div>
 		<div class="slide-text">
-			
+
 			{% if settings.title or settings.desc or settings.text_btn %}
-                <div class="slider-content">
-                    {% if settings.title or settings.desc %}	
-                        <div class="text">
-                                {% if settings.title %} 
-                                        <h1 class="slider-title">{{settings.title}}</h1>
-                                {% endif %}
-                                {% if settings.desc %}
-                                        <p class="slider-subtitle">{{settings.desc}}</p>
-                                {% endif %}
-                        </div>
-                    {% endif %}
-                    
-                    {% if settings.text_btn %}
-                            <a class="slider-text btn theme-btn btn-product-card" href="{{settings.url}}">
-                                        {{settings.text_btn}}
-                            </a>
-                    {% endif %}
-                </div>
-            {% endif %}
+				<div class="slider-content">
+					{% if settings.title or settings.desc %}
+						<div class="text">
+							{% if settings.title %}
+								<h1 class="slider-title">{{settings.title}}</h1>
+							{% endif %}
+							{% if settings.desc %}
+								<p class="slider-subtitle">{{settings.desc}}</p>
+							{% endif %}
+						</div>
+					{% endif %}
+
+					{% if settings.text_btn %}
+						<a class="slider-text btn theme-btn btn-product-card" href="{{settings.url}}">
+							{{settings.text_btn}}
+						</a>
+					{% endif %}
+				</div>
+			{% endif %}
 		</div>
-		
+
 	</div>
 </div>
- <script>
-			
- </script>
 
 
 {% schema %}
-    {
+{
     "name": {
         "ar": "فئات المنتجات",
         "en": "Season offers"
