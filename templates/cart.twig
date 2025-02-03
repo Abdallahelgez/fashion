@@ -9,8 +9,444 @@
     <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'toastr.min.css' }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'cart.css?v=1.40' }}" />
 {% endblock %}
-
 {% block main_content %}
+
+    <section class="breadcrumb-section">
+        <nav aria-label="breadcrumb">
+        
+            <ol class="breadcrumb">
+            <div class="container-fluid d-flex flex-wrap">
+                 <li class="breadcrumb-item active " aria-current="page">{{ locals.cart_view_title }}</li>
+            </div>
+        
+            </ol>
+    
+        </nav>
+    </section>
+
+
+    <div class="modal" id="searchCitiesModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body" style="padding: 10px 20px 20px">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                {# <span aria-hidden="true">&times;</span> #}
+                <i class="bi bi-x-circle" aria-hidden="true"></i>
+              </button>
+
+              <h5 class="text-center py-3 mb-0 text-color-primary">
+                {{ locals.enjoy_free_shipping_cities }}
+              </h5>
+
+              <div class="p-2 d-lg-flex align-items-center bd-highlight search-input lg-search-div flex-grow-1">
+                <div class="form-group" style="position: relative; margin: 0px">
+                    
+                    <div class="autocomplete" style="position: relative">
+                        <input type="text" data-cat-id="" class="form-control cities-search-input pl-5" placeholder="{{ locals.search }}">
+                    </div>
+                </div>
+            </div>
+
+              <div>
+                <p class="cities-result lead">
+                  {% for city in cart.fee_shipping_discount_rules.conditions_shipping_city | slice(0, 50) %}
+                    {{ city.name }}
+                    {% if not loop.last %} ، {% endif %}
+                  {% endfor %}
+                </p>
+              </div>
+
+              {# <div class="d-flex justify-content-center mt-3">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" style="width: 120px">{{ locals.cancel }}</button>
+              </div> #}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-sec mb-5">
+        <div class="cart-view">
+            <div class="row cart-products-with-totals {% if cart.products_count <= 0 %}d-none{% endif %}">
+                <div class="col-12 col-lg-9 products">
+                    <div class="section-cart-products">
+                        <h2 class="section-title ">{{ locals.cart_products_title }}</h2>
+                        <div class="template_for_cart_products_list">
+                            {{ template_for_cart_products_list }}
+                        </div>
+
+                        {% if cart.gift_card_details | length > 0 %}
+                            <div class="cart-gift-card">
+                                <p class="font-weight-bold mb-2">
+                                    <img loading="lazy" src="{{ asset_url }}gift_icon.png" style="display: inline-block" />
+                                    {{ locals.cart_send_as_gift_info }}
+                                </p>
+                                <p class="mb-2 from-to">
+                                    <span>{{ locals.products_list_filter_price_from }}: {{cart.gift_card_details.sender_name}}</span>
+                                    <span class="">{{ locals.products_list_filter_price_to }}: {{cart.gift_card_details.receiver_name}}</span>
+                                </p>
+                                {% if cart.gift_card_details.gift_message | length > 0 %}
+                                    <p class="mb-0">
+                                        <span>{{ locals.cart_gift_card_info_message }}: </span> {{ cart.gift_card_details.gift_message }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+                <div class="col-12 col-lg-3 details">
+
+                    <h2 class="section-title ">{{ locals.cart_break_down_summary }}</h2>
+                    
+
+                    <div>{{ template_for_cart_loyalty_points_widget }}</div>
+                    
+                    <div class="cart-totals-div">
+                        {% for cartTotal in cart.totals %}
+                            <div class="cart-product-row-wrapper cart-totals-row-wrapper">
+                                <div class="flex-grow-1">
+                                    {{ cartTotal.title }}
+                                    {% if cartTotal.code == 'total' and store.is_cart_total_vat_included %}&nbsp;<small>{{ locals.sys_lbl_cart_includes_vat }}</small>{% endif %}
+                                </div>
+                                <div class="flex-shrink-0" style="width: 30%; {% if cartTotal.code == 'total' %} font-weight: bold; color: var( --primary-color); {% endif %}">
+                                    {{ cartTotal.value_string }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div>{{ template_for_cart_payments_widget }}</div>
+
+
+                    <div class="coupon-form mt-5">
+                        <form>
+                            <div class="form-group">
+                                <h4 class="mb-2">{{ locals.coupon_discount }}</h4>
+                                <div class="coupon-group">
+                                    <input class="form-control send-coupon" type="text" placeholder="{{ locals.coupon_discount_enter }}" />
+                                    <button type="button" class="btn btn-primary cuupon-btn" onclick="sendCoupon()">
+                                        <img loading="lazy" class="send-coupon-progress d-none" src="{{ asset_url }}spinner.gif" width="15" height="15"/>
+                                        {{ locals.coupon_discount_submit }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+
+                        {% if cart.coupon.message %}
+                            <div class="message-coupon alert alert-primary" role="alert">
+                                <span>{{ cart.coupon.message }}</span>&nbsp;
+                                <a onclick="deleteCoupon()" style="color: inherit; cursor: pointer">
+                                    <span class="icon-trash-alt"></span>
+                                    <img loading="lazy" class="delete-coupon-progress d-none" src="{{ asset_url }}spinner.gif" width="15" height="15"/>
+                                </a>
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+
+
+                    <div class="cart-discount-rule-wrapper free-shipping-rule-section mt-5 {% if cart.fee_shipping_discount_rules %}d-block{% else %}d-none{% endif %}">
+                        <div class="d-flex align-items-center">
+                            <div class="message flex-grow-1 free-shipping-rule-message">
+                                {{ cart.fee_shipping_discount_rules.conditions_subtotal.status.message }}
+                            </div>
+                            <div class="text-muted mr-1 flex-shrink-0 free-shipping-rule-read-more" class="{% if cart.fee_shipping_discount_rules.conditions_subtotal.status.code == 'min_not_reached' %}d-inline-block{% else %}d-none{% endif %}">
+                              <a data-toggle="modal" data-target="#searchCitiesModal" href="#">
+                                <small>
+                                  {{ locals.read_more }}
+                                </small>
+                              </a>
+                            </div>
+                            <div class="discount-progress flex-shrink-0">
+                                <span class="free-shipping-rule-done {% if cart.fee_shipping_discount_rules.conditions_subtotal.status.code == 'applied' %}d-inline-block{% else %}d-none{% endif %}">
+                                    <span style="font-size: 28px"  class="icon-done text-color-primary"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="discount-progress-linear" class="{% if cart.fee_shipping_discount_rules.conditions_subtotal.status.code == 'min_not_reached' %}d-block{% else %}d-none{% endif %}">
+                            <div class="progress-bar free-shipping-rule-progress" style="width: {{ cart.fee_shipping_discount_rules.conditions_subtotal.products_subtotal_percentage_from_min }}%">
+                                {% if cart.fee_shipping_discount_rules.conditions_subtotal.status.code == 'applied' %}
+                                    <span>{{ locals.coupon_discount_free_shipping }}</span>
+                                {% else %}
+                                    <span>{{ cart.fee_shipping_discount_rules.conditions_subtotal.products_subtotal_percentage_from_min }}%</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <div class="mt-5">
+                            {% if store.availability.closed_now %}
+                                <a href="#"
+                                   class="btn btn-lg btn-block btn-disabled"
+                                >
+                                    {{ locals.cart_continue_to_purchase }}
+                                </a>
+                            {% else %}
+                                <a href="{% if customer %}/checkout/choose-address-and-shipping{% else %}/auth/login?redirect_to=/checkout/choose-address-and-shipping{% endif %}"
+                                   class="btn btn-primary btn-lg btn-block"
+                                >
+                                    {{ locals.cart_continue_to_purchase }}
+                                </a>
+                                <div style="margin-top: 1rem">
+                                    {{ template_for_cart_apple_pay_button }}
+                                </div>
+                            {% endif %}
+
+                        </div>
+
+                        {% if store.gift_order_settings.is_gift_order_enabled == '1' %}
+                          <div class="card border-0 mt-3 text-body">
+                              {{ template_for_cart_gifts_widget }}
+                          </div>
+                        {% endif %}
+
+                        <div class="mt-3">
+                            <a href="/" class="btn btn-outline-primary btn-lg btn-block">
+                                {{ locals.cart_back_to_store }}
+                            </a>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <div class="cart-empty pt-5 pbb-5 {% if cart.products_count > 0 %}d-none{% endif %}">
+                <div class="d-flex flex-column align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="136" height="135" viewbox="0 0 136 135" fill="none">
+										<path d="M67.3359 130.836C102.313 130.836 130.668 102.481 130.668 67.5039C130.668 32.5266 102.313 4.17188 67.3359 4.17188C32.3586 4.17188 4.00391 32.5266 4.00391 67.5039C4.00391 102.481 32.3586 130.836 67.3359 130.836Z" fill="#F8F8F8"/>
+										<path d="M17.3339 123.282C18.0238 121.759 17.3276 119.956 15.8045 119.266C14.2814 118.576 12.487 119.251 11.7971 120.775C11.1073 122.298 11.7737 124.113 13.2968 124.802C14.8199 125.492 16.6441 124.805 17.3339 123.282ZM21.8097 129.241C22.2488 128.271 21.8056 127.123 20.8362 126.684C19.8668 126.245 18.7248 126.675 18.2857 127.645C17.8466 128.614 18.2708 129.769 19.2402 130.208C20.2096 130.647 21.3706 130.21 21.8097 129.241ZM123.338 12.2493C124.427 10.9807 124.264 9.05427 122.996 7.96501C121.727 6.87576 119.815 7.02105 118.726 8.28971C117.637 9.55827 117.768 11.4872 119.036 12.5765C120.305 13.6657 122.248 13.5179 123.338 12.2493ZM125.963 19.2238C126.656 18.4164 126.553 17.1903 125.745 16.497C124.938 15.8037 123.721 15.8962 123.028 16.7036C122.335 17.511 122.418 18.7388 123.225 19.432C124.033 20.1253 125.27 20.0313 125.963 19.2238ZM15.1764 18.2539C16.2658 16.9852 16.1032 15.0588 14.8347 13.9695C13.5661 12.8803 11.6543 13.0256 10.565 14.2942C9.47574 15.5628 9.60649 17.4917 10.875 18.581C12.1436 19.6702 14.0872 19.5224 15.1764 18.2539Z" fill="#E6E6E6"/>
+										<path d="M115.561 61.7441H13.7578L29.1006 26.8623C30.8765 22.3789 35.1333 19.4844 39.9604 19.4844H89.3589C94.186 19.4844 98.4429 22.3789 100.219 26.8623L115.561 61.7441ZM21.4189 56.7441H107.9L95.582 28.7344C94.5732 26.1523 92.1304 24.4844 89.3589 24.4844H39.9604C37.189 24.4844 34.7461 26.1523 33.7373 28.7344L33.6973 28.8311L21.4189 56.7441Z" fill="#CCCCCC"/>
+										<path d="M83.4043 21.9853C83.4043 24.6967 81.5143 26.9628 78.981 27.5368C78.5654 27.6455 78.13 27.6951 77.6847 27.6951H55.3603C54.915 27.6951 54.4796 27.6455 54.0639 27.5368C51.5208 26.9628 49.6406 24.6967 49.6406 21.9853C49.6406 18.7487 52.2689 16.2656 55.3603 16.2656H77.6847C78.13 16.2656 78.5654 16.3152 78.981 16.4241C81.5143 16.9979 83.4043 19.2739 83.4043 21.9853Z" fill="url(#paint0_linear_5612_24943)"/>
+										<path d="M56.2434 16.2676V27.697H55.3628C54.9175 27.697 54.4821 27.6475 54.0664 27.5388V16.4261C54.931 16.1994 55.6204 16.2851 56.2434 16.2676Z" fill="url(#paint1_linear_5612_24943)"/>
+										<path d="M61.9331 16.2656H59.7461V27.6946H61.9331V16.2656Z" fill="url(#paint2_linear_5612_24943)"/>
+										<path d="M67.6128 16.2656H65.4258V27.6946H67.6128V16.2656Z" fill="url(#paint3_linear_5612_24943)"/>
+										<path d="M73.2903 16.2656H71.1133V27.6946H73.2903V16.2656Z" fill="url(#paint4_linear_5612_24943)"/>
+										<path d="M78.9838 16.4241V27.5368C78.5682 27.6455 78.1328 27.6951 77.6875 27.6951H76.7969V16.2656H77.6875C78.1328 16.2656 78.5682 16.3152 78.9838 16.4241Z" fill="url(#paint5_linear_5612_24943)"/>
+										<path d="M123.799 53.6597V64.703C123.799 66.2468 122.543 67.5036 120.989 67.5036H8.32781C6.7742 67.5036 5.52734 66.2468 5.52734 64.703V53.6597C5.52734 52.1159 6.7742 50.8594 8.32781 50.8594H120.989C122.543 50.8594 123.799 52.1159 123.799 53.6597Z" fill="url(#paint6_linear_5612_24943)"/>
+										<path d="M116.853 67.5L110.085 103.827C109.105 109.101 104.494 112.931 99.1303 112.931H30.1879C24.8244 112.931 20.223 109.101 19.2334 103.827L12.4648 67.5H116.853Z" fill="url(#paint7_linear_5612_24943)"/>
+										<path d="M45.9225 79.1937V96.6776C45.9225 99.2915 43.8036 101.41 41.1898 101.41H41.1898C38.576 101.41 36.457 99.2915 36.457 96.6776V79.1937C36.457 76.5799 38.576 74.4609 41.1898 74.4609H41.1898C43.8036 74.4609 45.9225 76.5799 45.9225 79.1937Z" fill="url(#paint8_linear_5612_24943)"/>
+										<path d="M68.9225 79.1937V96.6776C68.9225 99.2915 66.8036 101.41 64.1898 101.41H64.1898C61.576 101.41 59.457 99.2915 59.457 96.6776V79.1937C59.457 76.5799 61.576 74.4609 64.1898 74.4609H64.1898C66.8036 74.4609 68.9225 76.5799 68.9225 79.1937Z" fill="url(#paint9_linear_5612_24943)"/>
+										<path d="M91.9225 79.1937V96.6776C91.9225 99.2915 89.8036 101.41 87.1898 101.41H87.1898C84.576 101.41 82.457 99.2915 82.457 96.6776V79.1937C82.457 76.5799 84.576 74.4609 87.1898 74.4609H87.1898C89.8036 74.4609 91.9225 76.5799 91.9225 79.1937Z" fill="url(#paint10_linear_5612_24943)"/>
+										<path d="M114.974 118.847C124.379 118.847 132.003 111.223 132.003 101.818C132.003 92.4132 124.379 84.7891 114.974 84.7891C105.569 84.7891 97.9453 92.4132 97.9453 101.818C97.9453 111.223 105.569 118.847 114.974 118.847Z" fill="url(#paint11_linear_5612_24943)"/>
+										<path d="M125.301 102.168V102.168C125.301 104.228 123.631 105.898 121.571 105.898H109.121C107.061 105.898 105.391 104.228 105.391 102.168V102.168C105.391 100.108 107.061 98.4375 109.121 98.4375H121.571C123.631 98.4375 125.301 100.108 125.301 102.168Z" fill="url(#paint12_linear_5612_24943)"/>
+										<defs>
+											<linearGradient id="paint0_linear_5612_24943" x1="49.6411" y1="21.9802" x2="83.4041" y2="21.9802" gradientunits="userSpaceOnUse">
+												<stop stop-color="#BDBDBD"/>
+												<stop offset="1" stop-color="#CACACA"/>
+											</linearGradient>
+											<linearGradient id="paint1_linear_5612_24943" x1="54.0666" y1="21.9811" x2="56.2436" y2="21.9811" gradientunits="userSpaceOnUse">
+												<stop stop-color="#D6DCE8"/>
+												<stop offset="1" stop-color="white"/>
+											</linearGradient>
+											<linearGradient id="paint2_linear_5612_24943" x1="59.7461" y1="21.9806" x2="61.9331" y2="21.9806" gradientunits="userSpaceOnUse">
+												<stop stop-color="#E7E7E7"/>
+												<stop offset="1" stop-color="white"/>
+											</linearGradient>
+											<linearGradient id="paint3_linear_5612_24943" x1="65.4258" y1="21.9806" x2="67.6128" y2="21.9806" gradientunits="userSpaceOnUse">
+												<stop stop-color="#E7E7E7"/>
+												<stop offset="1" stop-color="white"/>
+											</linearGradient>
+											<linearGradient id="paint4_linear_5612_24943" x1="71.1133" y1="21.9806" x2="73.2903" y2="21.9806" gradientunits="userSpaceOnUse">
+												<stop stop-color="#D6DCE8"/>
+												<stop offset="1" stop-color="white"/>
+											</linearGradient>
+											<linearGradient id="paint5_linear_5612_24943" x1="76.7968" y1="21.9802" x2="78.9838" y2="21.9802" gradientunits="userSpaceOnUse">
+												<stop stop-color="#D6DCE8"/>
+												<stop offset="1" stop-color="white"/>
+											</linearGradient>
+											<linearGradient id="paint6_linear_5612_24943" x1="64.4143" y1="51.9466" x2="64.6983" y2="60.1876" gradientunits="userSpaceOnUse">
+												<stop stop-color="#EAEAEA"/>
+												<stop offset="1" stop-color="#CACACA"/>
+											</linearGradient>
+											<linearGradient id="paint7_linear_5612_24943" x1="64.415" y1="56.718" x2="65.546" y2="106.63" gradientunits="userSpaceOnUse">
+												<stop stop-color="#E2E2E2"/>
+												<stop offset="1" stop-color="#E7E7E7"/>
+											</linearGradient>
+											<linearGradient id="paint8_linear_5612_24943" x1="36.4566" y1="87.9354" x2="45.9226" y2="87.9354" gradientunits="userSpaceOnUse">
+												<stop stop-color="white"/>
+												<stop offset="1" stop-color="#F2F2F2"/>
+											</linearGradient>
+											<linearGradient id="paint9_linear_5612_24943" x1="59.4566" y1="87.9354" x2="68.9226" y2="87.9354" gradientunits="userSpaceOnUse">
+												<stop stop-color="white"/>
+												<stop offset="1" stop-color="#F2F2F2"/>
+											</linearGradient>
+											<linearGradient id="paint10_linear_5612_24943" x1="82.4566" y1="87.9354" x2="91.9226" y2="87.9354" gradientunits="userSpaceOnUse">
+												<stop stop-color="white"/>
+												<stop offset="1" stop-color="#F2F2F2"/>
+											</linearGradient>
+											<linearGradient id="paint11_linear_5612_24943" x1="97.9463" y1="101.818" x2="132.003" y2="101.818" gradientunits="userSpaceOnUse">
+												<stop stop-color="#CACACA"/>
+												<stop offset="1" stop-color="#CDCDCD"/>
+											</linearGradient>
+											<linearGradient id="paint12_linear_5612_24943" x1="105.39" y1="102.168" x2="125.301" y2="102.168" gradientunits="userSpaceOnUse">
+												<stop stop-color="#F7F7F7"/>
+												<stop offset="1" stop-color="white"/>
+											</linearGradient>
+										</defs>
+									</svg>
+                    <h2 class="mt-3">{{ locals.cart_list_empty }}</h2>
+                    <div class="mt-3">
+                        <a href="/" class="btn btn-outline-primary btn-lg btn-block">
+                            {{ locals.cart_back_to_store }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block footer_scripts %}
+    <script type="text/javascript" src="{{ asset_url ~ 'toastr.min.js' }}"></script>
+
+    {{ cart_view_scripts|raw }}
+
+    <script>
+
+        $( document ).ready(function() {
+            addDeleteProgressImage()
+        });
+
+        function addDeleteProgressImage(){
+            $('.cart-product-delete a .prefix', document).addClass('d-none');
+            $('.cart-product-delete a .prefix', document).html('<img loading="lazy" class="send-coupon-progress" src="{{ asset_url }}spinner.gif" width="15" height="15"/>');
+        }
+
+        $(document).on('click','.cart-product-delete a', function(event) {
+            $('.icon-delete', event.currentTarget).addClass('d-none');
+            $('.prefix',event.currentTarget).removeClass('d-none');
+        });
+
+        $(".cities-search-input").on('keyup', function (e) {
+            const searchVal = e.target.value
+            const mappedCities = cartObj.fee_shipping_discount_rules.conditions_shipping_city.map((city) => city.name);
+            let filteredCities = mappedCities.slice(0, 50).join(' ، ');
+            if (searchVal.length > 2) {
+              filteredCities = mappedCities.filter((name) => name.trim().toLowerCase().includes(searchVal.trim().toLowerCase())).join(' ، ');
+            }
+            if (filteredCities.length) {
+              $(".cities-result").html(filteredCities);
+            } else {
+              $(".cities-result").html('{{ locals.no_result_found }}');
+            }
+        });
+
+        function sendCoupon() {
+            if(!$('.send-coupon-progress').hasClass('d-none'))
+                return;
+
+            $('.send-coupon-progress').removeClass('d-none');
+            zid.store.cart.redeemCoupon($('.send-coupon').val())
+                .then(function (response) {
+                    if(response.status  === 'success'){
+                        toastr.success('{{ locals.sent_successfully }}', null)
+                        window.location.reload();
+                    }else{
+                        toastr.error(response.data.message, '{{ locals.sorry }}')
+                    }
+                    $('.send-coupon-progress').addClass('d-none');
+                }).catch(function (err) {
+                    $('.send-coupon-progress').addClass('d-none');
+                })
+        }
+
+        function deleteCoupon() {
+            if(!$('.delete-coupon-progress').hasClass('d-none'))
+                return;
+
+            $('.delete-coupon-progress').removeClass('d-none');
+            zid.store.cart.removeCoupon().then(function (response) {
+                if(response.status  === 'success'){
+                    toastr.success('{{ locals.sent_successfully }}', null)
+                    window.location.reload();
+                }else{
+                    toastr.error(response.data.message, '{{ locals.sorry }}')
+                }
+                $('.delete-coupon-progress').addClass('d-none');
+            })
+        }
+
+
+        function cartProductsHtmlChanged(html, cart){
+            if(cart.products_count <= 0){
+                $('.cart-products-with-totals').addClass('d-none');
+                $('.cart-empty').removeClass('d-none');
+                return;
+            }else{
+                $('.cart-products-with-totals').removeClass('d-none');
+                $('.cart-empty').addClass('d-none');
+            }
+
+
+            $('.template_for_cart_products_list').html(html);
+
+            if(cart &&  cart.totals){
+                var strCartTotlas = '';
+                for(var i = 0; i < cart.totals.length; i++){
+                    var cartTotal = cart.totals[i];
+
+                    var totalStyle = '';
+
+                    if(cartTotal.code === 'total'){
+                        totalStyle = 'font-weight: bold; color: var( --primary-color)';
+                    }
+            
+                    var vat_included = '';
+                    if(cartTotal.code === 'total'){
+
+                        var is_cart_total_vat_included = {{ store.is_cart_total_vat_included ? 'true' : 'false' }};
+                        var local_sys_lbl_cart_includes_vat = '{{ locals.sys_lbl_cart_includes_vat }}';
+                    
+                        if(is_cart_total_vat_included){
+                            vat_included = '&nbsp;<small>'+local_sys_lbl_cart_includes_vat+'</small>';
+                        }
+                        
+                    }
+
+                                                              /*left side*/
+                    strCartTotlas += '<div class="cart-product-row-wrapper cart-totals-row-wrapper">' +
+                        '                                <div class="flex-grow-1">'+cartTotal.title+vat_included+'</div>' +
+                        '                                <div class="flex-shrink-0" style="width: 30%; '+totalStyle+'">'+cartTotal.value_string+'</div>' +
+                        '                            </div>'
+                }
+
+                $('.cart-totals-div').html(strCartTotlas);
+            }
+
+            if(cart.fee_shipping_discount_rules){
+                $('.free-shipping-rule-section').removeClass('d-none')
+                $('.free-shipping-rule-message').html(cart.fee_shipping_discount_rules.conditions_subtotal.status.message)
+                $('.free-shipping-rule-progress').css('width', `${cart.fee_shipping_discount_rules.conditions_subtotal.products_subtotal_percentage_from_min}%`)
+                if (cart.fee_shipping_discount_rules.conditions_subtotal.status.code === 'applied') {
+                    $('.free-shipping-rule-done').removeClass('d-none')
+                    $('.free-shipping-rule-read-more').addClass('d-none')
+                    $('.free-shipping-rule-progress').html('{{ locals.coupon_discount_free_shipping }}')
+                }else {
+                    $('.free-shipping-rule-done').addClass('d-none')
+                    $('.free-shipping-rule-read-more').removeClass('d-none')
+                    $('.free-shipping-rule-progress').html(`${cart.fee_shipping_discount_rules.conditions_subtotal.products_subtotal_percentage_from_min}%`)
+                }
+            }else{
+                $('.free-shipping-rule-section').addClass('d-none')
+            }
+
+
+            setCartTotalAndBadge(cart);
+            addDeleteProgressImage();
+        }
+
+
+
+    </script>
+{% endblock %}
+
+{# {% block main_content %}
 
     <section class="breadcrumb-section">
         <nav aria-label="breadcrumb">
@@ -396,7 +832,7 @@
         }
 
     </script>
-{% endblock %}
+{% endblock %} #}
 
 
 {% block footer %} {{ include('footer.twig') }} {% endblock %}

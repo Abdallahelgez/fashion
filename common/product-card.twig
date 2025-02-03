@@ -22,6 +22,7 @@
 					<img id="product-card-img-{{ product.id }}" {% if product.images %} src="{{ product.images[0]['image']['large'] }}" {% else %} src="{{ imageUrl(asset_url ~ 'product-img.svg',{ w: 235, q: 100, f:'auto' }) }}" {% endif %} alt="{{ product.name }}">
 					
 				</a>
+				{% if product.purchase_restrictions.sale_price_period_start %}<div class="counter-down"></div>{% endif %}
                 <span class="product-card-bundle-offer" data-bundle-offer-product-id="{{ product.id }}"></span>
 				{% if product.discount_percentage %}
 				<span class="save" >
@@ -81,3 +82,76 @@
 
 	</div>
 {% endif %}
+
+<script>
+
+ const startDate = new Date("{{ product.purchase_restrictions.sale_price_period_start }}");
+const endDate = new Date("{{ product.purchase_restrictions.sale_price_period_end }}");
+
+function createCountdownElement() {
+    // تحديد العنصر اللي هنضيف فيه الكونتر
+    const counter = document.querySelector(".counter-down");
+
+    // إنشاء العنصر اللي هيتحط فيه العداد
+    const countdownWrapper = document.createElement("div");
+    countdownWrapper.id = "countdown-wrapper";  // إضافة ID ليه
+
+    const countdownDiv = document.createElement("div");
+    countdownDiv.className = "countdown-container";
+
+    countdownDiv.innerHTML = `
+		<div class="seconds">
+            <span class="second number">0</span>
+            <span class="text">ثانية</span>
+        </div>
+		<div class="minutes">
+            <span class="minute number">0</span>
+            <span class="text">دقيقة</span>
+        </div>
+		<div class="hours">
+            <span class="hour number">0</span>
+            <span class="text">ساعة</span>
+        </div>
+        <div class="days">
+            <span class="day number">0</span>
+            <span class="text">يوم</span>
+        </div>
+        
+        
+        
+    `;
+
+    // إضافة العنصر للصفحة
+    countdownWrapper.appendChild(countdownDiv);
+    counter.appendChild(countdownWrapper); // إضافة countdownWrapper داخل العنصر المحدد
+}
+
+function updateCountdown() {
+    const now = new Date();
+
+    if (now >= startDate && now <= endDate) {
+        const timeDiff = endDate - now;
+
+        const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+        document.querySelector(".day").textContent = days;
+        document.querySelector(".hour").textContent = hours;
+        document.querySelector(".minute").textContent = minutes;
+        document.querySelector(".second").textContent = seconds;
+    } else {
+        document.getElementById("countdown-wrapper").innerHTML = "<h2 style='color:red;'>❌ العرض غير متاح الآن</h2>";
+        clearInterval(timer);
+    }
+}
+
+// إنشاء الكونتر عند تحميل الصفحة
+createCountdownElement();
+
+// تحديث العداد كل ثانية
+const timer = setInterval(updateCountdown, 1000);
+updateCountdown();
+
+</script>

@@ -10,7 +10,7 @@
                             <p>{{ about_settings.about_us_des | raw }}</p>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-2">
+                    <div class="col-12 col-lg-2 col-sm-6 margin-top">
                         {% if not (about_settings.links_1_hide) %}
                             <div class="footer-about-us-links-div">
                                 <h2 class="pb-3">{{ about_settings.links_1_title }}</h2>
@@ -20,7 +20,7 @@
                             </div>
                         {% endif %}
                     </div>
-                    <div class="col-12 col-lg-2">
+                    <div class="ccol-12 col-lg-2 col-sm-6 margin-top">
                         {% if not (about_settings.links_2_hide) %}
                             <div class="footer-about-us-links-div">
                                 <h2 class="pb-3">{{ about_settings.links_2_title }}</h2>
@@ -30,7 +30,7 @@
                             </div>
                         {% endif %}
                     </div>
-                    <div class="col-12 col-lg-2">
+                    <div class="col-12 col-lg-2 col-sm-6 margin-top">
                         {% if not (about_settings.links_3_hide) %}
                             <div class="footer-about-us-links-div connect-with-us">
                                 <h2 class="pb-3">{{ about_settings.links_3_title }}</h2>
@@ -50,7 +50,7 @@
                             </div>
                         {% endif %}
                     </div>
-                    <div class="col-12 col-lg-3">
+                    <div class="col-12 col-lg-3 col-sm-6 margin-top ">
                         {% if store.business_location.show_location %}
                         <div class="footer-about-us-links-div">
                             <h2 class="pb-3">{% if about_settings.business_location_title %}{{ about_settings.business_location_title }}{% else %}{{ locals.business_location }}{% endif %}</h2>
