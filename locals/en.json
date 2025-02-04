@@ -161,6 +161,7 @@
     "order_status":"status",
     "order_date":"Created at",
     "order_total":"Total",
+    "clients_reviews":"Clients Reviews",
     "add_product_review":"Add Comment ",
     "leave_comment":"Leave Comment",
     "donot_leave_comment":" My name does not appear in the list of clients  ",

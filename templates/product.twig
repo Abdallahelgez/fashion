@@ -15,7 +15,7 @@
 {% block main_content %}
 
 	<section class="product products-details-page">
-		<div class="container pb-5">
+		<div class="container-sec pb-5">
 			<section class="products-details mb-5">
 				<div>
 					<div class="row">
@@ -24,7 +24,8 @@
 							<!--GALLERY-->
 							<div id="wrap" class="images-partion">
 								<div class="row">
-									<div class="col-12 col-product-image-wrapper">
+									<div
+										class="col-12 col-product-image-wrapper">
 
 										<!-- Carousel -->
 
@@ -82,7 +83,8 @@
 							</div>
 
 						</div>
-						
+
+
 
 						<div class="col-lg-7 col-product-info {% if product.selected_product.images | length <= 1 %}col-product-info-single-image{% endif %}">
 
@@ -133,31 +135,31 @@
 								{% if product.short_description is not empty %}
 									<p class="text-short-description">
 										{{ product.short_description | raw }}
-										&nbsp;<a id="product-description-a" href="#product-description" class="text-color-primary">{{ locals.product_description_more }}</a>
+										&nbsp;<a id="product-description-a" href="#product-description" class="more">{{ locals.product_description_more }}</a>
 									</p>
 								{% endif %}
-								<div class="d-flex">
-									<div>
-										<h2 class="product-formatted-price theme-text-primary">
+								<div class="d-flex mt-2 align-items-center">
+
+									<h2 class="product-formatted-price theme-text-primary">
+										{% if product.selected_product.formatted_sale_price %}
+											{{ product.selected_product.formatted_sale_price }}
+										{% else %}
+											{{ product.selected_product.formatted_price }}
+										{% endif %}
+									</h2>
+									<p>
+										<del class="product-formatted-price-old">
 											{% if product.selected_product.formatted_sale_price %}
-												{{ product.selected_product.formatted_sale_price }}
-											{% else %}
 												{{ product.selected_product.formatted_price }}
 											{% endif %}
-										</h2>
-										<p>
-											<del class="product-formatted-price-old">
-												{% if product.selected_product.formatted_sale_price %}
-													{{ product.selected_product.formatted_price }}
-												{% endif %}
-											</del>
-											<span class="product-formatted-price-discount" style="color:#f25f5f;">
-												{% if product.selected_product.formatted_sale_price %}
-													&nbsp;  &nbsp;{{ locals.product_discount }}&nbsp;{{ product.discount_percentage }}%
-												{% endif %}
-											</span>
-										</p>
-									</div>
+										</del>
+										<span class="product-formatted-price-discount" >
+											{% if product.selected_product.formatted_sale_price %}
+												&nbsp;  &nbsp;{{ locals.product_discount }}&nbsp;{{ product.discount_percentage }}%
+											{% endif %}
+										</span>
+									</p>
+
 
 								</div>
 
@@ -179,10 +181,17 @@
 								</div>
 							</div>
 
+							{% if product.selected_product.weight.unit == 'kg' %}
+								{% set change_to_weight_unit = locals.unit_is_kg %}
+							{% elseif product.selected_product.weight.unit == 'g' %}
+								{% set change_to_weight_unit = locals.unit_is_g %}
+							{% elseif product.selected_product.weight.unit == 'lb' %}
+								{% set change_to_weight_unit = locals.unit_is_lb %}
+							{% endif %}
 							<div style="margin-bottom: 25px" class="div-product-weight {% if not product.selected_product.weight.value %}d-none{% endif %}">
 								<h4 class="product-title">{{ locals.product_weight }}</h4>
 								<div class="product-weight">
-									{{ product.selected_product.weight.value }}&nbsp;{{ product.selected_product.weight.unit }}
+									{{ product.selected_product.weight.value }}&nbsp;{{product.selected_product.weight.unit}}
 								</div>
 							</div>
 
@@ -234,12 +243,12 @@
 												<input class="form-control send-notify-name" value="" type="text" placeholder="{{ locals.notify_me_hint_name }}"/>
 												<input class="form-control send-notify-email" type="email" value="" placeholder="{{ locals.notify_me_hint }}"/>
 												<div class="d-flex form-notify-me-phone-row">
-													<input class="form-control send-notify-country-key" type="number" placeholder="966" maxlength="4"/>
-													<input class="form-control send-notify-phone" type="number" value="" placeholder="{{ locals.notify_me_hint_mobile }}" maxlength="10"/>
+													<input class="form-control send-notify-country-key" type="number" {% if customer.mobile %} value="{{ customer.mobile | slice(0, 3) }}" {% else %} value="966" {% endif %} placeholder="966" maxlength="4"/>
+													<input class="form-control send-notify-phone" type="number" value="{{ customer.mobile | slice(3, 9) }}" placeholder="{{ locals.notify_me_hint_mobile }}" maxlength="10"/>
 												</div>
 												<div class="form-notify-me-submit-button-row">
 													<button type="button" class="btn btn-primary btn-send-notify" onclick="sendProductNotifyMe()">
-														<img class="send-notify-progress d-none" src="{{ asset_url }}spinner.gif" width="15" height="15"/>
+														<img loading="lazy" class="send-notify-progress d-none" src="{{ asset_url }}spinner.gif" width="15" height="15"/>
 														{{ locals.send }}
 													</button>
 												</div>
@@ -279,7 +288,7 @@
 							</div>
 
 							<div class="border-product"></div>
-							<div class="border-product">
+							<div class="border-product border-product-1 d-flex">
 								<h4 class="product-title">{{ locals.product_share }}</h4>
 								<div class="product-icon">
 									<div class="product-social d-flex">
@@ -335,254 +344,305 @@
 				</section>
 			{% endif %}
 
-			{{ template_for_product_grouped }}
-
-			{% if product.metafields %}
-				<section id="product-description" class="mt-5">
-					<div class="d-flex align-items-center">
-						<div class="description-icon">
-							<span class="icon-fact_check_black"></span>
-						</div>
-						<div class="description-title">
-							{{ locals.product_properties }}
-						</div>
-					</div>
-					<div class="description-paragrah text-justify description-text-clear">
-						{{ template_for_product_metafields }}
-					</div>
-				</section>
-			{% endif %}
-
-			{% if product.description %}
-				<section id="product-description" class="mt-5">
-					<div class="d-flex align-items-center">
-						<div class="description-icon">
-							<span class="icon-fact_check_black"></span>
-						</div>
-						<div class="description-title">
-							{{ locals.product_description }}
-						</div>
-					</div>
-					<div class="description-paragrah text-justify description-text-clear">
-						{{ product.description | raw }}
-					</div>
-				</section>
-			{% endif %}
-
-			{% if product.has_variants %}
-				<section class="product-selection mt-5">
-					<div>
-						<div class="d-flex align-items-center">
-							<div class="description-icon">
-								<span class="icon-format_list_bulleted"></span>
-							</div>
-							<div class="description-title">
-								{{ locals.product_options }}
-							</div>
-						</div>
-
-						<div class="card-table d-none d-lg-block">
-							<div class="card">
-								<div class="card-body card-table-header">
-									<div class="row">
-										{% for option in product.options %}
-											<div class="col">{{option.name}}</div>
-										{% endfor %}
-										<div class="col col-price">{{ locals.product_images }}</div>
-										<div class="col col-price">{{ locals.product_price }}</div>
+			 {{ template_for_product_grouped }}
+			  {% if product.metafields %}
+                <section id="product-description" class="mt-5">
+                    <div class="d-flex align-items-center">
+                        <div class="description-icon">
+                            <span class="icon-fact_check_black"></span>
+                        </div>
+                        <div class="description-title">
+                           {{ locals.product_properties }}
+                        </div>
+                    </div>
+                    <div class="description-paragrah text-justify description-text-clear">
+                        {{ template_for_product_metafields }}
+                    </div>
+                </section>
+            {% endif %}
+			{# NAV & TAP #}
+			<div>
+				<ul class="nav nav-pills mb-3 product-details-bottom" id="pills-tab" role="tablist">
+					{% if product.description %}
+						<li class="nav-item" role="presentation">
+							<button class="nav-link active" id="pills-description-tab" data-bs-toggle="pill" data-bs-target="#pills-description" type="button" role="tab" aria-controls="pills-description" aria-selected="true">
+								<div class="d-flex align-items-center">
+									<div class="description-icon">
+										<span class="icon-fact_check_black"></span>
+									</div>
+									<div class="description-title">
+										{{ locals.product_description }}
 									</div>
 								</div>
-							</div>
+							</button>
+						</li>
+					{% endif %}
+					{% if product.has_variants %}
+						<li class="nav-item" role="presentation">
+							<button class="nav-link" id="pills-variants-tab" data-bs-toggle="pill" data-bs-target="#pills-variants" type="button" role="tab" aria-controls="pills-variants" aria-selected="false">
+								<div class="d-flex align-items-center">
+									<div class="description-icon">
+										<span class="icon-format_list_bulleted"></span>
+									</div>
+									<div class="description-title">
+										{{ locals.product_options }}
+									</div>
+								</div>
+							</button>
+						</li>
+					{% endif %}
+					{% if store.is_product_reviews_enabled %}
+						<li class="nav-item" role="presentation">
+							<button class="nav-link" id="pills-reviews-tab" data-bs-toggle="pill" data-bs-target="#pills-reviews" type="button" role="tab" aria-controls="pills-reviews" aria-selected="false">
+								<div class="d-flex align-items-center">
+									<div class="description-icon">
+										<span class="icon-reviews_black"></span>
+									</div>
+									<div class="description-title">
+										{{ locals.product_reviews }}
+									</div>
+								</div>
+							</button>
+						</li>
+					{% endif %}
+					{% if store.is_product_question_and_answer_enabled %}
+						<li class="nav-item" role="presentation">
+							<button class="nav-link" id="pills-question-tab" data-bs-toggle="pill" data-bs-target="#pills-question" type="button" role="tab" aria-controls="pills-question" aria-selected="false">
+								<div class="d-flex align-items-center">
+									<div class="description-icon">
+										<span class="icon-reviews_black"></span>
+									</div>
+									<div class="description-title">
+										{{ locals.product_questions }}
+									</div>
+								</div>
+							</button>
+						</li>
+					{% endif %}
+				</ul>
+				<div class="tab-content tap-content-bottom" id="pills-tabContent">
+					{% if product.description %}
+						<div class="tab-pane fade show active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
+							{% if product.description %}
+								<section id="product-description" class="mt-3">
+
+									<div class="description-paragrah text-justify description-text-clear">
+										{{ product.description | raw }}
+									</div>
+								</section>
+							{% endif %}
 						</div>
-						{% for variant in product.variants %}
-							{% if not variant.unavailable %}
-								<div class="card-table options-table">
-									<div class="card">
-										<div class="card-body">
-											<div class="row flex-column flex-lg-row align-items-start align-items-lg-center">
-
-
-												{% for key, attribute in variant.attributes %}
-													<div class="col m-col">
-														<span class="variant-name-sm d-inline-block d-lg-none">{{ product.options[key].name }}</span>
-														<span>{{ attribute.value }}</span>
-													</div>
-												{% endfor %}
-
-												<div class="col">
-													{% if variant.images | length > 0 %}
-														<div class="d-flex m-col">
-															{% for key, image in variant.images %}
-																<div class="variant-image-wrapper" data-var-id="{{ variant.id }}">
-																	<div class="box-1-1">
-																		<div class="content">
-																			<a data-index="{{ key }}" data-link-var-id="{{ variant.id }}" class="d-flex align-items-center justify-content-center" style="width: 100%; height: 100%;">
-																				<img src="{{ image.image.medium }}" data-image-url="{{ image.image.full_size }}">
-																			</a>
-																		</div>
-																	</div>
-
-																</div>
-															{% endfor %}
-														</div>
-													{% else %}
-														<span class="d-none d-lg-inline">{{ locals.variants_no_image }}</span>
-													{% endif %}
+					{% endif %}
+					{% if product.has_variants %}
+						<div class="tab-pane fade" id="pills-variants" role="tabpanel" aria-labelledby="pills-variants-tab">
+							<section class="product-selection mt-3">
+								<div>
+									<div class="card-table d-none d-md-block">
+										<div class="card">
+											<div class="card-body card-table-header">
+												<div class="row text-center">
+													{% for option in product.options %}
+														<div class="col">{{option.name}}</div>
+													{% endfor %}
+													<div class="col col-price">{{ locals.product_images }}</div>
+													<div class="col col-price">{{ locals.product_price }}</div>
 												</div>
-
-												<div class="col m-col">
-													<span class="variant-name-sm d-inline-block d-lg-none">{{ locals.product_price }}</span>
-													{% if variant.formatted_sale_price %}
-														<h4 style="font-size: 1.2rem" class="price-detail d-inline-block">{{ variant.formatted_sale_price }}
-															<del>{{ variant.formatted_price }}</del>
-														</h4>
-													{% else %}
-														<h4 class="d-inline-block" style="font-size: 1.2rem">{{ variant.formatted_price }}</h4>
-													{% endif %}
-												</div>
-
-
 											</div>
 										</div>
 									</div>
+									{% for variant in product.variants %}
+										{% if not variant.unavailable %}
+											<div class="card-table options-table">
+												<div class="card">
+													<div class="card-body">
+														<div class="row flex-row text-md-center flex-md-row align-items-start align-items-md-center">
+
+
+															{% for key, attribute in variant.attributes %}
+																<div class="col m-col">
+																	<span class="variant-name-sm d-inline-block d-md-none">{{ product.options[key].name }}</span>
+																	<span>{{ attribute.value }}</span>
+																</div>
+															{% endfor %}
+
+															<div class="col">
+																{% if variant.images | length > 0 %}
+																	<div class="d-flex m-col">
+																		{% for key, image in variant.images %}
+																			<div class="variant-image-wrapper" data-var-id="{{ variant.id }}">
+																				<a data-index="{{ key }}" data-link-var-id="{{ variant.id }}" class="d-flex align-items-center justify-content-center" style="width: 100%; height: 100%;">
+																					<img loading="lazy" src="{{ image.image.medium }}" data-image-url="{{ image.image.full_size }}">
+																				</a>
+																			</div>
+																		{% endfor %}
+																	</div>
+																{% else %}
+																	<span class="d-none d-md-inline">{{ locals.variants_no_image }}</span>
+																{% endif %}
+															</div>
+
+															<div class="col m-col">
+																<span class="variant-name-sm d-inline-block d-md-none">{{ locals.product_price }}</span>
+																{% if variant.formatted_sale_price %}
+																	<h4 style="font-size: 1.2rem" class="price-detail d-inline-block theme-text-primary">{{ variant.formatted_sale_price }}
+																		<del class="product-formatted-price-old">{{ variant.formatted_price }}</del>
+																	</h4>
+																{% else %}
+																	<h4 class="d-inline-block" style="font-size: 1.2rem">{{ variant.formatted_price }}</h4>
+																{% endif %}
+															</div>
+
+
+														</div>
+													</div>
+												</div>
+											</div>
+										{% endif %}
+									{% endfor %}
+
 								</div>
-							{% endif %}
-						{% endfor %}
+							</section>
+						</div>
+					{% endif %}
+					{% if store.is_product_reviews_enabled %}
+						<div class="tab-pane fade" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
+							<section class="mt-3 review-details">
+								<div>
+									<h1 class="review-head">{{locals.clients_reviews}}
+										{% if product.rating %}({{ product.rating.total_count }})
+										{% endif %}
+									</h1>
+									<div class="review-details-sec row mt-3">
+										<div class="d-flex flex-wrap flex-column align-items-flex-start col-lg-6" style="width: 100%">
 
-					</div>
-				</section>
-			{% endif %}
+											{% if product.rating %}
+												<div class="rating-section">
+													<div>
+														<h4 class="rating-average">{{ product.rating.average }}</h4>
+														{% include 'rating-stars.twig' with {'rating' : product.rating.average } %}
+														{# <span class="product-card-rating-count">({{ product.rating.total_count }})</span> #}
+													</div>
+												</div>
+											{% endif %}
 
-			{% if store.is_product_reviews_enabled %}
-				<section class="mt-5 review-details">
-					<div>
-						<div class="d-flex flex-wrap align-items-center" style="width: 100%">
-							<div class="description-icon">
-								<span class="icon-reviews_black"></span>
-							</div>
-							<div class="description-title">
-								{{ locals.product_reviews }}
-							</div>
-							{% if product.rating %}
-								<div class="rating-section">
-									<div>
-										{% include 'rating-stars.twig' with {'rating' : product.rating.average } %}
-										<span class="product-card-rating-count">({{ product.rating.total_count }})</span>
+
+											<!-- Button trigger modal -->
+											 <a href="/products/{{ product.slug}}/reviews/add" class="btn btn-primary add-review-btn" id="add-review-btn"><span class="icon-add_circle"></span>{{ locals.add_product_review}} </a>
+
+										</div>
+										<div class="reviews-break-down-div description-paragrah col-lg-6">
+											<div class="d-flex align-items-center mt-3 mb-4">
+												{% if product.rating %}
+													{# <h4 class="rating-average">{{ product.rating.average }}</h4> #}
+													<div class="d-flex flex-column">
+
+
+														<div class="row card-rate">
+															<span class="rating_count_5">{{ product.rating['5_ratings'].count }}</span>
+															<span class="icon-star1"></span>
+															<span class="icon-star1"></span>
+															<span class="icon-star1"></span>
+															<span class="icon-star1"></span>
+															<span class="icon-star1"></span>
+															&nbsp;  &nbsp;
+															<span>{{ locals.reviews_rating_5 }}</span>
+														</div>
+														<div class="row card-rate">
+															<span class="rating_count_4">{{ product.rating['4_ratings'].count }}</span>
+															<span class="icon-star1"></span>
+															<span class="icon-star1"></span>
+															<span class="icon-star1"></span>
+															<span class="icon-star1"></span>
+															<span class="icon-star1 deactive"></span>
+															&nbsp;  &nbsp;
+															<span>{{ locals.reviews_rating_4 }}</span>
+														</div>
+														<div class="row card-rate">
+															<span class="rating_count_3">{{ product.rating['3_ratings'].count }}</span>
+															<span class="icon-star1"></span>
+															<span class="icon-star1"></span>
+															<span class="icon-star1"></span>
+															<span class="icon-star1 deactive"></span>
+															<span class="icon-star1 deactive"></span>
+															&nbsp;  &nbsp;
+															<span>{{ locals.reviews_rating_3 }}</span>
+														</div>
+														<div class="row card-rate">
+															<span class="rating_count_2">{{ product.rating['2_ratings'].count }}</span>
+															<span class="icon-star1"></span>
+															<span class="icon-star1"></span>
+															<span class="icon-star1 deactive"></span>
+															<span class="icon-star1 deactive"></span>
+															<span class="icon-star1 deactive"></span>
+															&nbsp;  &nbsp;
+															<span>{{ locals.reviews_rating_2 }}</span>
+														</div>
+														<div class="row card-rate">
+															<span class="rating_count_1">{{ product.rating['1_ratings'].count }}</span>
+															<span class="icon-star1"></span>
+															<span class="icon-star1 deactive"></span>
+															<span class="icon-star1 deactive"></span>
+															<span class="icon-star1 deactive"></span>
+															<span class="icon-star1 deactive"></span>
+															&nbsp;  &nbsp;
+															<span>{{ locals.reviews_rating_1 }}</span>
+														</div>
+													</div>
+												{% endif %}
+											</div>
+										</div>
+									</div>
+									<div class="reviews-break-down-empty description-paragrah d-none">
+										<div style="border: 1px solid #ccc; margin: 10px 0px; padding: 10px; border-radius: 3px">
+											<span>{{ locals.product_no_reviews }}</span>
+										</div>
+									</div>
+
+									<div class="comment-section description-paragrah bg-transparent">
+										{% set limited_reviews = product.reviews.data|slice(0, 5) %} {# عرض أول 5 تقييمات فقط #}
+
+										{% include 'customer-reviews.twig' with {'reviews' : limited_reviews } %}
+
+										{% if product.reviews.data|length > 5 %} {# لو في تقييمات أكتر من 5، أظهر زر "عرض كل التقييمات" #}
+											<div class="text-right">
+												<a href="/products/{{ product.id }}/reviews" type="button" class="btn all-reviews-btn">
+													{{ locals.go_all_reviews }}
+												</a>
+											</div>
+										{% endif %}
+									</div>
+
+
+								</div>
+							</section>
+							
+
+							<!-- Modal -->
+							
+						</div>
+					{% endif %}
+					{% if store.is_product_question_and_answer_enabled %}
+						<div class="tab-pane fade" id="pills-question" role="tabpanel" aria-labelledby="pills-question-tab">
+							<section class="mt-3 review-details">
+								<div>
+									<div class="d-flex flex-wrap align-items-center" style="width: 100%">
+
+										{% if product.questions is not empty %}
+											<button type="button" class="btn btn-primary add-review-btn" id="addQuestionButton">
+												<span class="icon-add_circle"></span>
+												{{ locals.add_product_question}}
+											</button>
+										{% endif %}
 									</div>
 								</div>
-							{% endif %}
-
-							&nbsp;
-							<!-- Button trigger modal -->
-							<a href="/products/{{ product.slug}}/reviews/add" class="btn btn-primary add-review-btn" id="add-review-btn">
-								<span class="icon-add_circle"></span>
-								{{ locals.add_product_review}}
-							</a>
+								{% include 'product-questions.twig' with {'questions' : product.questions} %}
+								{% include 'product-question-add.twig' with {'product' : product} %}
+							</section>
 						</div>
-						<div class="reviews-break-down-div description-paragrah">
-							<div class="d-flex align-items-center mt-3 mb-4">
-								{% if product.rating %}
-									<h4 class="rating-average">{{ product.rating.average }}</h4>
-									<div class="d-flex flex-column">
-
-
-										<div class="row card-rate">
-											<span class="rating_count_5">{{ product.rating['5_ratings'].count }}</span>
-											<span class="icon-star1"></span>
-											<span class="icon-star1"></span>
-											<span class="icon-star1"></span>
-											<span class="icon-star1"></span>
-											<span class="icon-star1"></span>
-											&nbsp;  &nbsp;
-											<span>{{ locals.reviews_rating_5 }}</span>
-										</div>
-										<div class="row card-rate">
-											<span class="rating_count_4">{{ product.rating['4_ratings'].count }}</span>
-											<span class="icon-star1"></span>
-											<span class="icon-star1"></span>
-											<span class="icon-star1"></span>
-											<span class="icon-star1"></span>
-											<span class="icon-star1 deactive"></span>
-											&nbsp;  &nbsp;
-											<span>{{ locals.reviews_rating_4 }}</span>
-										</div>
-										<div class="row card-rate">
-											<span class="rating_count_3">{{ product.rating['3_ratings'].count }}</span>
-											<span class="icon-star1"></span>
-											<span class="icon-star1"></span>
-											<span class="icon-star1"></span>
-											<span class="icon-star1 deactive"></span>
-											<span class="icon-star1 deactive"></span>
-											&nbsp;  &nbsp;
-											<span>{{ locals.reviews_rating_3 }}</span>
-										</div>
-										<div class="row card-rate">
-											<span class="rating_count_2">{{ product.rating['2_ratings'].count }}</span>
-											<span class="icon-star1"></span>
-											<span class="icon-star1"></span>
-											<span class="icon-star1 deactive"></span>
-											<span class="icon-star1 deactive"></span>
-											<span class="icon-star1 deactive"></span>
-											&nbsp;  &nbsp;
-											<span>{{ locals.reviews_rating_2 }}</span>
-										</div>
-										<div class="row card-rate">
-											<span class="rating_count_1">{{ product.rating['1_ratings'].count }}</span>
-											<span class="icon-star1"></span>
-											<span class="icon-star1 deactive"></span>
-											<span class="icon-star1 deactive"></span>
-											<span class="icon-star1 deactive"></span>
-											<span class="icon-star1 deactive"></span>
-											&nbsp;  &nbsp;
-											<span>{{ locals.reviews_rating_1 }}</span>
-										</div>
-									</div>
-								{% endif %}
-							</div>
-						</div>
-						<div class="reviews-break-down-empty description-paragrah d-none">
-							<div style="border: 1px solid #ccc; margin: 10px 0px; padding: 10px; border-radius: 3px">
-								<span>{{ locals.product_no_reviews }}</span>
-							</div>
-						</div>
-
-						<div class="comment-section description-paragrah bg-transparent">
-							{% include 'customer-reviews.twig' with {'reviews' : product.reviews.data } %}
-
-							{% if product.reviews.next_page > 1 %}
-								<div class="text-right">
-									<a href="/products/{{ product.id }}/reviews" type="button" class="btn all-reviews-btn">
-										{{ locals.go_all_reviews }}
-									</a>
-								</div>
-							{% endif %}
-						</div>
-
-					</div>
-				</section>
-			{% endif %}
-			{% if store.is_product_question_and_answer_enabled %}
-				<section class="mt-5 review-details">
-					<div>
-						<div class="d-flex flex-wrap align-items-center" style="width: 100%">
-							<div class="description-icon">
-								<span class="icon-reviews_black"></span>
-							</div>
-							<div class="description-title">
-								{{ locals.product_questions }}
-							</div>
-							{% if product.questions is not empty %}
-								<button type="button" class="btn btn-primary add-review-btn" id="addQuestionButton">
-									<span class="icon-add_circle"></span>
-									{{ locals.add_product_question}}
-								</button>
-							{% endif %}
-						</div>
-					</div>
-					{% include 'product-questions.twig' with {'questions' : product.questions} %}
-					{% include 'product-question-add.twig' with {'product' : product} %}
-				</section>
-			{% endif %}
+					{% endif %}
+				</div>
+			</div>
+			{# end nav & tap #}
 
 			{% if (product.related_products | length) >  0 %}
 				<section class="mt-5 mb-5">
@@ -594,7 +654,7 @@
 							<div class="">{{ locals.similar_products_title }}</div>
 						</div>
 					</div>
-					<div class="description-paragrah">
+					<div class="description-paragrah mt-5">
 						<div class="">
 							<div class="products-slider-wrapper" style="position: relative">
 
@@ -613,8 +673,8 @@
 
 				<script>
 					document.addEventListener("DOMContentLoaded", function () {
-showRelatedProducts();
-});
+						showRelatedProducts();
+						});
 				</script>
 			{% endif %}
 
@@ -661,369 +721,260 @@ showRelatedProducts();
 	{{ product_view_scripts|raw }}
 
 	<script>
-		var productImages = {{ product.selected_product.images | json_encode() | raw }};
-var customerWishlistIds = {{ customer.wishlist | json_encode() | raw }};
-
-function productAddToCart() {
-if (!$('.add-to-cart-progress').hasClass('d-none')) 
-return;
-
-
-$('.add-to-cart-progress').removeClass('d-none');
-
-zid.store.cart.addProduct({formId: 'product-form'}).then(function (response) {
-if (response.status === 'success') {
-
-if (response.data) 
-setCartTotalAndBadge(response.data.cart);
-
-
-$('.added-notification').addClass("show");
-setTimeout(function () {
-$('.added-notification').removeClass("show");
-}, 5000);
-
-var image = $('#product-images-slick .slick-slide.slick-active img');
-var cart = $('.a-shopping-cart');
-
-if (image.length && cart.length) {
-addToCartAnimation(cart, image);
-}
-
-} else {
-toastr.error(response.data.message, '{{ locals.sorry }}')
-}
-$('.add-to-cart-progress').addClass('d-none');
-})
-}
-
-function productOptionsChanged(selected_product) {
-if (selected_product) {
-$('#product-id').val(selected_product.id)
-$('.send-notify-product-id').val(selected_product.id)
-
-if (! selected_product.unavailable) { // Selected a valid variant that is available.
-if (selected_product.formatted_sale_price) {
-$('.product-formatted-price').html(selected_product.formatted_sale_price)
-$('.product-formatted-price-old').html(selected_product.formatted_price)
-$('.product-formatted-price-discount').html('{{ locals.product_discount }}' + ' ' + selected_product.discount_percentage + '%')
-
-} else {
-$('.product-formatted-price').html(selected_product.formatted_price)
-$('.product-formatted-price-old').html('')
-$('.product-formatted-price-discount').html('')
-}
-
-if (selected_product.weight.value) {
-$('.div-product-weight').removeClass('d-none');
-$('.div-product-weight .product-weight').html(selected_product.weight.value + ' ' + selected_product.weight.unit)
-} else {
-$('.div-product-weight').addClass('d-none')
-}
-
-if (selected_product.sku) {
-$('.div-product-sku').removeClass('d-none');
-$('.div-product-sku .product-sku').html(selected_product.sku)
-} else {
-$('.div-product-sku').addClass('d-none');
-}
-
-
-{% if store.is_low_stock_label_enabled %}
-var store_low_stock_limit = {{ store.low_stock_quantity_limit }};
-var low_stock_message = '{{ locals.product_cart_quantity_low_stock }}';
-
-if (! selected_product.is_infinite && selected_product.quantity<store_low_stock_limit){
-                        $('.low-quantity-section').addClass('d-inline-block');
-                        $('.low-quantity-section .low-quantity').html(low_stock_message.replace('%s', selected_product.quantity))
-                    }else{
-                        $('.low-quantity-section').addClass('none');
-                    }
-                    {% endif %}
-
-                    var sold_product_count_message = '{{ locals.product_sold_more_than_x_times }}';
-                    if (selected_product.sold_products_count) {
-                        $('.product-count').removeClass('d-none');
-                        $('.product-count .lang').html(sold_product_count_message.replace('%s', selected_product.sold_products_count))
-                    } else {
-                        $('.product-count').removeClass('d-flex');
-                        $('.product-count').addClass('d-none');
-                    }
-                    var selectQuantity = ''
-
-                    if(selected_product.is_infinite)
-                        selected_product.quantity = 100;
-
-                    if(selected_product.quantity> 0) {
-$('.select-quantity-div').removeClass('d-none')
-var quantityMax = (selected_product.quantity > 100) ? 100 : selected_product.quantity;
-selectQuantity = '<option value="1"selected>1</option>'
-for (var i = 2; i <= quantityMax; i++) {
-selectQuantity += '<option value="' + i + '">' + i + '</option>';
-}
-} else {
-$('.select-quantity-div').addClass('d-none')
-}
-
-$('.select-quantity').html(selectQuantity);
-
-$('.product-buttons').removeClass('d-none');
-$('.section-out-of-stock-notify-me').addClass('d-none');
-
-$('.btn-add-to-cart span').html('{{ locals.add_to_cart }}');
-
-updateProductImages(selected_product);
-} else { // Variant is sold out.
-if (selected_product.formatted_sale_price) {
-$('.product-formatted-price').html(selected_product.formatted_sale_price)
-$('.product-formatted-price-old').html(selected_product.formatted_price)
-$('.product-formatted-price-discount').html('{{ locals.product_discount }}' + ' ' + selected_product.discount_percentage + '%')
-
-} else {
-$('.product-formatted-price').html(selected_product.formatted_price)
-$('.product-formatted-price-old').html('')
-$('.product-formatted-price-discount').html('')
-}
-$('.select-quantity-div').addClass('d-none')
-$('.product-buttons').addClass('d-none');
-$('.section-out-of-stock-notify-me').removeClass('d-none');
-
-$('.btn-add-to-cart span').html('{{ locals.error_item_unavailable }}');
-
-if (selected_product.sku) {
-$('.div-product-sku').removeClass('d-none');
-$('.div-product-sku .product-sku').html(selected_product.sku)
-} else {
-$('.div-product-sku').addClass('d-none');
-} updateProductImages(selected_product);
-}
-
-} else { // variant doesn't exist.
-$('.select-quantity-div').addClass('d-none')
-$('.product-buttons').addClass('d-none');
-$('.section-out-of-stock-notify-me').removeClass('d-none');
-
-$('.btn-add-to-cart span').html('{{ locals.error_item_unavailable }}');
-
-updateProductImages(selected_product);
-}
-}
-
-function updateProductImages(selected_product) {
-if (selected_product && selected_product.images && selected_product.images.length > 0) {
-$('.product-images-carousel').removeClass('d-none');
-$('.product-images-carousel-thumbs').removeClass('d-none-important');
-$('.product-images-empty').addClass('d-none');
-$('#product-images-slick').slick('unslick');
-$('.product-images-carousel').addClass('product-images-carousel-init');
-
-productImages = selected_product.images;
-
-$('#product-images-slick').html('');
-$('.product-images-carousel-thumbs').html('');
-
-for (var z = 0; z < productImages.length; z++) {
-var prImage = productImages[z];
-$('#product-images-slick').append('' + '<div>\n' + '                                                                    <div class="box-1-1">\n' + '                                                                        <div class="content">\n' + '                                                                            <a class="image-link"\n' + '                                                                               style="display:block; width: 100%; height: 100%;">\n' + '                                                                                <img src="' + prImage.image.full_size + '" class="carousel-img" alt="' + selected_product.name + '">\n' + '                                                                            </a>\n' + '                                                                        </div>\n' + '                                                                    </div>\n' + '                                                                </div>');
-
-
-$('.product-images-carousel-thumbs').append('<div class="col-3">\n' + '                                                         <div class="box-1-1">\n' + '                                                                <div class="content">\n' + '                                                                    <a class="d-flex align-items-center justify-content-center thumb-image-a" data-index=" {{ key }}"\n' + '                                                                       style="width: 100%; height: 100%;" >\n' + '                                                                        <img src="' + prImage.image.medium + '" data-index="' + z + '">\n' + '                                                                    </a>\n' + '                                                                </div>\n' + '                                                            </div>\n' + '                                                        </div>');
-
-}
-
-initSlick(productImages);
-
-} else {
-$('.product-images-carousel').addClass('d-none');
-$('.product-images-carousel-thumbs').addClass('d-none-important');
-$('.product-images-empty').removeClass('d-none');
-}
-}
-
-function sendProductNotifyMe() {
-if (!$('.send-notify-progress').hasClass('d-none')) 
-return;
-
-
-$('.send-notify-progress').removeClass('d-none');
-const countryCode = '+' + (
-$('.send-notify-country-key').val() || '966'
-);
-zid.store.product.setAvailabilityNotificationEmail($('.send-notify-product-id').val(), $('.send-notify-email').val(), $('.send-notify-name').val(), countryCode + $('.send-notify-phone').val(),).then(function (response) {
-if (response.status === 'success') {
-toastr.success('{{ locals.sent_successfully }}', null)
-} else {
-if (response && response.data && response.data.message) {
-toastr.error(JSON.stringify(response.data.message), '{{ locals.sorry }}')
-} else {
-toastr.error('{{ locals.notify_me_failed }}', '{{ locals.sorry }}')
-}
-}
-$('.send-notify-progress').addClass('d-none');
-})
-}
-
-
-$('#product-description-a ').click(function () {
-event.preventDefault();
-
-$('html, body').animate({
-scrollTop: $($.attr(this, 'href')).offset().top -(
-(window.matchMedia('(max-width: 768px)').matches) ? 15 : 150
-)
-}, 500);
-
-});
-
-function addReviewButtonChecks() {
-if (!customer) {
-$('#add-review-btn').css('display', 'none');
-$('#add-review-link').removeClass('d-none');
-$('#add-review-link').attr('href', `/auth/login?redirect_to=${
-window.location.pathname.replace('/', '')
-}`);
-}
-}
-
-$(document).ready(function () {
-initSlick(productImages);
-if (customerWishlistIds) {
-fillWishlistItems(customerWishlistIds.map(id => ({id})));
-}
-});
-
-$(document).on('click', '.thumb-image-a', function (event) {
-var tarr = event.target;
-
-if ($('#product-images-slick')) {
-$('#product-images-slick').slick('slickGoTo', $(tarr).attr('data-index'), true);
-}
-});
-
-
-$(document).on('click', '#product-images-slick .image-link', function (event) {
-$('.pswp').removeClass('d-hide');
-$('.app').addClass('d-hide');
-
-openPhotoSwiper(productImages.map(function (image) {
-return image.image.full_size
-}), $('#product-images-slick .slick-active').attr('data-slick-index'));
-
-});
-
-$(document).on('click', '.variant-image-wrapper a', function (event) {
-$('.pswp').removeClass('d-hide');
-$('.app').addClass('d-hide');
-var elm = event.currentTarget;
-var varId = $(elm).attr('data-link-var-id');
-
-var images = [];
-
-$("div[data-var-id='" + varId + "']  img").each(function (iElm) {
-images.push($(this).attr('data-image-url'))
-});
-
-openPhotoSwiper(images, $(elm).attr('data-index'));
-});
-
-
-var initSlick = function (productImages) {
-var arrowNextClass = (window.appDirection === 'ltr') ? 'icon-keyboard_arrow_right' : 'icon-keyboard_arrow_left';
-var arrowPrevClass = (window.appDirection === 'ltr') ? 'icon-keyboard_arrow_left' : 'icon-keyboard_arrow_right';
-
-$('#product-images-slick').slick({
-infinite: false,
-autoplay: false,
-arrows: (productImages.length > 1),
-dots: (productImages.length > 1),
-rtl: !(window.appDirection === 'ltr'),
-nextArrow: '<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><span class="' + arrowNextClass + '"></span></button>',
-prevArrow: '<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><span class="' + arrowPrevClass + '"></span></button>'
-});
-}
-
-$('#product-images-slick').on('init', function (event, slick) {
-$('.product-images-carousel').removeClass('product-images-carousel-init');
-});
-
-var openPhotoSwipe = function (productImages, index) {
-var pswpElement = document.querySelectorAll('.pswp')[0];
-
-// build items array
-var items = productImages.map(function (image) {
-return {src: image, w: 1200, h: 900}
-})
-
-var options = {
-history: false,
-focus: false,
-
-showAnimationDuration: 0,
-hideAnimationDuration: 0,
-index: parseInt('' + index)
-
-};
-
-var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
-
-gallery.listen('close', function () {
-$('.pswp').addClass('d-hide');
-$('.app').removeClass('d-hide');
-});
-
-gallery.init();
-};
-
-var showRelatedProducts = function () {
-var arrowNextClass = (window.appDirection === 'ltr') ? 'icon-keyboard_arrow_right' : 'icon-keyboard_arrow_left';
-var arrowPrevClass = (window.appDirection === 'ltr') ? 'icon-keyboard_arrow_left' : 'icon-keyboard_arrow_right';
-
-var screenWidth = window.screen.width;
-
-var editingMode = {% if store.editing_mode %}
-true
-{% else %}
-false{% endif %};
-
-if (screenWidth >= 768 || editingMode) {
-$('#related-products.products-slider').slick({
-slidesToShow: 5,
-slidesToScroll: 5,
-infinite: false,
-autoplay: false,
-arrows: true,
-dots: false,
-rtl: !(window.appDirection === 'ltr'),
-nextArrow: '<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><span class="' + arrowNextClass + '"></span></button>',
-prevArrow: '<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><span class="' + arrowPrevClass + '"></span></button>',
-responsive: [
-{
-breakpoint: 992,
-settings: {
-slidesToShow: 5,
-slidesToScroll: 5
-}
-}, {
-breakpoint: 768,
-settings: "unslick"
-}
-]
-});
-}
-}
-
-
-document.addEventListener('zid-customer-fetched', function (event) {
-var customer = event.detail.customer;
-if (customer) {
-$('.send-notify-name').val(customer.name)
-$('.send-notify-email').val(customer.email)
-$('.send-notify-country-key').val(customer.mobile.substring(0, 3));
-$('.send-notify-phone').val(customer.mobile.substring(3));
-}
-});
+	 var productImages = {{  product.selected_product.images | json_encode() | raw }};
+	function productAddToCart() {
+		if (!$('.add-to-cart-progress').hasClass('d-none')) return;
+		
+		$('.add-to-cart-progress').removeClass('d-none');
+		
+		zid.store.cart.addProduct({ formId: 'product-form' }).then(function (response) {
+			if (response.status === 'success') {
+				if (response.data) setCartTotalAndBadge(response.data.cart);
+				
+				$('.added-notification').addClass("show");
+				setTimeout(function () {
+					$('.added-notification').removeClass("show");
+				}, 5000);
+				
+				var image = $('#product-images-slick .slick-slide.slick-active img');
+				var cart = $('.a-shopping-cart');
+				
+				if (image.length && cart.length) {
+					addToCartAnimation(cart, image);
+				}
+			} else {
+				toastr.error(response.data.message, '{{ locals.sorry }}');
+			}
+			
+			$('.add-to-cart-progress').addClass('d-none');
+		});
+	}
+
+	function productOptionsChanged(selected_product) {
+		if (selected_product) {
+			$('#product-id').val(selected_product.id);
+			$('.send-notify-product-id').val(selected_product.id);
+			
+			if (!selected_product.unavailable) {
+				updateProductDetails(selected_product);
+				updateProductImages(selected_product);
+			} else {
+				handleOutOfStock(selected_product);
+			}
+		} else {
+			handleOutOfStock(selected_product);
+		}
+	}
+
+	function updateProductDetails(selected_product) {
+		if (selected_product.formatted_sale_price) {
+			$('.product-formatted-price').html(selected_product.formatted_sale_price);
+			$('.product-formatted-price-old').html(selected_product.formatted_price);
+			$('.product-formatted-price-discount').html('{{ locals.product_discount }} ' + selected_product.discount_percentage + '%');
+		} else {
+			$('.product-formatted-price').html(selected_product.formatted_price);
+			$('.product-formatted-price-old').html('');
+			$('.product-formatted-price-discount').html('');
+		}
+		
+		updateProductWeight(selected_product);
+		updateProductSku(selected_product);
+		updateLowStockLabel(selected_product);
+		updateSoldProductCount(selected_product);
+		updateQuantitySelection(selected_product);
+		
+		$('.product-buttons').removeClass('d-none');
+		$('.section-out-of-stock-notify-me').addClass('d-none');
+		$('.btn-add-to-cart span').html('{{ locals.add_to_cart }}');
+	}
+
+	function handleOutOfStock(selected_product) {
+		$('.select-quantity-div').addClass('d-none');
+		$('.product-buttons').addClass('d-none');
+		$('.section-out-of-stock-notify-me').removeClass('d-none');
+		$('.btn-add-to-cart span').html('{{ locals.error_item_unavailable }}');
+		updateProductSku(selected_product);
+		updateProductImages(selected_product);
+	}
+	function handleVariantNotExist() {
+				$('.select-quantity-div, .product-buttons').addClass('d-none');
+				$('.section-out-of-stock-notify-me').removeClass('d-none');
+				$('.btn-add-to-cart span').html('{{ locals.error_item_unavailable }}');
+				updateProductImages(null);
+	}
+	function updateProductMetadata(selected_product) {
+				$('.div-product-weight').toggleClass('d-none', !selected_product.weight.value);
+				$('.product-weight').html(`${selected_product.weight.value} ${selected_product.weight.unit}`);
+
+				$('.div-product-sku').toggleClass('d-none', !selected_product.sku);
+				$('.product-sku').html(selected_product.sku);
+	}
+	function updateProductWeight(selected_product) {
+		if (selected_product.weight.value) {
+			$('.div-product-weight').removeClass('d-none');
+			$('.div-product-weight .product-weight').html(selected_product.weight.value + ' ' + selected_product.weight.unit);
+		} else {
+			$('.div-product-weight').addClass('d-none');
+		}
+	}
+
+	function updateProductSku(selected_product) {
+		if (selected_product.sku) {
+			$('.div-product-sku').removeClass('d-none');
+			$('.div-product-sku .product-sku').html(selected_product.sku);
+		} else {
+			$('.div-product-sku').addClass('d-none');
+		}
+	}
+
+	function updateLowStockLabel(selected_product) {
+		{% if store.is_low_stock_label_enabled %}
+			var store_low_stock_limit = {{ store.low_stock_quantity_limit }};
+			var low_stock_message = '{{ locals.product_cart_quantity_low_stock }}';
+			
+			if (!selected_product.is_infinite && selected_product.quantity < store_low_stock_limit) {
+				$('.low-quantity-section').addClass('d-inline-block');
+				$('.low-quantity-section .low-quantity').html(low_stock_message.replace('%s', selected_product.quantity));
+			} else {
+				$('.low-quantity-section').addClass('none');
+			}
+		{% endif %}
+	}
+
+	function updateSoldProductCount(selected_product) {
+		var sold_product_count_message = '{{ locals.product_sold_more_than_x_times }}';
+		if (selected_product.sold_products_count) {
+			$('.product-count').removeClass('d-none');
+			$('.product-count .lang').html(sold_product_count_message.replace('%s', selected_product.sold_products_count));
+		} else {
+			$('.product-count').addClass('d-none');
+		}
+	}
+
+	function updateQuantitySelection(selected_product) {
+		var selectQuantity = '';
+		var quantityMax = (selected_product.quantity > 100) ? 100 : selected_product.quantity;
+		
+		if (selected_product.quantity > 0) {
+			$('.select-quantity-div').removeClass('d-none');
+			selectQuantity = '<option value="1" selected>1</option>';
+			
+			for (var i = 2; i <= quantityMax; i++) {
+				selectQuantity += '<option value="' + i + '">' + i + '</option>';
+			}
+		} else {
+			$('.select-quantity-div').addClass('d-none');
+		}
+		
+		$('.select-quantity').html(selectQuantity);
+	}
+
+	function updateProductImages(selected_product) {
+		if (selected_product && selected_product.images && selected_product.images.length > 0) {
+			$('.product-images-carousel').removeClass('d-none');
+			$('.product-images-carousel-thumbs').removeClass('d-none-important');
+			$('.product-images-empty').addClass('d-none');
+			
+			$('#product-images-slick').slick('unslick').html('');
+			$('.product-images-carousel-thumbs').html('');
+			
+			selected_product.images.forEach((prImage, index) => {
+				$('#product-images-slick').append(`
+					<div>
+						<div class="box-1-1">
+							<div class="content">
+								<a class="image-link" style="display:block; width: 100%; height: 100%;">
+									<img src="${prImage.image.full_size}" class="carousel-img" alt="${selected_product.name}">
+								</a>
+							</div>
+						</div>
+					</div>
+				`);
+				
+				$('.product-images-carousel-thumbs').append(`
+					<div class="col-3">
+						<div class="box-1-1">
+							<div class="content">
+								<a class="d-flex align-items-center justify-content-center thumb-image-a" data-index="${index}" style="width: 100%; height: 100%;">
+									<img src="${prImage.image.medium}" data-index="${index}">
+								</a>
+							</div>
+						</div>
+					</div>
+				`);
+			});
+			
+			initSlick(selected_product.images);
+		} else {
+			$('.product-images-carousel, .product-images-carousel-thumbs').addClass('d-none');
+			$('.product-images-empty').removeClass('d-none');
+		}
+	}
+	function updateProductQuantity(selected_product) {
+				let quantityMax = selected_product.is_infinite ? 100 : Math.min(selected_product.quantity, 100);
+				let options = '';
+
+				for (let i = 1; i <= quantityMax; i++) {
+					options += `<option value="${i}" ${i === 1 ? 'selected' : ''}>${i}</option>`;
+				}
+
+				$('.select-quantity').html(options);
+				$('.select-quantity-div').toggleClass('d-none', selected_product.quantity <= 0);
+			}
+
+			function updateProductImages(selected_product) {
+				if (selected_product && selected_product.images.length > 0) {
+					$('.product-images-carousel, .product-images-carousel-thumbs').removeClass('d-none');
+					$('#product-images-slick').slick('unslick').html('');
+					$('.product-images-carousel-thumbs').html('');
+
+					selected_product.images.forEach((img, index) => {
+						$('#product-images-slick').append(`
+							<a class="image-link" style="display:block; width: 100%; height: 100%;">
+								<img loading="lazy" src="${img.image.full_size}" class="carousel-img" alt="${selected_product.name}">
+							</a>
+						`);
+
+						$('.product-images-carousel-thumbs').append(`
+							<a class="d-flex align-items-center justify-content-center thumb-image-a" data-index="${index}" style="width: 100%; height: 100%;">
+								<img loading="lazy" src="${img.image.medium}" data-index="${index}">
+							</a>
+						`);
+					});
+
+					initSlick(selected_product.images);
+				} else {
+					$('.product-images-carousel, .product-images-carousel-thumbs').addClass('d-none');
+				}
+			}
+
+			function initSlick(productImages) {
+				$('#product-images-slick').slick({
+					infinite: false,
+					draggable: false,
+					autoplay: false,
+					arrows: productImages.length > 1,
+					dots: false,
+					rtl: !(window.appDirection === 'ltr'),
+					nextArrow: `<button class="slick-next slick-arrow" aria-label="Next"><span class="icon-keyboard_arrow_right"></span></button>`,
+					prevArrow: `<button class="slick-prev slick-arrow" aria-label="Previous"><span class="icon-keyboard_arrow_left"></span></button>`,
+					responsive: [{
+						breakpoint: 768,
+						settings: { slidesToShow: 1, slidesToScroll: 1, draggable: true, autoplay: true, speed: 4000 }
+					}]
+				});
+			}
+
+			$(document).ready(function () {
+				initSlick(productImages);
+				$('.thumb-image-a').click(function () {
+					$('.thumb-image-a').removeClass('active');
+					$(this).addClass('active');
+					$('#product-images-slick').slick('slickGoTo', $(this).data('index'), true);
+				});
+			});
 
 </script>
 
 		{% endblock %}
-	{% endblock %}
+	
