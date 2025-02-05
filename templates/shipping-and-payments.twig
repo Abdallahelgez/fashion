@@ -10,25 +10,23 @@
 
 {% block main_content %}
 
-    <div class="container-parent">
-        <div class="profile-pages-bg d-none d-lg-flex flex-grow-1">
-            <div class="section-colored"></div>
-        </div>
+    <div class="container-parent mt-lg-0 mt-3">
+       
 
-        <div class="container">
+        <div class="container-sec">
             {% include 'shipping-payment-tabs-mobile.twig' %}
-            <div class="d-flex">
+            <div class="d-flex gap-10">
                 {% include 'shipping-payment-vertical-menu.twig' %}
                 <div class="flex-grow-1">
                     <div class="profile-title d-none d-lg-block theme-text-primary" style="background: #D9D9D9;">
-                        <div class="container py-4 page-breadcurmb">{{ locals.shipping_option }}</div>
+                        <div class="">{{ locals.shipping_option }}</div>
                     </div>
                     <div class="account-content account-content-lg">
                         <div class="tab-content " id="v-pills-tabContent">
 
                             <!-- tab 1 -->
                             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                                <div class="mt-5 mb-5 tab-content-shipping">
+                                <div class=" tab-content-shipping">
 
                                     <div class="card-table d-none d-lg-block">
                                         <div class="card">
@@ -172,7 +170,7 @@
 
                             <!-- tab 2 -->
                             <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                                <div class="mt-5 mb-5">
+                                <div class="">
                                     <div class="d-flex flex-wrap">
                                         {% for payment_method in store_payment_methods %}
                                             {% if payment_method.icon %}
@@ -191,7 +189,7 @@
                             <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
 
                                 {% for store_bank in store_banks %}
-                                    <div class="mt-5 mb-5">
+                                    <div class="">
                                         <div class="shipping-payment-card">
                                                 <div class="card-body-shipping">
                                                     <h5 class="card-title-shipping mb-2">{{ store_bank.bank.name }}</h5>
@@ -200,10 +198,15 @@
                                                             <img src="{{ store_bank.bank.logo }}" style="width: 100%; height: auto">
                                                         </div>
                                                         <div class="card-account-details">
+                                                            
+                                                            {% if store_bank.beneficiary_name %}
                                                             <div class="d-flex shipping-text">
                                                                 <p>{{ locals.shipping_payments_th_banks_account_owner }}</p>
                                                                 <span class="d-block"> <span class="d-inline-block">{{ store_bank.beneficiary_name }}</span></span>
                                                             </div>
+                                                            {% endif %}
+                                                            
+                                                            {% if store_bank.iban %}
                                                             <div class="d-flex shipping-text">
                                                                 <p>{{ locals.shipping_payments_th_banks_account_iban }}</p>
                                                                 <span class="d-block">
@@ -211,6 +214,9 @@
                                                                 <span class="icon-content_copy d-inline-block"></span>
                                                             </span>
                                                             </div>
+                                                            {% endif %}
+                                                            
+                                                            {% if store_bank.account_number %}
                                                             <div class="d-flex shipping-text">
                                                                 <p>{{ locals.shipping_payments_th_banks_account_number }}</p>
                                                                 <span class="d-block">
@@ -218,6 +224,7 @@
                                                                 <span class="icon-content_copy d-inline-block"></span>
                                                             </span>
                                                             </div>
+                                                            {% endif %}
                                                         </div>
                                                     </div>
                                                 </div>

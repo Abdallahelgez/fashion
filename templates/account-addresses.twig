@@ -9,21 +9,19 @@
 {% endblock %}
 
 {% block main_content %}
-    <div class="container-parent">
-        <div class="profile-pages-bg d-none d-lg-flex flex-grow-1">
-            <div class="section-colored"></div>
-        </div>
+    <div class="container-parent mt-lg-0 mt-3">
+        
 
-        <div class="container">
+        <div class="container-sec">
             {% include 'profile-section-dropdown.twig' with { 'title' : locals.profile.addresses , 'section' : 'addresses' } %}
-            <div class="d-flex">
+            <div class="d-flex gap-10">
                 {% include 'profile-section.twig' with { 'section' : 'addresses' } %}
                 <div class="flex-grow-1">
                     {% include 'profile-title.twig' with { 'title' : locals.profile.addresses } %}
                     <div class="account-content">
                         <div>
                             <a href="/account-addresses/add" class="btn aaddress-personal-btn"> {{ locals.add_new_address }} <span class="icon-add_black"></span></a>
-                            <div class="row mt-3 mb-5">
+                            <div class="row ">
                                 {% for address in addresses %}
                                     <div id="address-div-{{ address.id }}" class="col-lg-6">
                                         <div>

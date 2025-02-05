@@ -16,14 +16,12 @@
 
 
 {% block main_content %}
-    <div class="container-parent">
-        <div class="profile-pages-bg d-none d-lg-flex flex-grow-1">
-            <div class="section-colored"></div>
-        </div>
+    <div class="container-parent mt-lg-0 mt-3">
+        
 
-        <div class="container">
+        <div class="container-sec">
             {% include 'profile-section-dropdown.twig' with { 'title' : locals.profile.wishlist , 'section' : 'wishlist' } %}
-            <div class="d-flex">
+            <div class="d-flex gap-10">
                 {% include 'profile-section.twig' with { 'section' : 'wishlist' } %}
                 <div class="flex-grow-1">
                     {% include 'profile-title.twig' with { 'title' : locals.profile.wishlist , 'section' : 'wishlist' } %}
@@ -31,7 +29,7 @@
                         <div>
                             <div id="wishlist-list" class="row">
                                 {% for product in wishlist.data %}
-                                    <div class="col-6 col-lg-4 py-3">
+                                    <div class="col-md-4 col-sm-6  py-3">
                                         {% include 'product-card.twig' with {'product' : product, 'index': key} %}
                                     </div>
                                 {% endfor %}

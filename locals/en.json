@@ -2,6 +2,7 @@
     "home_title": "Home",
     "products": "Products",
     "categories": "Categories",
+    "ِAll_products":"All products",
     "login": "Login",
     "logout": "Logout",
     "hello": "Hello",
@@ -232,5 +233,17 @@
     "product_question_empty": "There is no questions,",
     "product_question_empty_note": "you can ask for this product",
     "product_questions_view_all": "View all questions",
-    "common_requried_email_input_error": "Email is incorrect"
+    "common_requried_email_input_error": "Email is incorrect",
+    "unit_is_kg":"kg",
+    "unit_is_g":"g",
+    "unit_is_lb":"lb",
+    "select_options":"select option",
+    "sub_categories":"subcategories",
+    "products_count":"products count",
+    "list_fill":"List",
+    "grid_fill":"Gallery",
+    "product_details":"show details",
+    "empty_description":"No found description!",
+    "payment_method":"payment method",
+    "faqs_title":"Most common questions"
 }

@@ -4,7 +4,11 @@
     <ul class="nav navbar-nav">
         <li class="dropdown">
             <a href="#" style="color: #ffffff" data-toggle="dropdown" class="d-flex flex-grow-1 align-items-center dropdown-toggle">
-                <span class="profile-item-image icon-import_contacts"></span>
+                
+                {% if section == 'profile' %} <span class="profile-item-image icon-badge_black"></span>{% endif %}
+                {% if section == 'addresses' %} <span class="profile-item-image icon-import_contacts"></span> {% endif %}
+                {% if section == 'orders' %} <span class="profile-item-image icon-local_mall"></span> {% endif %}
+                {% if section == 'wishlist' %} <span class="profile-item-image icon-heart-secondary"></span> {% endif %}
                 <h2 class=" m-0 profile-item-title">
                     {{ title }}
                     {% if section == 'wishlist' and wishlist.total > 0 %}<span class="mx-1">({{ wishlist.total }})</span>{% endif %}
@@ -15,7 +19,7 @@
                 {% if section != 'profile' %}
                 <li>
                     <a href="/account-profile" class="d-flex flex-grow-1 align-items-center">
-                        <span class="profile-item-image icon-import_contacts"></span>
+                        <span class="profile-item-image icon-badge_black"></span>
                         <h2 class=" m-0 profile-item-title">
                             {{ locals.profile.personal_info }}
                         </h2>
@@ -37,7 +41,7 @@
                 <li class="divider"></li>
                 <li>
                     <a href="/account-orders" class="d-flex flex-grow-1 align-items-center">
-                        <span class="profile-item-image icon-import_contacts"></span>
+                        <span class="profile-item-image icon-local_mall"></span>
                         <h2 class=" m-0 profile-item-title">
                             {{ locals.profile.orders }}
                         </h2>
@@ -48,7 +52,7 @@
                 <li class="divider"></li>
                 <li>
                     <a href="/account-wishlist" class="d-flex flex-grow-1 align-items-center">
-                        <span class="profile-item-image icon-import_contacts"></span>
+                        <span class="profile-item-image icon-heart-secondary"></span>
                         <h2 class=" m-0 profile-item-title">
                             {{ locals.profile.wishlist }}
                         </h2>

@@ -2,6 +2,7 @@
   "home_title": "الصفحة الرئيسية",
   "products": "المنتجات",
   "categories": "التصنيفات",
+  "All_products": "كل المنتجات",
   "login": "تسجيل الدخول",
   "logout": "تسجيل خروج",
   "hello": "اهلاً",
@@ -233,5 +234,17 @@
   "product_question_empty": "لا يوجد أسئلة سابقة،",
   "product_question_empty_note": "يمكنك إضافة سؤالك لمعرفة المزيد حول المنتج",
   "product_questions_view_all" : "عرض جميع الأسئلة", 
-  "common_requried_email_input_error": "البريد الإلكتروني غير صحيح"
+  "common_requried_email_input_error": "البريد الإلكتروني غير صحيح",
+  "unit_is_kg":"كجم",
+  "unit_is_g":"جرام",
+  "unit_is_lb":"رطل",
+  "select_options":"أختر الخيارات",
+  "sub_categories":"التصنيفات الفرعية",
+  "products_count":"عدد المنتجات",
+  "list_fill":"القائمة",
+  "grid_fill":"المعرض",
+  "product_details":"تفاصيل المنتج",
+  "empty_description":"لا يوجد وصف !",
+  "payment_method":"طريقة الدفع",
+  "faqs_title":"الأسئلة الأكثر شيوعا"
 }
