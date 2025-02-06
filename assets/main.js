@@ -303,6 +303,10 @@ jQuery(document).on('click', '.mega-dropdown', function(e) {
   /*
  product-comment-twig show more show less
  */
+ $('.sm-search-icon').click(function() {
+    $('.sm-search-div').toggleClass('show');
+  })
+  
  $('#show-more-content').hide();
 
  $('#show-more').click(function(){

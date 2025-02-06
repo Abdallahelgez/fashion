@@ -24,7 +24,7 @@
 	</section>
 
 
-	<div class="container-sec d-flex flex-row">
+	<div class="container-fluid d-flex flex-row">
 		{% if  products.filters|length > 0 %}
 			<div class="over-laaay d-block d-lg-none" onclick="closeSideAttr()">
 				{% include 'template_for_products_attributes' with { 'async' : true } %}
@@ -174,28 +174,28 @@
 			        });
 			        {% endif %}
 			        document.addEventListener('DOMContentLoaded', () => {
-			    const filterItems = document.querySelectorAll('.filter-item');
-			    const productsList = document.getElementById('products-list');
-			
-			    filterItems.forEach(item => {
-			        item.addEventListener('click', () => {
-			            // Remove active class from all filter items
-			            filterItems.forEach(i => i.classList.remove('active'));
-			
-			            // Add active class to the clicked item
-			            item.classList.add('active');
-			
-			            // Remove grid-fill and list-fill classes from products list
-			            productsList.classList.remove('grid-fill', 'list-fill');
-			
-			            // Add the appropriate class based on the clicked item
-			            if (item.classList.contains('grid-fill')) {
-			                productsList.classList.add('grid-fill');
-			            } else if (item.classList.contains('list-fill')) {
-			                productsList.classList.add('list-fill');
-			            }
-			        });
-			    });
+						const filterItems = document.querySelectorAll('.filter-item');
+						const productsList = document.getElementById('products-list');
+					
+						filterItems.forEach(item => {
+							item.addEventListener('click', () => {
+								// Remove active class from all filter items
+								filterItems.forEach(i => i.classList.remove('active'));
+					
+								// Add active class to the clicked item
+								item.classList.add('active');
+					
+								// Remove grid-fill and list-fill classes from products list
+								productsList.classList.remove('grid-fill', 'list-fill');
+					
+								// Add the appropriate class based on the clicked item
+								if (item.classList.contains('grid-fill')) {
+									productsList.classList.add('grid-fill');
+								} else if (item.classList.contains('list-fill')) {
+									productsList.classList.add('list-fill');
+								}
+							});
+						});
 			    });
 	        function openSideAttr() {
 	  document.querySelector(".over-laaay").style.right = "0";
@@ -204,6 +204,9 @@
 	function closeSideAttr() {
 	  document.querySelector(".over-laaay").style.right = "-100%";
 	}
-	
+	if (window.innerWidth < 500) {
+         const productsList = document.getElementById('products-list');
+		  productsList.classList.remove('grid-fill', 'list-fill');
+    }
 			    </script>
 {% endblock %}
