@@ -26,10 +26,12 @@
 
 	<div class="container-fluid d-flex flex-row">
 		{% if  products.filters|length > 0 %}
+		{# filter mobile screen from 768 #}
 			<div class="over-laaay d-block d-lg-none" onclick="closeSideAttr()">
 				{% include 'template_for_products_attributes' with { 'async' : true } %}
 			</div>
 			<div class="d-none d-lg-block ">
+			{# filter web screen to 768 #}
 				{% include 'template_for_products_attributes' with { 'async' : true } %}
 			</div>
 		{% endif %}

@@ -658,7 +658,7 @@
 						<div class="">
 							<div class="products-slider-wrapper" style="position: relative">
 
-								<div id="related-products" class="products-slider s-slider d-block">
+								<div id="related-products" class="products-slider products-sec product-item-parent s-slider d-block">
 									{% for key,rProduct in product.related_products %}
 										<div class="prod-col">
 											{% include 'product-card.twig' with {'product' : rProduct, 'index': key} %}
@@ -672,9 +672,71 @@
 				</section>
 
 				<script>
-					document.addEventListener("DOMContentLoaded", function () {
-						showRelatedProducts();
-						});
+					document.addEventListener("DOMContentLoaded", function(){
+		        var arrowNextClass = (window.appDirection === 'ltr') ? 'bi bi-chevron-right': 'bi bi-chevron-left';
+                var arrowPrevClass = (window.appDirection === 'ltr') ? 'bi bi-chevron-left' : 'bi bi-chevron-right';
+                var autoTrue=true;
+                var autoFalse=false;
+                var speedAuto = {% if settings.autoplay == "true" %}autoTrue{% elseif settings.autoplay == "false" %}autoFalse{% else %}autoTrue{% endif %};
+		        var screenWidth = window.screen.width;
+		
+		        var editingMode = {% if store.editing_mode %}true{% else %}false{% endif %};
+		
+		        if(screenWidth >= 0 || editingMode){
+		            $("#related-products").slick({
+		                slidesToShow: 4,
+		                slidesToScroll: 4,
+		                infinite: false,
+		                autoplay: false,
+		                dots: false,
+		                rtl: !(window.appDirection === 'ltr'),
+		                nextArrow:'<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><i class="'+arrowNextClass+'"></i></button>',
+                prevArrow:'<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><i class="'+arrowPrevClass+'"></i></button>',
+		                responsive: [{
+                        breakpoint: 1400,
+                        settings: {
+                            slidesToShow: 4,
+                            slidesToScroll: 4,
+                            
+                        }
+                    },
+                  {
+                        breakpoint: 1200,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3,
+                            
+                        }
+                    },
+                    {
+                        breakpoint: 992,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 2,
+                            
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 2,
+                            
+                        }
+                    },
+                    {
+                        breakpoint: 500,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            centerMode:true,
+                            
+                        }
+                    }
+                ]
+		            });
+		        }
+		    });
 				</script>
 			{% endif %}
 

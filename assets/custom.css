@@ -1133,7 +1133,9 @@ margin-bottom: 0px;
 #products-list-sort {
   font-size: 15px;
 }
-
+.attribute-body input[type="checkbox"]:checked + .attribute-label{
+  border: 1px solid var(--theme-color);
+}
 /*All categoris*/
 .categories-page {
   justify-content: flex-start;
@@ -1924,7 +1926,7 @@ border-radius: 10px;
   
   .brands-section .flex-slider .up-slider .slider-item,
   .brands-section .flex-slider .down-slider .slider-item {
-    overflow: hidden;
+    /* overflow: hidden; */
     height: 100% !important;
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
@@ -2328,12 +2330,42 @@ border-radius: 10px;
     .category-product-content .slide-text{
         height: 400px;
     }
+  
 }
 @media (max-width: 768px){
-    
+  .slide-text .slider-content{
+    gap: 20px;
+  }
+  .slide-text .slider-content .text{
+    gap: 15px;
+  }
+  .slide-text .slider-content .text .slider-title {
+    line-height: 38px;
+    font-size: 32px;
+}
+.slide-text .slider-content .text .slider-subtitle {
+  line-height: 22px;
+  font-size: 18px;
+}
 }
 @media (max-width: 500px){
-
+  .category-product-content .slide-text {
+    height: 300px;
+}
+  .slide-text .slider-content{
+    gap: 15px;
+  }
+  .slide-text .slider-content .text{
+    gap: 10px;
+  }
+  .slide-text .slider-content .text .slider-title {
+    line-height: 30px;
+    font-size: 26px;
+}
+  .slide-text .slider-content .text .slider-subtitle {
+    line-height: 20px;
+    font-size: 16px;
+  }
 }
 @media (max-width: 450px){
     
@@ -2758,7 +2790,7 @@ display: flex;
     border-radius: 12px;
     border: 1px solid var(--theme-color);
     background: var(--theme-color);
-    box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.16); */
+    box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.36); */
   }
   @media (max-width: 1400px){
 
@@ -2810,7 +2842,9 @@ display: flex;
     .banners-div .national-day h3,.banners-div .national-day .big-text,.banners-div .national-day .desc,.banners-div .national-day{
         color: #fff;
     }
-   
+    .national-day h3,.national-day .big-text ,.national-day .desc,.national-day.theme-btn{
+      text-align: center;
+    }
   }
   @media (max-width: 500px){
   
@@ -2997,7 +3031,6 @@ display: flex;
     }
     .custom-simpl-card .text-div-partion{
         width: 100%;
-        min-height: 300px;
     }
     .custom-simpl-card .ancors-div{
         width: 100%;
@@ -3024,22 +3057,33 @@ display: flex;
 }
 @media (max-width: 576px){
     .ancor-item .parent-img {
-        height: 250px;
-        width: 250px;
+        height: 200px;
+        width: 200px;
         
     }
     .ancor-item {
-    height: 294px;
+    height: 244px;
     }
     .custom-simpl-card .ancors-div .ancors {
-    gap: 15px;
+    gap: 5px;
     }
+    
 }
 @media (max-width: 450px){
     
 }
 @media (max-width: 380px){
-    
+  .ancor-item .title {
+    padding: 16px 5px;
+    font-size: 16px;
+}
+.ancor-item.active .title {
+  padding: 5px 24px;
+  font-size: 16px;
+}
+.ancor-item {
+  height: 234px;
+}
 }
 
 
@@ -3697,7 +3741,7 @@ display: flex;
 .testimonials-item .avatar-box{
     position: absolute;
     top: -20px;
-    z-index: 5;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -3716,6 +3760,7 @@ display: flex;
     font-size: 20px;
     line-height: 24px;
     font-weight: 400;
+    padding: 0 20px;
 }
 
 .testimonials-slider-wrap .slick-track{
@@ -3760,16 +3805,70 @@ display: flex;
 
 }
 @media (max-width: 1200px){
-  
+  .testimonials-item .vote-box p {
+    font-size: 17px;
+    line-height: 22px;
+
+}
+  .testimonials-item .avatar-box .parent-img {
+    width: 85px;
+    height: 85px;
+}
+  .testimonials-box.slick-active{
+    transform: translateX(-30px) scale(1.2)!important;
+}
+
+  .testimonials-box.slick-center.slick-current.slick-active + .testimonials-box {
+    /* after*/
+        transform:translateX(30px) scale(1.2) !important;
+}
+
 }
 @media (max-width: 992px){
- 
+  .testimonials-box {
+    padding: 5px;
+}
+.testimonials-box.slick-center.slick-current.slick-active {
+  padding: 5px;
+}
+.testimonials-box.slick-center.slick-current.slick-active + .testimonials-box{
+
+}
+.rtl .testimonials-sliders .slick-prev {
+  left: calc(50% + 5px);
+  bottom: -10px;
+}
+.rtl .testimonials-sliders .slick-next {
+  right: auto;
+  left: calc(50% - 60px);
+  bottom: -10px;
+  top: unset;
+}
+.testimonials-item .avatar-box .parent-img {
+  width: 70px;
+  height: 70px;
+}
+.testimonials-item .vote-box{
+  height: 80%;
+}
+.testimonials-item .vote-box p {
+  font-size: 15px;
+  line-height: 20px;
+}
+
 }
 @media (max-width: 768px){
-    
+  .testimonials-box.slick-center.slick-current.slick-active{
+    transform: scale(1.2) translateY(-80px) translateX(30px)!important ; /* center*/
+}
 }
 @media (max-width: 500px){
-
+  .testimonials-box.slick-center.slick-current.slick-active{
+    transform: scale(1) translateY(-40px) translateX(0)!important ; /* center*/
+}
+.testimonials-slider-wrap .slick-track{
+  height: 360px;
+}
 }
 @media (max-width: 450px){
     
@@ -4011,7 +4110,7 @@ display: flex;
     height: 40px !important;
     background-color: #fff;
     border: 1px solid #E8E8E8;
-    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.06)
+    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.36)
   }
   .rtl .custom-sliders .slick-prev,
   .rtl .products-bg-fw .category-product-content-1 .slider-products .custom-category-product button.slick-prev ,
@@ -4049,7 +4148,7 @@ display: flex;
   .custom-category-product button.slick-next:hover {
     background-color: var(--theme-color);
     border: 1px solid #E8E8E8;
-    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.06);
+    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.36);
     color: #fff;
   }
   
@@ -4067,7 +4166,7 @@ display: flex;
     color: var(--theme-color);
     background-color: #fff;
     border: 1px solid #E8E8E8;
-    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.06)
+    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.36)
   }
   .rtl .custom-sliders .slick-next,
   .rtl .testimonials-sliders .slick-next,
@@ -4598,6 +4697,11 @@ body[data-template="home"] #fixed-header.sticky .search-header{
 .sm-search-div{
   background-color: transparent;
 }
+.rtl .icon-menu-top {
+  
+  margin-left: 0px !important;
+}
+
 @media (max-width: 1400px){
 
 }
@@ -5111,7 +5215,10 @@ border-bottom: 1px solid #95b7d942;
         display: flex;
         flex-direction: column;
       }
-      
+      #giftPreviewModal .modal-footer div{
+        width: 100%;
+    justify-content: space-around !important;
+      }
       .gift-card__button {
         display: flex;
         justify-content: center;
@@ -5197,7 +5304,9 @@ border-bottom: 1px solid #95b7d942;
       border-radius: 10px;
       overflow: hidden;
   }
-  
+  .gift-card{
+    border:1px solid var(--theme-color) !important
+  }
   .cart-product-row-wrapper,.cart-discount-rule-wrapper,.cart-view .btn,.gift-card{
     border-radius: 10px !important;
   }
@@ -5518,6 +5627,7 @@ border-bottom: 1px solid #95b7d942;
   
   .product-selection .card-table .card,.product-selection .card-table{
   border-radius: 10px;
+  margin-bottom: 10px;
   }
   #related-products .product-item .product-crd-spec .option{
     display: none;

@@ -27,9 +27,7 @@
 	</div>
 
 	<div class="sort-section m-lg-0 ml-auto">
-		<div onclick="openSideAttr()" class=" d-lg-none filter-funnel filter-funnel-1 d-md-flex align-items-center d-sm-none ">
-			<i class="bi bi-funnel"></i>
-		</div>
+		
 		<div class="d-flex filter-buttons-container justify-content-center ">
 
 			<div class="{% if has_products_filtration %}d-sm-inline-block d-xs-inline-block d-md-none{% else %}d-inline-flex justify-content-center{% endif %}">
@@ -161,10 +159,11 @@
 
 
 </div>
-
-<div id="filters-form-collapse-sm" class="collapse mt-3">
-    {% include 'products-filter-form.twig' %}
-</div>
+{% if  products.filters|length == 0 %}
+	<div id="filters-form-collapse-sm" class="collapse mt-3">
+		{% include 'products-filter-form.twig' %}
+	</div>
+{% endif %}
 <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
