@@ -303,9 +303,7 @@ jQuery(document).on('click', '.mega-dropdown', function(e) {
   /*
  product-comment-twig show more show less
  */
- $('.sm-search-icon').click(function() {
-    $('.sm-search-div').toggleClass('show');
-  })
+
   
  $('#show-more-content').hide();
 
@@ -393,11 +391,10 @@ function clearFilters () {
     const cleanURL = window.location.origin + window.location.pathname;
     window.location.href = cleanURL;
 }
-
-
 $('.sm-search-icon').click(function() {
     $('.sm-search-div').toggleClass('show');
-});
+  });
+
 
 $('#filters-form-collapse-sm').on('hidden.bs.collapse', function () {
     $('.filters_expanded').removeClass('d-none')

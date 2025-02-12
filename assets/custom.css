@@ -130,7 +130,7 @@
 
 
 .sm-search-div {
-    display: none;
+    /* display: none; */
     visibility: hidden;
     position: absolute;
     left: 0;
@@ -4697,7 +4697,16 @@ body[data-template="home"] #fixed-header.sticky .search-header{
 .sm-search-div{
   background-color: transparent;
 }
-.rtl .icon-menu-top {
+.sm-search-div.show {
+  display: block;
+  visibility: visible;
+  transform: translateY(15px);
+  -webkit-transform: translate3d(0, 60px, 0);
+}
+.gift-popover-body button{
+  background-color: var(--theme-color);
+}
+.rtl .icon-menu-top , .sm-search-icon {
   
   margin-left: 0px !important;
 }
